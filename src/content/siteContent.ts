@@ -233,9 +233,9 @@ export const defaultContent: SiteContent = {
     brand: "KenneDyne spot",
     links: [
       { name: "Home", href: "/" },
-      { name: "About", href: "/about" },
-      { name: "DRIVE Strategy", href: "/strategy" },
       { name: "Services", href: "/services" },
+      { name: "DRIVE Strategy", href: "/strategy" },
+      { name: "About", href: "/about" },
       { name: "Resources", href: "/resources" },
       { name: "Blog", href: "/blog" },
       { name: "FAQs", href: "/faqs" },
