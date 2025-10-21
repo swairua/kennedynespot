@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex" />
+    <title>Redirecting…</title>
+    <script>
+      // Redirect 404s to the SPA entry, preserving the original path
+      (function() {
+        var target = '/?redirect=' + encodeURIComponent(
+          window.location.pathname + window.location.search + window.location.hash
+        );
+        window.location.replace(target);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
