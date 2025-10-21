@@ -180,25 +180,6 @@ export function Footer() {
                 <p className="text-sm text-muted-foreground">
                   {footer.copyright}
                 </p>
-                {footer.designCredit && (
-                  <p className="text-sm text-muted-foreground">
-                    {footer.designCredit.text && footer.designCredit.url ? (
-                      <>
-                        •{" "}
-                        <a 
-                          href={footer.designCredit.url}
-                          target="_blank"
-                          rel="nofollow noopener noreferrer"
-                          className="hover:text-primary transition-colors"
-                        >
-                          {footer.designCredit.text}
-                        </a>
-                      </>
-                    ) : (
-                      footer.designCredit.text
-                    )}
-                  </p>
-                )}
               </div>
               
               <div className="flex flex-wrap gap-6 justify-center md:justify-end items-center">
