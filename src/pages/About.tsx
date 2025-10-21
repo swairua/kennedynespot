@@ -1,5 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { Link } from "react-router-dom";
+import { LINKS, getExternalLinkProps } from "@/constants/links";
 
 export default function About() {
   return (
@@ -9,8 +11,15 @@ export default function About() {
       <main id="main" className="py-16 md:py-20">
         <section className="container px-4 max-w-4xl">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">About</h1>
+
           <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-10">
-            Kenney Eshifulula: Trader | Mentor | DRIVE Strategy | Traders in the Zone Community
+            <Link to="/resources" className="underline text-primary font-semibold">Trader</Link>
+            <span className="mx-3 text-muted-foreground">|</span>
+            <Link to="/mentorship" className="underline text-primary font-semibold">Mentor</Link>
+            <span className="mx-3 text-muted-foreground">|</span>
+            <Link to="/strategy" className="underline text-primary font-semibold">DRIVE Strategy</Link>
+            <span className="mx-3 text-muted-foreground">|</span>
+            <a {...getExternalLinkProps(LINKS.telegram.community)} className="underline text-primary font-semibold">Traders in the Zone Community</a>
           </p>
 
           <div className="space-y-6 text-base md:text-lg leading-8 text-foreground">
