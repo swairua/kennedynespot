@@ -379,7 +379,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
   ru: {
     seo: {
       title: 'KenneDyne spot | Профессиональное Обучение Форекс и Стратегия DRIVE',
-      description: 'Освойте институциональные торговые концепции с нашей структурированной образовательной программой и проверенной системой DRIVE. Профессиональное наставничество форекс, управление рисками и систематическое торговое образование.',
+      description: 'Освойте институциональные торговые концепции с нашей структурированной образовательной программой и проверенной системой DRIVE. Профессиональное наставничество ��орекс, управление рисками и систематическое торговое образование.',
       keywords: 'институциональное торговое образование, наставничество форекс, стратегия DRIVE, психология трейдинга, управление рисками, концепции умных денег, обучение форекс Кения'
     },
     navigation: {
@@ -461,7 +461,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
         {
           name: 'Эмека О.',
           role: 'Лагос, Нигерия',
-          content: 'Я ценю баланс между руководством и образованием. Это помогает мне укрепить уверенность в разработке собственного подхода к трейдингу.',
+          content: 'Я ценю баланс между руководством и образованием. Это помогает мне укрепить уверенность в разработке собственного подхода к тре��дингу.',
         },
       ],
       disclaimer: 'Эти отзывы отражают индивидуальный опыт обучения. Результаты торговли различаются, и прошлая производительность не гарантирует будущий успех.',
@@ -478,7 +478,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
     },
     finalCTA: {
       title: 'Готовы Изучить Профессиональный Трейдинг?',
-      subtitle: 'Начните систематическое торговое образование с проверенными методами и реалистичными ожиданиями.',
+      subtitle: 'Начните систематическое торговое образование с проверенными ��етодами и реалистичными ожиданиями.',
       button: { text: 'Начать Обучение', href: 'https://t.me/KenneDynespot' },
       benefits: [
         'Подход образование-прежде-всего',
@@ -499,7 +499,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
     pages: {
       driveStrategy: {
         title: 'Стратегия DRIVE',
-        subtitle: 'Наш систематический подход к анализу рынка форекс и принятию торговых решений',
+        subtitle: 'Наш систематический подход к анализу рынка форекс и п��инятию торговых решений',
         content: 'Изучите нашу полную методологию DRIVE для последовательного анализа рынка.'
       }
     },
@@ -513,20 +513,38 @@ export function getLocalizedContent(baseContent: SiteContent, language: string):
   // Deep merge function
   function deepMerge(target: any, source: any): any {
     if (!source) return target;
-    
+
     const output = { ...target };
-    
+
     for (const key in source) {
-      if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
-        output[key] = deepMerge(target[key] || {}, source[key]);
+      const sourceVal = source[key];
+      const targetVal = target ? target[key] : undefined;
+
+      // If both are arrays, merge them by href (preserve untranslated base items)
+      if (Array.isArray(sourceVal) && Array.isArray(targetVal)) {
+        const seen = new Set<string>();
+        const merged: any[] = [];
+        // Add source items first (translated order), mark hrefs
+        for (const item of sourceVal) {
+          merged.push(item);
+          if (item && typeof item === 'object' && item.href) seen.add(item.href);
+        }
+        // Append any target items not present in source
+        for (const item of targetVal) {
+          if (item && typeof item === 'object' && item.href && !seen.has(item.href)) {
+            merged.push(item);
+          }
+        }
+        output[key] = merged;
+      } else if (sourceVal && typeof sourceVal === 'object' && !Array.isArray(sourceVal)) {
+        output[key] = deepMerge(targetVal || {}, sourceVal);
       } else {
-        output[key] = source[key];
+        output[key] = sourceVal;
       }
     }
-    
+
     return output;
   }
-  
+
   return deepMerge(baseContent, translations);
 }
-
