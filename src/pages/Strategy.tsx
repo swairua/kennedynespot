@@ -6,11 +6,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { supabase } from "@/integrations/supabase/client";
-import { 
-  TrendingUp, 
-  Search, 
-  Target, 
-  Shield, 
+import {
+  TrendingUp,
+  Search,
+  Target,
+  Shield,
   Play,
   AlertTriangle,
   ArrowRight,
@@ -36,6 +36,7 @@ import { LINKS, getExternalLinkProps } from '@/constants/links';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useScrollToHash } from '@/hooks/useScrollToHash';
 
 const getComparisonData = (t: (k: string) => string) => ([
   {
