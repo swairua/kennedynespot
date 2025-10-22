@@ -125,13 +125,35 @@ export function Footer() {
                   {footer.services?.title || "Services"}
                 </h3>
                 <ul className="space-y-3 list-none pl-0">
-                  {serviceItems.map((service, index) => (
-                    <li key={`${service}-${index}`}>
-                      <span className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer hover:translate-x-px transform duration-200">
-                        {service}
-                      </span>
-                    </li>
-                  ))}
+                  {serviceItems.map((service, index) => {
+                    if (typeof service === 'string') {
+                      return (
+                        <li key={`${service}-${index}`}>
+                          <span className="text-sm text-muted-foreground cursor-default">
+                            {service}
+                          </span>
+                        </li>
+                      );
+                    }
+                    const href = service.href || "#";
+                    const linkClasses = "text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200";
+                    if (href.startsWith("http")) {
+                      return (
+                        <li key={`${href}-${index}`}>
+                          <a {...getExternalLinkProps(href)} className={linkClasses}>
+                            {service.name}
+                          </a>
+                        </li>
+                      );
+                    }
+                    return (
+                      <li key={`${href}-${index}`}>
+                        <Link to={href} className={linkClasses}>
+                          {service.name}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
             )}
