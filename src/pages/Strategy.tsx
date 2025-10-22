@@ -126,6 +126,14 @@ const Strategy = () => {
   const [videoEmail, setVideoEmail] = useState("");
   const [isSubmittingVideo, setIsSubmittingVideo] = useState(false);
   const [resultVideo, setResultVideo] = useState<{ type: 'success' | 'error' | null; message: string }>({ type: null, message: "" });
+
+  // Handle smooth scrolling to hash anchors
+  useScrollToHash();
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, hashId: string) => {
+    e.preventDefault();
+    window.location.hash = hashId;
+  };
   const handleDownload = () => {
     setResult({ type: null, message: "" });
     setEmail("");
