@@ -130,7 +130,7 @@ export interface SiteContent {
     description: string;
     services: {
       title: string;
-      items: Array<string>;
+      items: Array<{ name: string; href: string }>;
     };
     phone: string;
     email: string;
@@ -426,9 +426,9 @@ export const defaultContent: SiteContent = {
     services: {
       title: "Services",
       items: [
-        "Daily Premium Signals",
-        "1-on-1 Mentorship", 
-        "DRIVE Strategy Training"
+        { name: "Daily Premium Signals", href: "/signals-tools" },
+        { name: "1-on-1 Mentorship", href: "/mentorship" },
+        { name: "DRIVE Strategy Training", href: "/services/learn" }
       ]
     },
     phone: "+254 726 529 166",
@@ -447,9 +447,9 @@ export const defaultContent: SiteContent = {
         title: "Education",
         links: [
           { name: "DRIVE Strategy", href: "/strategy" },
-          { name: "Risk Management", href: "/blog" },
-          { name: "Trading Psychology", href: "/blog" },
-          { name: "Market Analysis", href: "/blog" }
+          { name: "Risk Management", href: "/blog/risk-management-basics" },
+          { name: "Trading Psychology", href: "/blog/trading-psychology-discipline" },
+          { name: "Market Analysis", href: "/blog/drive-strategy-framework" }
         ]
       },
       {
@@ -457,8 +457,8 @@ export const defaultContent: SiteContent = {
         links: [
           { name: "FAQs", href: "/faqs" },
           { name: "Contact Us", href: "/contact" },
-          { name: "Mentorship", href: "/contact" },
-          { name: "Community", href: "/contact" }
+          { name: "Mentorship", href: "/mentorship" },
+          { name: "Community", href: "https://t.me/KenneDynespot" }
         ]
       },
       {
