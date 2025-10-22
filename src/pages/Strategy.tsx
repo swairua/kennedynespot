@@ -278,15 +278,15 @@ const Strategy = () => {
               
               {/* Quick Navigation */}
               <div className="flex flex-wrap justify-center gap-2 text-sm">
-                <a href="#drive-steps" className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
+                <a href="#drive-steps" onClick={(e) => handleAnchorClick(e, 'drive-steps')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
                   {t('strategy_nav_steps')}
                 </a>
                 <span className="text-white/40">|</span>
-                <a href="#comparison" className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
+                <a href="#comparison" onClick={(e) => handleAnchorClick(e, 'comparison')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
                   {t('strategy_nav_comparison')}
                 </a>
                 <span className="text-white/40">|</span>
-                <a href="#why-choose" className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
+                <a href="#why-choose" onClick={(e) => handleAnchorClick(e, 'why-choose')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
                   {t('strategy_nav_why_choose')}
                 </a>
               </div>
