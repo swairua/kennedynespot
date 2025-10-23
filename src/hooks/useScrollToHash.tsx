@@ -7,17 +7,33 @@ export function useScrollToHash() {
   useEffect(() => {
     // Extract the hash part (everything after #)
     const hash = location.hash.slice(1);
-    
+
     if (!hash) return;
 
-    // Give the DOM a moment to render
-    const timer = setTimeout(() => {
+    // Scroll to element with retry logic for slower DOM rendering
+    const scrollToElement = () => {
       const element = document.getElementById(hash);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return true;
       }
+      return false;
+    };
+
+    // Try immediately
+    if (scrollToElement()) return;
+
+    // If not found, retry with increasing delays
+    let retries = 0;
+    const maxRetries = 5;
+
+    const timer = setInterval(() => {
+      if (scrollToElement() || retries >= maxRetries) {
+        clearInterval(timer);
+      }
+      retries++;
     }, 100);
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   }, [location.hash]);
 }
