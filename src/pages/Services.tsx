@@ -122,8 +122,7 @@ export function Services() {
                       <img 
                         src={service.image} 
                         alt={service.imageAlt}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" 
-                        loading="lazy" 
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-card-overlay opacity-60"></div>
                     </div>

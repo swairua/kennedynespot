@@ -279,7 +279,6 @@ export const HowTo: React.FC<HowToProps> = ({ steps, title = "How to Guide" }) =
                     src={step.image}
                     alt={`Step ${index + 1}: ${step.title}`}
                     className="w-full h-auto"
-                    loading="lazy"
                   />
                 </div>
               )}
