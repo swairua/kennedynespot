@@ -135,7 +135,7 @@ const Strategy = () => {
     const element = document.getElementById(hashId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      window.history.pushState(null, '', `#${hashId}`);
+      window.history.replaceState(null, '', `${window.location.pathname}#${hashId}`);
     }
   };
   const handleDownload = () => {
