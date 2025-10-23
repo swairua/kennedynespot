@@ -140,11 +140,10 @@ export function BlogPreviewSection() {
                          src={post.featured_image_url || post.image || '/lovable-uploads/trading-strategy.jpg'} 
                          alt={post.imageAlt || `${t('blog_article_image_alt')}: ${post.title}`}
                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                         loading="lazy"
                          decoding="async"
-                         width={400}
-                         height={225}
-                       />
+                        width={400}
+                        height={225}
+                      />
                       <div className="absolute inset-x-0 bottom-0 h-4/5 sm:h-2/3 lg:h-1/2 bg-gradient-to-t from-black/85 via-black/55 to-transparent pointer-events-none" aria-hidden="true" />
                       
                        <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
