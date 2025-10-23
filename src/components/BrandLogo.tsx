@@ -63,7 +63,7 @@ export function BrandLogo({
           alt="KenneDyne spot logo"
           className={cn("block dark:hidden w-auto object-contain", sizeClasses, className)}
           aria-label="KenneDyne spot"
-          loading="lazy"
+          
           decoding="async"
         />
         <img
@@ -71,7 +71,7 @@ export function BrandLogo({
           alt="KenneDyne spot logo"
           className={cn("hidden dark:block w-auto object-contain", sizeClasses, className)}
           aria-label="KenneDyne spot"
-          loading="lazy"
+          
           decoding="async"
         />
       </>
@@ -84,7 +84,7 @@ export function BrandLogo({
       alt="KenneDyne spot logo"
       className={cn("block w-auto object-contain", sizeClasses, className)}
       aria-label="KenneDyne spot"
-      loading="lazy"
+      
       decoding="async"
     />
   );
