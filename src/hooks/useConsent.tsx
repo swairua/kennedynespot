@@ -69,14 +69,30 @@ export function useConsent() {
 
 // Update Google Consent Mode v2
 function updateGoogleConsent(consent: ConsentState) {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('consent', 'update', {
-      analytics_storage: consent.analytics ? 'granted' : 'denied',
-      ad_storage: consent.marketing ? 'granted' : 'denied',
-      functionality_storage: consent.functional ? 'granted' : 'denied',
-      personalization_storage: consent.marketing ? 'granted' : 'denied',
-      security_storage: 'granted',
-    });
+  if (typeof window === 'undefined') return;
+
+  const payload = {
+    analytics_storage: consent.analytics ? 'granted' : 'denied',
+    ad_storage: consent.marketing ? 'granted' : 'denied',
+    functionality_storage: consent.functional ? 'granted' : 'denied',
+    personalization_storage: consent.marketing ? 'granted' : 'denied',
+    security_storage: 'granted',
+  };
+
+  try {
+    // Prefer using gtag if available
+    if (typeof window.gtag === 'function') {
+      window.gtag('consent', 'update', payload);
+    } else {
+      // Fallback: push the consent update to dataLayer so GTM/gtag can pick it up when it loads
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(['consent', 'update', payload]);
+    }
+
+    // Also push a helpful flag for debugging/network inspection
+    window.dataLayer.push({ event: 'consent_update_applied', ...payload });
+  } catch (e) {
+    console.error('Failed to update Google consent:', e);
   }
 }
 
