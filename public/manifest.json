@@ -1,0 +1,26 @@
+{
+  "name": "KenneDyne spot",
+  "short_name": "KenneDyne spot",
+  "description": "Professional forex trading education and mentorship platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b5cf6",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "https://cdn.builder.io/api/v1/image/assets%2F9af9c1aa4ad745918123514a4c9dbcd1%2Ffcabe7003acd4e008a04b6c739f05076?format=webp&width=128",
+      "sizes": "128x128",
+      "type": "image/webp"
+    },
+    {
+      "src": "/og/og-default.jpg",
+      "sizes": "1200x630",
+      "type": "image/jpeg"
+    }
+  ],
+  "categories": ["finance", "education", "trading"],
+  "lang": "en",
+  "scope": "/",
+  "prefer_related_applications": false
+}
