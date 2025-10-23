@@ -132,7 +132,11 @@ const Strategy = () => {
 
   const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, hashId: string) => {
     e.preventDefault();
-    window.location.hash = hashId;
+    const element = document.getElementById(hashId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.history.pushState(null, '', `#${hashId}`);
+    }
   };
   const handleDownload = () => {
     setResult({ type: null, message: "" });
