@@ -64,5 +64,30 @@ export function AnalyticsProvider() {
     };
   }, [settings?.ga4_id, loading, shouldSkipAnalytics]);
 
+  // Track SPA page views on route changes
+  useEffect(() => {
+    if (loading || !settings?.ga4_id || shouldSkipAnalytics) return;
+    const id = settings.ga4_id;
+
+    const track = () => {
+      if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+        window.gtag('event', 'page_view', {
+          page_title: document.title,
+          page_location: window.location.href,
+          page_path: location.pathname,
+        });
+        if (import.meta.env.DEV) {
+          console.debug('[GA4] page_view sent', { path: location.pathname });
+        }
+      } else if (import.meta.env.DEV) {
+        console.debug('[GA4] gtag not ready yet');
+      }
+    };
+
+    track();
+
+    // Optionally, you could return nothing here as we only fire on change
+  }, [location.pathname, settings?.ga4_id, loading, shouldSkipAnalytics]);
+
   return null;
 }
