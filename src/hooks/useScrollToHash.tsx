@@ -16,7 +16,7 @@ export function useScrollToHash() {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
-    }, 0);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, [location.hash]);
