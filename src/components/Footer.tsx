@@ -94,13 +94,6 @@ export function Footer() {
                     {footer.phone}
                   </a>
                 )}
-                <a 
-                  {...getExternalLinkProps(createWhatsAppLink(DEFAULT_WHATSAPP_PHONE, WHATSAPP_MESSAGES.support))}
-                  className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  WhatsApp
-                </a>
                 <a
                   {...getExternalLinkProps(LINKS.telegram.support)}
                   className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200"
