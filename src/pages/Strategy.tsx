@@ -249,7 +249,7 @@ const Strategy = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Button variant="hero" size="lg" asChild>
-                  <a href="https://one.exnesstrack.org/a/17eqnrbs54" target="_blank" rel="noopener noreferrer sponsored">
+                  <a href="#drive-steps" onClick={(e) => handleAnchorClick(e, 'drive-steps')}>
                     Start Trading DRIVE
                   </a>
                 </Button>
@@ -259,7 +259,7 @@ const Strategy = () => {
                   className="border-white/30 text-white hover:bg-white/10"
                   asChild
                 >
-                  <a href="/services/learn">
+                  <a href="#why-choose" onClick={(e) => handleAnchorClick(e, 'why-choose')}>
                     Start Learning DRIVE
                   </a>
                 </Button>

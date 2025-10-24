@@ -435,11 +435,11 @@ export const defaultContent: SiteContent = {
     email: "info@kennedynespot.com",
     whatsappText: "Get Support",
     socials: [
-      { name: "Telegram (KenneDyne spot)", href: "https://t.me/KenneDynespot", type: "telegram" },
+      { name: "Telegram Channel", href: "https://t.me/KenneDynespot", type: "telegram" },
       { name: "WhatsApp Channel", href: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n", type: "whatsapp" },
       { name: "YouTube", href: "https://www.youtube.com/@KenneDynespot", type: "youtube" },
-      { name: "X", href: "https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09", type: "x" },
-      { name: "Instagram", href: "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5", type: "instagram" }
+      { name: "Twitter", href: "https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09", type: "x" },
+      { name: "Instagram", href: "https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDQzMTg0Njg1MzQ3ODI3?story_media_id=3713797231770477934_48486444646&igsh=MXQ3MG00NDBjajIycw==", type: "instagram" }
     ],
     sections: [
       {
@@ -488,12 +488,12 @@ export const defaultContent: SiteContent = {
       { value: "200+", label: "Lessons Taught" },
       { value: "24/7", label: "Educational Support" }
     ],
-    button: { text: "Begin Education", href: "https://one.exnesstrack.org/a/17eqnrbs54" }
+    button: { text: "Begin Education", href: "/services/learn" }
   },
   finalCTA: {
     title: "Ready to Learn Professional Trading?",
     subtitle: "Start your systematic trading education with proven methods and realistic expectations.",
-    button: { text: "Start Learning", href: "https://t.me/KenneDynespot" },
+    button: { text: "Start Learning", href: "/services/learn" },
     benefits: [
       "Education-first approach",
       "Structured learning path", 
@@ -504,8 +504,8 @@ export const defaultContent: SiteContent = {
   },
   seo: {
     title: "KenneDyne spot | Forex Education & DRIVE Strategy",
-    description: "Education-first forex trading with systematic DRIVE strategy, risk management, and mentorship for Kenyan traders. No hype—just education and discipline.",
-    keywords: "forex education Kenya, trading education, DRIVE strategy, risk management, trading mentorship"
+    description: "Master professional trading with education-first forex programs, systematic DRIVE strategy, risk management, and expert mentorship. No hype—just education and discipline.",
+    keywords: "forex education, trading education, DRIVE strategy, risk management, trading mentorship, professional trading"
   },
   pages: {
     driveStrategy: {
