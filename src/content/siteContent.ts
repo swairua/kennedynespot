@@ -437,8 +437,7 @@ export const defaultContent: SiteContent = {
     socials: [
       { name: "Telegram (KenneDyne spot)", href: "https://t.me/KenneDynespot", type: "telegram" },
       { name: "WhatsApp Channel", href: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n", type: "whatsapp" },
-      { name: "WhatsApp (Chat)", href: "https://wa.me/254726529166?text=Hi%21%20I%20am%20interested%20in%20learning%20more%20about%20your%20trading%20education%20programs.", type: "whatsapp" },
-      { name: "YouTube", href: "https://www.youtube.com/@InstitutionalTraderKE", type: "youtube" },
+      { name: "YouTube", href: "https://www.youtube.com/@KenneDynespot", type: "youtube" },
       { name: "X", href: "https://x.com/InstitutionalKE", type: "x" },
       { name: "Instagram", href: "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5", type: "instagram" }
     ],
