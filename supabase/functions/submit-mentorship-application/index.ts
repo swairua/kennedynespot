@@ -56,7 +56,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send notification email to admin
     const adminEmailResponse = await resend.emails.send({
-      from: "KenneDyne spot <notifications@institutionaltrader.com>",
+      from: "KenneDyne spot <notifications@kennedynespot.com>",
       to: ["info@kennedynespot.com"],
       subject: `New Mentorship Application from ${name}`,
       html: `
@@ -84,7 +84,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation email to applicant
     const confirmationResponse = await resend.emails.send({
-      from: "KenneDyne spot <hello@institutionaltrader.com>",
+      from: "KenneDyne spot <hello@kennedynespot.com>",
       to: [email],
       subject: "Mentorship Application Received",
       html: `

@@ -1,5 +1,5 @@
 export const getSiteUrl = () => {
-  return import.meta.env.VITE_SITE_URL || 'https://institutional-trader.com';
+  return import.meta.env.VITE_SITE_URL || 'https://kennedynespot.com';
 };
 
 export const createCanonicalUrl = (pathname: string) => {

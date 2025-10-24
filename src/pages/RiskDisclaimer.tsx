@@ -9,7 +9,7 @@ const RiskDisclaimer = () => {
       <SEOHead 
         title="Risk Disclaimer | KenneDyne spot"
         description="Important risk disclaimer for Forex and CFD trading education"
-        canonical="https://institutional-trader.com/risk-disclaimer"
+        canonical="https://kennedynespot.com/risk-disclaimer"
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">

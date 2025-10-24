@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
       <SEOHead 
         title="Privacy Policy | KenneDyne spot"
         description="Privacy policy for KenneDyne spot trading education platform"
-        canonical="https://institutional-trader.com/privacy-policy"
+        canonical="https://kennedynespot.com/privacy-policy"
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">

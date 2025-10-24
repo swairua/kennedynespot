@@ -155,7 +155,7 @@ const LP_MentorshipApply = () => {
         title="Apply for Forex Mentorship Program | 8-Week Structured Trading Coaching"
         description="Join our exclusive 8-week forex mentorship program. Get personal coaching, weekly reviews, and structured guidance to develop disciplined trading skills."
         keywords="forex mentorship, trading coaching, forex education, trading mentor, forex training program"
-        canonical="https://institutional-trader.com/mentorship"
+        canonical="https://kennedynespot.com/mentorship"
       />
       
       <Navigation />

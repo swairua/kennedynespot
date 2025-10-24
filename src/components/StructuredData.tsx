@@ -18,8 +18,8 @@ export function StructuredData() {
       "https://t.me/KenneDynespot",
       "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n",
       "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5",
-      "https://x.com/InstitutionalKE",
-      "https://www.youtube.com/@InstitutionalTraderKE"
+      "https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09",
+      "https://www.youtube.com/@KenneDynespot"
     ]
   };
 

@@ -8,7 +8,7 @@ const StrategyWithSEO = () => {
   const canonical = createCanonicalUrl(location.pathname);
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", url: "https://institutional-trader.com" },
+    { name: "Home", url: "https://kennedynespot.com" },
     { name: "DRIVE Strategy", url: canonical }
   ]);
 

@@ -219,7 +219,7 @@ export const generateStructuredData = (type: string, data: any) => {
           name: 'KenneDyne spot',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://institutional-trader.com/logo.png'
+            url: 'https://kennedynespot.com/logo.png'
           }
         }
       };

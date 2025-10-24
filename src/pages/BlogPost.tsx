@@ -361,7 +361,7 @@ export default function BlogPost() {
         "name": "KenneDyne spot",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://institutional-trader.com/og/og-default.jpg"
+          "url": "https://kennedynespot.com/og/og-default.jpg"
         }
       },
       "mainEntityOfPage": {

@@ -9,7 +9,7 @@ const TermsOfUse = () => {
       <SEOHead 
         title="Terms of Use | KenneDyne spot"
         description="Terms of use for KenneDyne spot trading education platform"
-        canonical="https://institutional-trader.com/terms-of-use"
+        canonical="https://kennedynespot.com/terms-of-use"
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">

@@ -1,7 +1,7 @@
 // Service Worker for performance optimization and caching
 // Cache version - update on deploy to invalidate old caches
 const CACHE_VERSION = 'v1.0.0';
-const CACHE_PREFIX = 'institutional-trader-';
+const CACHE_PREFIX = 'kennedynespot-';
 const CACHE_NAME = `${CACHE_PREFIX}${CACHE_VERSION}`;
 const STATIC_ASSETS = [
   '/',
