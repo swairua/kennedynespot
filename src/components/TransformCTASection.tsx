@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { useSiteContent } from "@/hooks/useSiteContent";
 import { useEffect, useRef, useState } from "react";
-import { LINKS, getExternalLinkProps } from "@/constants/links";
+import { getExternalLinkProps } from "@/constants/links";
+import { Link } from "react-router-dom";
 
 function useCountUp(target: number, duration = 1200) {
   const [value, setValue] = useState(0);
@@ -117,12 +118,18 @@ export function TransformCTASection() {
               asChild
               className="hover:scale-105 transition-transform duration-300"
             >
-              <a
-                {...getExternalLinkProps(LINKS.exness.signup)}
-                aria-label={button.text}
-              >
-                {button.text}
-              </a>
+              {button.href.startsWith('http') ? (
+                <a
+                  {...getExternalLinkProps(button.href)}
+                  aria-label={button.text}
+                >
+                  {button.text}
+                </a>
+              ) : (
+                <Link to={button.href} aria-label={button.text}>
+                  {button.text}
+                </Link>
+              )}
             </Button>
           </div>
         </div>

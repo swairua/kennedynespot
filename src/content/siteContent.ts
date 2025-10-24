@@ -489,12 +489,12 @@ export const defaultContent: SiteContent = {
       { value: "200+", label: "Lessons Taught" },
       { value: "24/7", label: "Educational Support" }
     ],
-    button: { text: "Begin Education", href: "https://one.exnesstrack.org/a/17eqnrbs54" }
+    button: { text: "Begin Education", href: "/services/learn" }
   },
   finalCTA: {
     title: "Ready to Learn Professional Trading?",
     subtitle: "Start your systematic trading education with proven methods and realistic expectations.",
-    button: { text: "Start Learning", href: "https://t.me/KenneDynespot" },
+    button: { text: "Start Learning", href: "/services/learn" },
     benefits: [
       "Education-first approach",
       "Structured learning path", 
@@ -505,8 +505,8 @@ export const defaultContent: SiteContent = {
   },
   seo: {
     title: "KenneDyne spot | Forex Education & DRIVE Strategy",
-    description: "Education-first forex trading with systematic DRIVE strategy, risk management, and mentorship for Kenyan traders. No hype—just education and discipline.",
-    keywords: "forex education Kenya, trading education, DRIVE strategy, risk management, trading mentorship"
+    description: "Master professional trading with education-first forex programs, systematic DRIVE strategy, risk management, and expert mentorship. No hype—just education and discipline.",
+    keywords: "forex education, trading education, DRIVE strategy, risk management, trading mentorship, professional trading"
   },
   pages: {
     driveStrategy: {

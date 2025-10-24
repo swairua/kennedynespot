@@ -90,12 +90,12 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
         { value: '200+', label: 'Leçons Dispensées' },
         { value: '24/7', label: 'Support Éducatif' },
       ],
-      button: { text: 'Commencer l\'Éducation', href: 'https://one.exnesstrack.org/a/17eqnrbs54' },
+      button: { text: 'Commencer l\'Éducation', href: '/services/learn' },
     },
     finalCTA: {
       title: 'Prêt à Apprendre le Trading Professionnel ?',
       subtitle: 'Commencez votre éducation systématique au trading avec des méthodes éprouvées et des attentes réalistes.',
-      button: { text: 'Commencer à Apprendre', href: 'https://t.me/KenneDynespot' },
+      button: { text: 'Commencer à Apprendre', href: '/services/learn' },
       benefits: [
         'Approche éducation-prioritaire',
         'Parcours d\'apprentissage structuré',
@@ -218,12 +218,12 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
         { value: '200+', label: 'Lecciones Impartidas' },
         { value: '24/7', label: 'Soporte Educativo' },
       ],
-      button: { text: 'Comenzar Educación', href: 'https://one.exnesstrack.org/a/17eqnrbs54' },
+      button: { text: 'Comenzar Educación', href: '/services/learn' },
     },
     finalCTA: {
       title: '¿Listo para Aprender Trading Profesional?',
       subtitle: 'Comienza tu educación sistemática de trading con métodos probados y expectativas realistas.',
-      button: { text: 'Comenzar a Aprender', href: 'https://t.me/KenneDynespot' },
+      button: { text: 'Comenzar a Aprender', href: '/services/learn' },
       benefits: [
         'Enfoque educativo primero',
         'Ruta de aprendizaje estructurada',
@@ -346,12 +346,12 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
         { value: '200+', label: 'Gelehrte Lektionen' },
         { value: '24/7', label: 'Bildungsunterstützung' },
       ],
-      button: { text: 'Bildung Beginnen', href: 'https://one.exnesstrack.org/a/17eqnrbs54' },
+      button: { text: 'Bildung Beginnen', href: '/services/learn' },
     },
     finalCTA: {
       title: 'Bereit, Professionelles Trading Zu Lernen?',
       subtitle: 'Beginnen Sie Ihre systematische Trading-Ausbildung mit bewährten Methoden und realistischen Erwartungen.',
-      button: { text: 'Jetzt Lernen Beginnen', href: 'https://t.me/KenneDynespot' },
+      button: { text: 'Jetzt Lernen Beginnen', href: '/services/learn' },
       benefits: [
         'Bildung-zuerst-Ansatz',
         'Strukturierter Lernpfad',
@@ -414,7 +414,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
           description: 'Персональное руководство для развития вашей торговой психологии, дисциплины и понимания рыночной структуры.',
         },
         {
-          title: 'Фокус на Управлении Рисками',
+          title: 'Фокус на Уп��авлении Рисками',
           description: 'Освойте размер позиции, стоп-лоссы и сохранение капитала—основу устойчивого трейдинга.',
         },
       ],
@@ -440,7 +440,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
         },
         {
           title: 'Разблокируйте Все Бесплатно',
-          description: 'Мгновенно получите доступ к премиальным сигналам, индивидуальному наставничеству и полному обучению стратегии DRIVE.',
+          description: 'Мгновенно получите доступ к премиальным сигна��ам, индивидуальному наставничеству и полному обучению стратегии DRIVE.',
         },
       ],
     },
@@ -474,16 +474,16 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
         { value: '200+', label: 'Проведенных Уроков' },
         { value: '24/7', label: 'Образовательная Поддержка' },
       ],
-      button: { text: 'Начать Обучение', href: 'https://one.exnesstrack.org/a/17eqnrbs54' },
+      button: { text: 'Начать Обучение', href: '/services/learn' },
     },
     finalCTA: {
       title: 'Готовы Изучить Профессиональный Трейдинг?',
       subtitle: 'Начните систематическое торговое образование с проверенными ��етодами и реалистичными ожиданиями.',
-      button: { text: 'Начать Обучение', href: 'https://t.me/KenneDynespot' },
+      button: { text: 'Начать Обучение', href: '/services/learn' },
       benefits: [
         'Подход образование-прежде-всего',
         'Структурированный путь обучения',
-        'Полная методология DRIVE',
+        'Полн��я методология DRIVE',
         'Фокус на управлении рисками',
         'Постоянная поддержка наставника',
       ],

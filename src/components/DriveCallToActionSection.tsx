@@ -57,7 +57,7 @@ export function DriveCallToActionSection() {
 
           <div className="text-center">
             <Button size="lg" variant="hero" className="hover:scale-105 transition-transform duration-300" asChild>
-              <a {...getInternalLinkProps(LINKS.internal.strategy)}>
+              <a {...getInternalLinkProps(LINKS.internal.learn)}>
                 {t('drive_cta_button')}
               </a>
             </Button>
