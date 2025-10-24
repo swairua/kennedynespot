@@ -438,7 +438,7 @@ export const defaultContent: SiteContent = {
       { name: "Telegram (KenneDyne spot)", href: "https://t.me/KenneDynespot", type: "telegram" },
       { name: "WhatsApp Channel", href: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n", type: "whatsapp" },
       { name: "YouTube", href: "https://www.youtube.com/@KenneDynespot", type: "youtube" },
-      { name: "X", href: "https://x.com/InstitutionalKE", type: "x" },
+      { name: "X", href: "https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09", type: "x" },
       { name: "Instagram", href: "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5", type: "instagram" }
     ],
     sections: [
