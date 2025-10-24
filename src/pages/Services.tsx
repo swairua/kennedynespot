@@ -291,7 +291,7 @@ export function Services() {
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg" className="min-w-[140px] sm:min-w-[200px] md:min-w-[220px] px-4 sm:px-6 md:px-8" aria-label="Explore learning resources">
-                <a href="https://institutional-trader.ziratech.com/#/resources" target="_blank" rel="noopener noreferrer" aria-label="Explore learning resources link">
+                <a href="https://institutional-trader.ziratech.com/#/resources" aria-label="Explore learning resources link">
                   {t('services_cta_explore_learning') }
                 </a>
               </Button>
