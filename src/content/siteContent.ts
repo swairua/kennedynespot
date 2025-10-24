@@ -494,7 +494,7 @@ export const defaultContent: SiteContent = {
   finalCTA: {
     title: "Ready to Learn Professional Trading?",
     subtitle: "Start your systematic trading education with proven methods and realistic expectations.",
-    button: { text: "Start Learning", href: "https://t.me/KenneDynespot" },
+    button: { text: "Start Learning", href: "/services/learn" },
     benefits: [
       "Education-first approach",
       "Structured learning path", 
