@@ -190,13 +190,13 @@ const LP_MentorshipApply = () => {
                 journal audits, and optional 1:1 sessions to accelerate your trading development.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button variant="hero" size="lg" className="min-w-[140px] sm:min-w-[200px] md:min-w-[220px] px-4 sm:px-6 md:px-8" asChild aria-label="Apply for mentorship">
+                <Button variant="hero" size="lg" className="min-w-[140px] sm:min-w-[200px] md:min-w-[220px] px-4 sm:px-6 md:px-8 hidden" asChild aria-label="Apply for mentorship">
                   <a href="#apply">
                     Apply Now
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </a>
                 </Button>
-                <Button variant="outline" size="lg" className="min-w-[140px] sm:min-w-[200px] md:min-w-[220px] px-4 sm:px-6 md:px-8 border-white/30 text-white hover:bg-white/10" asChild aria-label="Learn about program">
+                <Button variant="outline" size="lg" className="min-w-[140px] sm:min-w-[200px] md:min-w-[220px] px-4 sm:px-6 md:px-8 border-white/30 text-white hover:bg-white/10 hidden" asChild aria-label="Learn about program">
                   <a href="#program">Learn About Program</a>
                 </Button>
               </div>
