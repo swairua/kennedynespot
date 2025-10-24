@@ -357,12 +357,12 @@ const Contact = () => {
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <a {...getExternalLinkProps(LINKS.instagram)}>
+                  <a {...getExternalLinkProps(LINKS.youtube)}>
                     {t('social_youtube')}
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <a {...getExternalLinkProps("https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09")}>
+                  <a {...getExternalLinkProps(LINKS.twitter)}>
                     {t('social_twitter')}
                   </a>
                 </Button>
