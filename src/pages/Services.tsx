@@ -86,13 +86,6 @@ export function Services() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button
                 asChild
-                size="lg"
-                variant="default"
-              >
-                <Link to="#services" className="flex items-center gap-2">{t('services_cta_explore')}<ArrowDown className="h-4 w-4" /></Link>
-              </Button>
-              <Button
-                asChild
                 variant="outline"
                 size="lg"
               >
