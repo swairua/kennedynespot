@@ -3,8 +3,8 @@ export const LINKS = {
   // Telegram links
   telegram: {
     channel: "https://t.me/KenneDynespot",
-    community: "https://t.me/KenneDynespot",
-    support: "https://t.me/KenneDynespot",
+    community: "https://t.me/FOREXSyllabussupport",
+    support: "https://t.me/FOREXSyllabussupport",
     kenneDynespot: "https://t.me/KenneDynespot",
   },
   
