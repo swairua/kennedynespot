@@ -402,7 +402,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
       trustStrip: 'Проверенная методология | Реальное образование | Никаких ложных обещаний',
     },
     services: {
-      title: 'Наши Образовательные Услуги',
+      title: 'Наши Образ��вательные Услуги',
       subtitle: 'Комплексное торговое образование, сосредоточенное на построении реальных навыков, без ложных обещаний',
       items: [
         {
@@ -474,7 +474,7 @@ export const siteTranslations: Record<'en'|'fr'|'es'|'de'|'ru', DeepPartial<Site
         { value: '200+', label: 'Проведенных Уроков' },
         { value: '24/7', label: 'Образовательная Поддержка' },
       ],
-      button: { text: 'Начать Обучение', href: 'https://one.exnesstrack.org/a/17eqnrbs54' },
+      button: { text: 'Начать Обучение', href: '/services/learn' },
     },
     finalCTA: {
       title: 'Готовы Изучить Профессиональный Трейдинг?',
