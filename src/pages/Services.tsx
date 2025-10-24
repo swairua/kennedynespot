@@ -214,7 +214,7 @@ export function Services() {
           </div>
         </section>
 
-        {/* Why Choose Institutional-Trader */}
+        {/* Why Choose KenneDyne spot */}
         <section className="py-20 bg-accent/10">
           <div className="container px-4">
             <div className="text-center mb-12">
