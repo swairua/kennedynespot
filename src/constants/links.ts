@@ -2,9 +2,9 @@
 export const LINKS = {
   // Telegram links
   telegram: {
-    channel: "https://t.me/institutionaltrader_ke",
-    community: "https://t.me/institutionaltrader_ke",
-    support: "https://t.me/institutionaltrader_ke",
+    channel: "https://t.me/KenneDynespot",
+    community: "https://t.me/KenneDynespot",
+    support: "https://t.me/KenneDynespot",
     kenneDynespot: "https://t.me/KenneDynespot",
   },
   
