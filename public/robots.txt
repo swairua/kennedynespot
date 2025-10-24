@@ -25,7 +25,7 @@ Disallow: /*?
 Disallow: /*&
 
 # Sitemap location
-Sitemap: https://institutional-trader.com/sitemap.xml
+Sitemap: https://kennedynespot.com/sitemap.xml
 
 # Crawl delay for respectful crawling
 Crawl-delay: 1
