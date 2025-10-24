@@ -5,7 +5,7 @@ import tradingWorkspace from "@/assets/trading-workspace.jpg";
 
 const IndexWithSEO = () => {
   const location = useLocation();
-  const canonical = `https://institutional-trader.com${location.pathname}`;
+  const canonical = `https://kennedynespot.com${location.pathname}`;
 
   return (
     <>
