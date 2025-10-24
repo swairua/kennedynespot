@@ -22,8 +22,8 @@ export const LINKS = {
     channel: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n"
   },
   instagram: "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5",
-  youtube: "https://www.youtube.com/@KenneDynespot",
-  twitter: "https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09",
+  youtube: "https://www.youtube.com/c/KenneDynespot",
+  twitter: "https://x.com/KenneDynespot?t=Yld3WlrnnLsLX425C1Ap4VA&s=09",
 
   // Internal links
   internal: {

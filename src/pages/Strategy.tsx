@@ -248,20 +248,16 @@ const Strategy = () => {
                 {page.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button variant="hero" size="lg" asChild>
-                  <a href="#drive-steps" onClick={(e) => handleAnchorClick(e, 'drive-steps')}>
-                    Start Trading DRIVE
-                  </a>
+                <Button variant="hero" size="lg" onClick={(e) => handleAnchorClick(e as any, 'drive-steps')}>
+                  Start Trading DRIVE
                 </Button>
                 <Button
                   variant="glass"
                   size="lg"
                   className="border-white/30 text-white hover:bg-white/10"
-                  asChild
+                  onClick={(e) => handleAnchorClick(e as any, 'why-choose')}
                 >
-                  <a href="#why-choose" onClick={(e) => handleAnchorClick(e, 'why-choose')}>
-                    Start Learning DRIVE
-                  </a>
+                  Start Learning DRIVE
                 </Button>
               </div>
               
@@ -282,17 +278,17 @@ const Strategy = () => {
               
               {/* Quick Navigation */}
               <div className="flex flex-wrap justify-center gap-2 text-sm">
-                <a href="#drive-steps" onClick={(e) => handleAnchorClick(e, 'drive-steps')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
+                <button onClick={(e) => handleAnchorClick(e as any, 'drive-steps')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1 cursor-pointer bg-transparent border-0 p-0">
                   {t('strategy_nav_steps')}
-                </a>
+                </button>
                 <span className="text-white/40">|</span>
-                <a href="#comparison" onClick={(e) => handleAnchorClick(e, 'comparison')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
+                <button onClick={(e) => handleAnchorClick(e as any, 'comparison')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1 cursor-pointer bg-transparent border-0 p-0">
                   {t('strategy_nav_comparison')}
-                </a>
+                </button>
                 <span className="text-white/40">|</span>
-                <a href="#why-choose" onClick={(e) => handleAnchorClick(e, 'why-choose')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1">
+                <button onClick={(e) => handleAnchorClick(e as any, 'why-choose')} className="text-white/70 hover:text-white transition-colors border-b border-white/30 hover:border-white pb-1 cursor-pointer bg-transparent border-0 p-0">
                   {t('strategy_nav_why_choose')}
-                </a>
+                </button>
               </div>
 
 

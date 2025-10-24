@@ -5,7 +5,7 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { DriveStrategySection } from "@/components/DriveStrategySection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LineChart, BookOpen, Users, CheckCircle, ArrowDown, MessageCircle, Target, Shield, Brain, TrendingUp, ArrowRight } from "lucide-react";
+import { LineChart, BookOpen, Users, CheckCircle, MessageCircle, Target, Shield, Brain, TrendingUp, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import educationHero from "@/assets/education-hero.jpg";
@@ -84,13 +84,6 @@ export function Services() {
             <p className="text-lg max-w-4xl mx-auto mb-8">{t('services_hero_paragraph')}</p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button
-                asChild
-                size="lg"
-                variant="default"
-              >
-                <Link to="#services" className="flex items-center gap-2">{t('services_cta_explore')}<ArrowDown className="h-4 w-4" /></Link>
-              </Button>
               <Button
                 asChild
                 variant="outline"
@@ -298,7 +291,7 @@ export function Services() {
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg" className="min-w-[140px] sm:min-w-[200px] md:min-w-[220px] px-4 sm:px-6 md:px-8" aria-label="Explore learning resources">
-                <a href="https://institutional-trader.ziratech.com/#/resources" target="_blank" rel="noopener noreferrer" aria-label="Explore learning resources link">
+                <a href="https://institutional-trader.ziratech.com/#/resources" aria-label="Explore learning resources link">
                   {t('services_cta_explore_learning') }
                 </a>
               </Button>

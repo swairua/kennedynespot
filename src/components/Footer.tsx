@@ -94,6 +94,19 @@ export function Footer() {
                     {footer.phone}
                   </a>
                 )}
+                {footer.contactLinks && footer.contactLinks.map((link) => {
+                  const Icon = getSocialIcon(link.icon);
+                  return (
+                    <a
+                      key={link.href}
+                      {...getExternalLinkProps(link.href)}
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200"
+                    >
+                      <Icon className="h-4 w-4" />
+                      {link.name}
+                    </a>
+                  );
+                })}
               </div>
             </address>
 
