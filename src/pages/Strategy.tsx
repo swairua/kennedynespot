@@ -248,20 +248,16 @@ const Strategy = () => {
                 {page.subtitle}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Button variant="hero" size="lg" asChild>
-                  <a href="#drive-steps" onClick={(e) => handleAnchorClick(e, 'drive-steps')}>
-                    Start Trading DRIVE
-                  </a>
+                <Button variant="hero" size="lg" onClick={(e) => handleAnchorClick(e as any, 'drive-steps')}>
+                  Start Trading DRIVE
                 </Button>
                 <Button
                   variant="glass"
                   size="lg"
                   className="border-white/30 text-white hover:bg-white/10"
-                  asChild
+                  onClick={(e) => handleAnchorClick(e as any, 'why-choose')}
                 >
-                  <a href="#why-choose" onClick={(e) => handleAnchorClick(e, 'why-choose')}>
-                    Start Learning DRIVE
-                  </a>
+                  Start Learning DRIVE
                 </Button>
               </div>
               
