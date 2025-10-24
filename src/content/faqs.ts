@@ -18,7 +18,7 @@ export const faqCategories = [
 export const faqs: FAQ[] = [
   // General
   {
-    id: "what-is-institutional-trader",
+    id: "what-is-kennedyne-spot",
     question: "Are you a broker or financial institution?",
     answer: "No, we are an education company only. We do not execute trades, hold client funds, or act as a broker. We provide educational content and mentorship to help traders develop their skills and knowledge.",
     category: "general"
