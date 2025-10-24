@@ -5,9 +5,9 @@ import { createBreadcrumbSchema } from '@/utils/seoHelpers';
 
 export default function LearnWithSEO() {
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://institutional-trader.com/' },
-    { name: 'Services', url: 'https://institutional-trader.com/services' },
-    { name: 'Learn', url: 'https://institutional-trader.com/services/learn' }
+    { name: 'Home', url: 'https://kennedynespot.com/' },
+    { name: 'Services', url: 'https://kennedynespot.com/services' },
+    { name: 'Learn', url: 'https://kennedynespot.com/services/learn' }
   ]);
 
   return (
@@ -22,12 +22,12 @@ export default function LearnWithSEO() {
           name="keywords" 
           content="forex education, trading courses, DRIVE methodology, forex learning, institutional trading, professional trading education, Kenya forex training" 
         />
-        <link rel="canonical" href="https://institutional-trader.com/services/learn" />
+        <link rel="canonical" href="https://kennedynespot.com/services/learn" />
         
         {/* Open Graph tags */}
         <meta property="og:title" content="Learn Forex Trading - Professional Education | KenneDyne spot" />
         <meta property="og:description" content="Master forex trading with our structured learning paths. From beginner foundations to advanced institutional strategies." />
-        <meta property="og:url" content="https://institutional-trader.com/services/learn" />
+        <meta property="og:url" content="https://kennedynespot.com/services/learn" />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://institutional-trader.com/og/og-default.jpg" />
         

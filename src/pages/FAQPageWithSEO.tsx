@@ -12,7 +12,7 @@ const fallbackFaqSchema = generateFAQSchema();
 
 const FAQPageWithSEO = () => {
   const location = useLocation();
-  const canonical = `https://institutional-trader.com${location.pathname}`;
+  const canonical = `https://kennedynespot.com${location.pathname}`;
   const [faqSchema, setFaqSchema] = useState(fallbackFaqSchema);
   const { language, t } = useI18n();
 
