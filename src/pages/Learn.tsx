@@ -220,7 +220,7 @@ export default function Learn() {
                     </ul>
 
                     <div className="grid grid-cols-1 gap-3">
-                      <Button variant="outline" className="w-full" size="lg" asChild>
+                      <Button variant="outline" className="w-full hidden" size="lg" asChild>
                         <a {...getInternalLinkProps(LINKS.internal.resources)} aria-label={`${path.price === 'Free' ? 'Start Free' : 'Enroll Now'} - ${path.title}`}>
                           {path.price === "Free" ? "Start Free" : "Enroll Now"}
                           <ArrowRight className="h-4 w-4 ml-2" />
