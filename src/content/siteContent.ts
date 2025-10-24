@@ -505,7 +505,7 @@ export const defaultContent: SiteContent = {
   },
   seo: {
     title: "KenneDyne spot | Forex Education & DRIVE Strategy",
-    description: "Education-first forex trading with systematic DRIVE strategy, risk management, and mentorship for Kenyan traders. No hype—just education and discipline.",
+    description: "Master professional trading with education-first forex programs, systematic DRIVE strategy, risk management, and expert mentorship. No hype��just education and discipline.",
     keywords: "forex education Kenya, trading education, DRIVE strategy, risk management, trading mentorship"
   },
   pages: {
