@@ -489,7 +489,7 @@ export const defaultContent: SiteContent = {
       { value: "200+", label: "Lessons Taught" },
       { value: "24/7", label: "Educational Support" }
     ],
-    button: { text: "Begin Education", href: "https://one.exnesstrack.org/a/17eqnrbs54" }
+    button: { text: "Begin Education", href: "/services/learn" }
   },
   finalCTA: {
     title: "Ready to Learn Professional Trading?",
