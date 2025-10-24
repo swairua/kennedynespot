@@ -5,7 +5,7 @@ import { SectionDivider } from "@/components/SectionDivider";
 import { DriveStrategySection } from "@/components/DriveStrategySection";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { LineChart, BookOpen, Users, CheckCircle, ArrowDown, MessageCircle, Target, Shield, Brain, TrendingUp, ArrowRight } from "lucide-react";
+import { LineChart, BookOpen, Users, CheckCircle, MessageCircle, Target, Shield, Brain, TrendingUp, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Link } from "react-router-dom";
 import educationHero from "@/assets/education-hero.jpg";
