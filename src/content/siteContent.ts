@@ -434,6 +434,10 @@ export const defaultContent: SiteContent = {
     phone: "+254 726 529 166",
     email: "info@kennedynespot.com",
     whatsappText: "Get Support",
+    contactLinks: [
+      { name: "Telegram Support", href: "https://t.me/FOREXSyllabussupport", icon: "telegram" },
+      { name: "Telegram (Kennedyne Spot)", href: "https://t.me/KenneDynespot", icon: "telegram" }
+    ],
     socials: [
       { name: "Telegram Channel", href: "https://t.me/KenneDynespot", type: "telegram" },
       { name: "WhatsApp Channel", href: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n", type: "whatsapp" },
