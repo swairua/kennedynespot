@@ -45,8 +45,8 @@ const learningPaths = [
     description: "Advanced concepts used by institutional traders and fund managers.",
     duration: "2-4 weeks",
     modules: 16,
-    price: "Ksh 30",
-    priceValue: 30,
+    price: "$199",
+    priceValue: 199,
     features: [
       "Market maker behavior",
       "Liquidity analysis",
@@ -63,8 +63,8 @@ const learningPaths = [
     description: "Learn our proprietary DRIVE system for systematic trading approach.",
     duration: "4-8 weeks",
     modules: 12,
-    price: "Ksh 50",
-    priceValue: 50,
+    price: "$299",
+    priceValue: 299,
     features: [
       "DRIVE system deep dive",
       "Advanced chart analysis",
@@ -220,7 +220,7 @@ export default function Learn() {
                     </ul>
 
                     <div className="grid grid-cols-1 gap-3">
-                      <Button variant={index === 1 ? "hero" : "outline"} className="w-full" size="lg" asChild>
+                      <Button variant="outline" className="w-full" size="lg" asChild>
                         <a {...getInternalLinkProps(LINKS.internal.resources)} aria-label={`${path.price === 'Free' ? 'Start Free' : 'Enroll Now'} - ${path.title}`}>
                           {path.price === "Free" ? "Start Free" : "Enroll Now"}
                           <ArrowRight className="h-4 w-4 ml-2" />
