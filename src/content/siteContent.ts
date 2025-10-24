@@ -435,12 +435,11 @@ export const defaultContent: SiteContent = {
     email: "info@kennedynespot.com",
     whatsappText: "Get Support",
     socials: [
-      { name: "Telegram (KenneDyne spot)", href: "https://t.me/KenneDynespot", type: "telegram" },
+      { name: "Telegram Channel", href: "https://t.me/KenneDynespot", type: "telegram" },
       { name: "WhatsApp Channel", href: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n", type: "whatsapp" },
-      { name: "WhatsApp (Chat)", href: "https://wa.me/254726529166?text=Hi%21%20I%20am%20interested%20in%20learning%20more%20about%20your%20trading%20education%20programs.", type: "whatsapp" },
-      { name: "YouTube", href: "https://www.youtube.com/@InstitutionalTraderKE", type: "youtube" },
-      { name: "X", href: "https://x.com/InstitutionalKE", type: "x" },
-      { name: "Instagram", href: "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5", type: "instagram" }
+      { name: "YouTube", href: "https://www.youtube.com/@KenneDynespot", type: "youtube" },
+      { name: "Twitter", href: "https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09", type: "x" },
+      { name: "Instagram", href: "https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDQzMTg0Njg1MzQ3ODI3?story_media_id=3713797231770477934_48486444646&igsh=MXQ3MG00NDBjajIycw==", type: "instagram" }
     ],
     sections: [
       {
