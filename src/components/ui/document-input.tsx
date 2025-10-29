@@ -215,9 +215,11 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(({
                   {value}
                 </div>
                 <Button asChild className="w-full">
-                  <a href={value} target="_blank" rel="noopener noreferrer">
-                    Open Document
-                  </a>
+                  {value && value.startsWith('/') ? (
+                    <a {...getInternalLinkProps(value)}>Open Document</a>
+                  ) : (
+                    <a href={value} target="_blank" rel="noopener noreferrer">Open Document</a>
+                  )}
                 </Button>
               </div>
             </DialogContent>
