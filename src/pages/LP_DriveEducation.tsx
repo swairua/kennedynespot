@@ -6,6 +6,8 @@ import { CheckCircle, BookOpen, Target, TrendingUp, ArrowRight, Clock, Users } f
 import { Link } from "react-router-dom";
 import educationHero from "@/assets/education-hero.jpg";
 import { driveSteps } from "@/content/drive";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
+import { LINKS, getInternalLinkProps } from "@/constants/links";
 
 const LP_DriveEducation = () => {
   const benefits = [
@@ -46,7 +48,7 @@ const LP_DriveEducation = () => {
         title="Master DRIVE Trading Strategy | Structured Forex Education"
         description="Learn the proven 5-step DRIVE framework for forex trading. Structured education program with risk management, market analysis, and disciplined trading approach."
         keywords="DRIVE trading strategy, forex education, trading framework, risk management, market analysis"
-        canonical="https://kennedynespot.com/lp/drive-education"
+        canonical={createCanonicalUrl('/lp/drive-education')}
       />
       
       {/* Minimal Navigation */}
@@ -220,13 +222,13 @@ const LP_DriveEducation = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="hero" size="lg" asChild>
-                  <a href="/services/learn">
+                  <a {...getInternalLinkProps(LINKS.internal.learn)}>
                     Start Free Education
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <a href="/contact">Have Questions?</a>
+                  <a {...getInternalLinkProps(LINKS.internal.contact)}>Have Questions?</a>
                 </Button>
               </div>
             </div>

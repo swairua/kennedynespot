@@ -342,6 +342,8 @@ interface CTABlockProps {
   variant?: 'default' | 'accent';
 }
 
+import { getInternalLinkProps } from '@/constants/links';
+
 export const CTABlock: React.FC<CTABlockProps> = ({
   title,
   description,
@@ -349,9 +351,18 @@ export const CTABlock: React.FC<CTABlockProps> = ({
   secondaryButton,
   variant = 'default'
 }) => {
-  const bgClass = variant === 'accent' 
-    ? 'bg-gradient-to-r from-primary/10 to-accent/10 border-primary/20' 
+  const bgClass = variant === 'accent'
+    ? 'bg-gradient-to-r from-primary/10 to-accent/10 border-primary/20'
     : 'bg-muted/50';
+
+  const buildHrefProps = (href: string | undefined, utm?: string) => {
+    if (!href) return { href: '#' };
+    const final = utm ? `${href}?${utm}` : href;
+    if (final.startsWith('/')) {
+      return getInternalLinkProps(final);
+    }
+    return { href: final };
+  };
 
   return (
     <Card className={cn('my-8 p-8 text-center', bgClass)}>
@@ -360,8 +371,8 @@ export const CTABlock: React.FC<CTABlockProps> = ({
         <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">{description}</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg">
-            <a 
-              href={primaryButton.utm ? `${primaryButton.href}?${primaryButton.utm}` : primaryButton.href}
+            <a
+              {...buildHrefProps(primaryButton.href, primaryButton.utm)}
               className="inline-flex items-center gap-2"
             >
               {primaryButton.text}
@@ -370,7 +381,7 @@ export const CTABlock: React.FC<CTABlockProps> = ({
           </Button>
           {secondaryButton && (
             <Button asChild variant="outline" size="lg">
-              <a href={secondaryButton.href}>
+              <a {...buildHrefProps(secondaryButton.href)}>
                 {secondaryButton.text}
               </a>
             </Button>

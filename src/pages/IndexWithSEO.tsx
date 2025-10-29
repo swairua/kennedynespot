@@ -1,11 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { SEOHead } from "@/components/SEOHead";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 import Index from "./Index";
 import tradingWorkspace from "@/assets/trading-workspace.jpg";
 
 const IndexWithSEO = () => {
   const location = useLocation();
-  const canonical = `https://kennedynespot.com${location.pathname}`;
+  const canonical = createCanonicalUrl(location.pathname);
 
   return (
     <>

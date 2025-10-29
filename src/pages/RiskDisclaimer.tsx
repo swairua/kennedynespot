@@ -2,14 +2,15 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEOHead } from "@/components/SEOHead";
 import { RiskDisclaimerBar } from "@/components/RiskDisclaimerBar";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 
 const RiskDisclaimer = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
+      <SEOHead
         title="Risk Disclaimer | KenneDyne spot"
         description="Important risk disclaimer for Forex and CFD trading education"
-        canonical="https://kennedynespot.com/risk-disclaimer"
+        canonical={createCanonicalUrl('/risk-disclaimer')}
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">

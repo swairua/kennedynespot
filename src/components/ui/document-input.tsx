@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Upload, X, Eye, FileText, AlertCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { getInternalLinkProps } from '@/constants/links';
 
 interface DocumentInputProps {
   label?: string;
@@ -214,9 +215,11 @@ export const DocumentInput = forwardRef<HTMLInputElement, DocumentInputProps>(({
                   {value}
                 </div>
                 <Button asChild className="w-full">
-                  <a href={value} target="_blank" rel="noopener noreferrer">
-                    Open Document
-                  </a>
+                  {value && value.startsWith('/') ? (
+                    <a {...getInternalLinkProps(value)}>Open Document</a>
+                  ) : (
+                    <a href={value} target="_blank" rel="noopener noreferrer">Open Document</a>
+                  )}
                 </Button>
               </div>
             </DialogContent>

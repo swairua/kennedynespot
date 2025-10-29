@@ -16,7 +16,7 @@ This comprehensive handover report documents all digital assets, configurations,
 - **Routing**: React Router v6
 - **Backend**: Supabase (PostgreSQL, Auth, Storage)
 - **Hosting**: Lovable Platform
-- **Domain**: institutional-trader.com
+- **Domain**: kennedynespot.com
 
 ### **Performance Metrics**
 - ✅ **Core Web Vitals**: Optimized for LCP, FID, CLS

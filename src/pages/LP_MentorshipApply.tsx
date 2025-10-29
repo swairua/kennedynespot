@@ -2,6 +2,7 @@ import { SEOHead } from "@/components/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -155,7 +156,7 @@ const LP_MentorshipApply = () => {
         title="Apply for Forex Mentorship Program | 8-Week Structured Trading Coaching"
         description="Join our exclusive 8-week forex mentorship program. Get personal coaching, weekly reviews, and structured guidance to develop disciplined trading skills."
         keywords="forex mentorship, trading coaching, forex education, trading mentor, forex training program"
-        canonical="https://kennedynespot.com/mentorship"
+        canonical={createCanonicalUrl('/mentorship')}
       />
       
       <Navigation />

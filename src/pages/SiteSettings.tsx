@@ -57,7 +57,7 @@ const SiteSettings = () => {
   const [seoSettings, setSeoSettings] = useState({
     defaultTitle: 'KenneDyne spot - Professional Trading Education',
     defaultDescription: 'Master professional trading with our comprehensive education programs and mentorship.',
-    canonicalUrl: 'https://kennedynespot.com',
+    canonicalUrl: 'https://kennedynespot.com/#/',
     robotsTxt: 'User-agent: *\nDisallow: /admin\nAllow: /',
     sitemap: true,
     defaultOgImage: '',
@@ -105,7 +105,7 @@ const SiteSettings = () => {
           setSeoSettings({
             defaultTitle: siteContent.seo.title,
             defaultDescription: siteSettings.seo_default_description || siteContent.seo.description,
-            canonicalUrl: 'https://kennedynespot.com',
+            canonicalUrl: 'https://kennedynespot.com/#/',
             robotsTxt: siteSettings.robots_content || 'User-agent: *\nDisallow: /admin\nAllow: /',
             sitemap: siteSettings.sitemap_enabled || true,
             defaultOgImage: siteSettings.seo_default_og_image || '',

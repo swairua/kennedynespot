@@ -7,9 +7,10 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import { cn } from '@/lib/utils';
-import { 
-  Callout, CodeBlock, Figure, FAQ, HowTo, KPI, CTABlock, VideoEmbed 
+import {
+  Callout, CodeBlock, Figure, FAQ, HowTo, KPI, CTABlock, VideoEmbed
 } from './ContentBlocks';
+import { getInternalLinkProps } from '@/constants/links';
 import { TableOfContents, ReadingProgressBar } from './TableOfContents';
 import { extractHeadings } from '@/utils/contentFormatter';
 
@@ -148,15 +149,15 @@ export const EnhancedMarkdownRenderer: React.FC<EnhancedMarkdownRendererProps> =
     // Enhanced links
     a: ({ href, children, ...props }: any) => {
       const isInternal = href?.startsWith('/') || href?.startsWith('#');
+      const linkProps = isInternal ? getInternalLinkProps(href) : { href };
       return (
         <a
-          href={href}
+          {...linkProps}
           className={cn(
             "text-primary hover:text-primary-hover underline decoration-2 underline-offset-2 transition-colors",
             isInternal ? "font-medium" : "font-normal"
           )}
-          target={isInternal ? undefined : '_blank'}
-          rel={isInternal ? undefined : 'noopener noreferrer'}
+          {...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
           {...props}
         >
           {children}

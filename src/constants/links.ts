@@ -44,6 +44,8 @@ export const getExternalLinkProps = (url: string) => ({
 });
 
 // Helper function to get internal link props
-export const getInternalLinkProps = (url: string) => ({
-  href: url
-});
+export const getInternalLinkProps = (url: string) => {
+  // Use hash-based hrefs for anchor tags so links open within the SPA regardless of origin
+  const cleaned = url.startsWith('/') ? url : `/${url}`;
+  return { href: `#${cleaned}` };
+};

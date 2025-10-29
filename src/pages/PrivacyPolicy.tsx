@@ -2,14 +2,15 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEOHead } from "@/components/SEOHead";
 import { RiskDisclaimerBar } from "@/components/RiskDisclaimerBar";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 
 const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
+      <SEOHead
         title="Privacy Policy | KenneDyne spot"
         description="Privacy policy for KenneDyne spot trading education platform"
-        canonical="https://kennedynespot.com/privacy-policy"
+        canonical={createCanonicalUrl('/privacy-policy')}
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">

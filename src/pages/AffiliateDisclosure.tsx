@@ -2,14 +2,15 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEOHead } from "@/components/SEOHead";
 import { RiskDisclaimerBar } from "@/components/RiskDisclaimerBar";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 
 const AffiliateDisclosure = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
+      <SEOHead
         title="Affiliate Disclosure | KenneDyne spot"
         description="Affiliate relationship disclosure for KenneDyne spot"
-        canonical="https://kennedynespot.com/affiliate-disclosure"
+        canonical={createCanonicalUrl('/affiliate-disclosure')}
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">
