@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { 
-  BookOpen, 
-  TrendingUp, 
+import {
+  BookOpen,
+  TrendingUp,
   Users,
-  ArrowRight 
+  ArrowRight
 } from "lucide-react";
 
 const paths = [
