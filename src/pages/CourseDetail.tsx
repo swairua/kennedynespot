@@ -11,6 +11,7 @@ import { useCourse } from '@/hooks/useResources';
 import { useMemo } from 'react';
 import { Clock, User, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getInternalLinkProps } from '@/constants/links';
 
 export default function CourseDetail() {
   const { slug } = useParams<{ slug: string }>();
