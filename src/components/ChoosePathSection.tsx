@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { 
-  BookOpen, 
-  TrendingUp, 
+import {
+  BookOpen,
+  TrendingUp,
   Users,
-  ArrowRight 
+  ArrowRight
 } from "lucide-react";
 
 const paths = [
@@ -13,21 +14,27 @@ const paths = [
     title: "Learn",
     description: "Free & paid courses with progress tracking",
     features: ["Self-paced learning", "Quiz assessments", "Community access"],
-    cta: "Start Learning"
+    cta: "Start Learning",
+    href: "/services/learn",
+    isExternal: false
   },
   {
     icon: TrendingUp,
-    title: "Signals & Tools", 
+    title: "Signals & Tools",
     description: "Institutional Trading Strategies",
     features: ["Study-grade signals", "Clear invalidation", "Risk notes included"],
-    cta: "Try Signals on Demo"
+    cta: "Try Signals on Demo",
+    href: "https://one.exnesstrack.org/a/17eqnrbs54",
+    isExternal: true
   },
   {
     icon: Users,
     title: "Mentorship",
-    description: "Cohort + 1:1 guidance, weekly reviews", 
+    description: "Cohort + 1:1 guidance, weekly reviews",
     features: ["8-week cohort", "Personal feedback", "Journal audits"],
-    cta: "Apply for Mentorship"
+    cta: "Apply for Mentorship",
+    href: "/mentorship",
+    isExternal: false
   }
 ];
 
@@ -65,23 +72,27 @@ export function ChoosePathSection() {
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
-                    className="w-full min-h-[44px]" 
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full min-h-[44px]"
                     aria-label={`${path.cta} - ${path.title}`}
-                    asChild={path.title === "Signals & Tools"}
+                    asChild
                   >
-                    {path.title === "Signals & Tools" ? (
-                      <a href="https://one.exnesstrack.org/a/17eqnrbs54" target="_blank" rel="noopener noreferrer sponsored">
+                    {path.isExternal ? (
+                      <a
+                        href={path.href}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                      >
                         {path.cta}
                         <ArrowRight className="h-4 w-4" />
                       </a>
                     ) : (
-                      <>
+                      <Link to={path.href}>
                         {path.cta}
                         <ArrowRight className="h-4 w-4" />
-                      </>
+                      </Link>
                     )}
                   </Button>
                 </div>
