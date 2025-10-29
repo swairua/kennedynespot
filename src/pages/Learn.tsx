@@ -15,10 +15,11 @@ import {
 } from "lucide-react";
 import { driveStepsSimple } from "@/content/drive";
 import forexEducationHero from "@/assets/forex-education-hero.jpg";
-import { LINKS, getInternalLinkProps, getExternalLinkProps } from "@/constants/links";
+import { LINKS } from "@/constants/links";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "react-router-dom";
 
 const learningPaths = [
   {
@@ -124,53 +125,48 @@ export default function Learn() {
       <Navigation />
 
       <main>
-        <section className="relative py-20 bg-gradient-subtle overflow-hidden">
+        <section className="relative py-20 md:py-28 bg-gradient-subtle overflow-hidden">
           <div className="absolute inset-0 hero-image">
-            <img 
-              src={forexEducationHero} 
-              alt="Professional forex education classroom with trading charts and learning environment" 
+            <img
+              src={forexEducationHero}
+              alt="Professional forex education classroom with trading charts and learning environment"
               className="w-full h-full object-cover"
               loading="eager"
               width={1920}
               height={1080}
-              
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40"></div>
           <div className="container px-4 relative z-20">
-            <div className="max-w-4xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                <div>
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-                    <span className="text-blue-300">Structured Learning Materials</span> for{" "}
-                    <span className="text-blue-400">Professional Traders</span>
-                  </h1>
-                  <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                    Our progressive curriculum takes you from complete beginner to institutional-level understanding. 
-                    No shortcuts, just proven education.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                    <Button variant="hero" size="lg" asChild>
-                      <a {...getInternalLinkProps(LINKS.internal.resources)}>
-                        Start Learning Today
-                        <ArrowRight className="h-4 w-4 ml-2" />
-                      </a>
-                    </Button>
-                  </div>
-                  <div className="flex items-center space-x-8 text-sm text-white/80">
-                    <div className="flex items-center">
-                      <Users className="h-4 w-4 mr-2" />
-                      2,000+ Students
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="h-4 w-4 mr-2" />
-                      500+ Hours Content
-                    </div>
-                    <div className="flex items-center">
-                      <Target className="h-4 w-4 mr-2" />
-                      Verified Results
-                    </div>
-                  </div>
+            <div className="max-w-3xl">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white leading-tight">
+                <span className="text-blue-300">Structured Learning Materials</span> for{" "}
+                <span className="text-blue-400">Professional Traders</span>
+              </h1>
+              <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed max-w-2xl">
+                Our progressive curriculum takes you from complete beginner to institutional-level understanding.
+                No shortcuts, just proven education.
+              </p>
+              <div className="mb-8">
+                <Button variant="hero" size="lg" asChild>
+                  <Link to={LINKS.internal.resources}>
+                    Start Learning Today
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Link>
+                </Button>
+              </div>
+              <div className="flex flex-wrap gap-6 md:gap-8 text-sm text-white/80">
+                <div className="flex items-center gap-2">
+                  <Users className="h-4 w-4 flex-shrink-0" />
+                  <span>2,000+ Students</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 flex-shrink-0" />
+                  <span>500+ Hours Content</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Target className="h-4 w-4 flex-shrink-0" />
+                  <span>Verified Results</span>
                 </div>
               </div>
             </div>
