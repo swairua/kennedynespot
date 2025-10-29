@@ -6,6 +6,7 @@ import { CheckCircle, BookOpen, Target, TrendingUp, ArrowRight, Clock, Users } f
 import { Link } from "react-router-dom";
 import educationHero from "@/assets/education-hero.jpg";
 import { driveSteps } from "@/content/drive";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 
 const LP_DriveEducation = () => {
   const benefits = [
@@ -46,7 +47,7 @@ const LP_DriveEducation = () => {
         title="Master DRIVE Trading Strategy | Structured Forex Education"
         description="Learn the proven 5-step DRIVE framework for forex trading. Structured education program with risk management, market analysis, and disciplined trading approach."
         keywords="DRIVE trading strategy, forex education, trading framework, risk management, market analysis"
-        canonical="https://kennedynespot.com/lp/drive-education"
+        canonical={createCanonicalUrl('/lp/drive-education')}
       />
       
       {/* Minimal Navigation */}
