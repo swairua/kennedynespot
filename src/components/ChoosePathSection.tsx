@@ -72,23 +72,27 @@ export function ChoosePathSection() {
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
-                    className="w-full min-h-[44px]" 
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full min-h-[44px]"
                     aria-label={`${path.cta} - ${path.title}`}
-                    asChild={path.title === "Signals & Tools"}
+                    asChild
                   >
-                    {path.title === "Signals & Tools" ? (
-                      <a href="https://one.exnesstrack.org/a/17eqnrbs54" target="_blank" rel="noopener noreferrer sponsored">
+                    {path.isExternal ? (
+                      <a
+                        href={path.href}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                      >
                         {path.cta}
                         <ArrowRight className="h-4 w-4" />
                       </a>
                     ) : (
-                      <>
+                      <Link to={path.href}>
                         {path.cta}
                         <ArrowRight className="h-4 w-4" />
-                      </>
+                      </Link>
                     )}
                   </Button>
                 </div>
