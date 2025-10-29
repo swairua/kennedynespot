@@ -8,7 +8,7 @@ const ContactWithSEO = () => {
   const canonical = createCanonicalUrl(location.pathname);
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: "Home", url: "https://kennedynespot.com" },
+    { name: "Home", url: "/" },
     { name: "Contact", url: canonical }
   ]);
 
