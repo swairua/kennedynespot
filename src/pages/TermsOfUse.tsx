@@ -2,14 +2,15 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { SEOHead } from "@/components/SEOHead";
 import { RiskDisclaimerBar } from "@/components/RiskDisclaimerBar";
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 
 const TermsOfUse = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEOHead 
+      <SEOHead
         title="Terms of Use | KenneDyne spot"
         description="Terms of use for KenneDyne spot trading education platform"
-        canonical="https://kennedynespot.com/terms-of-use"
+        canonical={createCanonicalUrl('/terms-of-use')}
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">
