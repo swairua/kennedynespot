@@ -153,10 +153,17 @@ export default function CourseDetail() {
               <div className="pt-4">
                 {course.url ? (
                   <Button asChild size="lg" variant="hero">
-                    <a href={course.url} target="_blank" rel="noopener noreferrer">
-                      Start Course
-                      <ExternalLink className="h-4 w-4 ml-2" />
-                    </a>
+                    {typeof course.url === 'string' && course.url.startsWith('/') ? (
+                      <a {...getInternalLinkProps(course.url)}>
+                        Start Course
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </a>
+                    ) : (
+                      <a href={course.url} target="_blank" rel="noopener noreferrer">
+                        Start Course
+                        <ExternalLink className="h-4 w-4 ml-2" />
+                      </a>
+                    )}
                   </Button>
                 ) : (
                   <Button size="lg" disabled>
