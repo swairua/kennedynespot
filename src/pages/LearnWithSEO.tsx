@@ -1,13 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 import Learn from './Learn';
 import { StructuredData } from '@/components/StructuredData';
-import { createBreadcrumbSchema } from '@/utils/seoHelpers';
+import { createBreadcrumbSchema, createCanonicalUrl } from '@/utils/seoHelpers';
 
 export default function LearnWithSEO() {
+  const canonical = createCanonicalUrl('/services/learn');
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: 'Home', url: 'https://kennedynespot.com/' },
-    { name: 'Services', url: 'https://kennedynespot.com/services' },
-    { name: 'Learn', url: 'https://kennedynespot.com/services/learn' }
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services' },
+    { name: 'Learn', url: '/services/learn' }
   ]);
 
   return (
@@ -22,12 +23,12 @@ export default function LearnWithSEO() {
           name="keywords" 
           content="forex education, trading courses, DRIVE methodology, forex learning, institutional trading, professional trading education, Kenya forex training" 
         />
-        <link rel="canonical" href="https://kennedynespot.com/services/learn" />
+        <link rel="canonical" href={canonical} />
         
         {/* Open Graph tags */}
         <meta property="og:title" content="Learn Forex Trading - Professional Education | KenneDyne spot" />
         <meta property="og:description" content="Master forex trading with our structured learning paths. From beginner foundations to advanced institutional strategies." />
-        <meta property="og:url" content="https://kennedynespot.com/services/learn" />
+        <meta property="og:url" content={canonical} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://institutional-trader.com/og/og-default.jpg" />
         
