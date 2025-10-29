@@ -14,21 +14,27 @@ const paths = [
     title: "Learn",
     description: "Free & paid courses with progress tracking",
     features: ["Self-paced learning", "Quiz assessments", "Community access"],
-    cta: "Start Learning"
+    cta: "Start Learning",
+    href: "/services/learn",
+    isExternal: false
   },
   {
     icon: TrendingUp,
-    title: "Signals & Tools", 
+    title: "Signals & Tools",
     description: "Institutional Trading Strategies",
     features: ["Study-grade signals", "Clear invalidation", "Risk notes included"],
-    cta: "Try Signals on Demo"
+    cta: "Try Signals on Demo",
+    href: "https://one.exnesstrack.org/a/17eqnrbs54",
+    isExternal: true
   },
   {
     icon: Users,
     title: "Mentorship",
-    description: "Cohort + 1:1 guidance, weekly reviews", 
+    description: "Cohort + 1:1 guidance, weekly reviews",
     features: ["8-week cohort", "Personal feedback", "Journal audits"],
-    cta: "Apply for Mentorship"
+    cta: "Apply for Mentorship",
+    href: "/mentorship",
+    isExternal: false
   }
 ];
 
