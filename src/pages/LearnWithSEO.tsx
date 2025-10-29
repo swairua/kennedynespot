@@ -36,7 +36,7 @@ export default function LearnWithSEO() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Learn Forex Trading - Professional Education" />
         <meta name="twitter:description" content="Master forex trading with our structured learning paths. From beginner foundations to advanced institutional strategies." />
-        <meta name="twitter:image" content="https://institutional-trader.com/og/og-default.jpg" />
+        <meta name="twitter:image" content={`${getSiteUrl()}/og/og-default.jpg`} />
         
         <script type="application/ld+json">
           {JSON.stringify(breadcrumbSchema)}
