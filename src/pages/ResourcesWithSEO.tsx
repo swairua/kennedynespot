@@ -9,7 +9,7 @@ export default function ResourcesWithSEO() {
   const canonical = createCanonicalUrl('/resources');
 
   const breadcrumbSchema = createBreadcrumbSchema([
-    { name: t('breadcrumb_home'), url: `${siteUrl}/` },
+    { name: t('breadcrumb_home'), url: "/" },
     { name: t('breadcrumb_resources'), url: canonical }
   ]);
 
