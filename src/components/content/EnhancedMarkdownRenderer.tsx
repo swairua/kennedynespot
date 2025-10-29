@@ -149,15 +149,15 @@ export const EnhancedMarkdownRenderer: React.FC<EnhancedMarkdownRendererProps> =
     // Enhanced links
     a: ({ href, children, ...props }: any) => {
       const isInternal = href?.startsWith('/') || href?.startsWith('#');
+      const linkProps = isInternal ? getInternalLinkProps(href) : { href };
       return (
         <a
-          href={href}
+          {...linkProps}
           className={cn(
             "text-primary hover:text-primary-hover underline decoration-2 underline-offset-2 transition-colors",
             isInternal ? "font-medium" : "font-normal"
           )}
-          target={isInternal ? undefined : '_blank'}
-          rel={isInternal ? undefined : 'noopener noreferrer'}
+          {...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
           {...props}
         >
           {children}
