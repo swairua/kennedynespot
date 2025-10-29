@@ -11,7 +11,6 @@ import { useCourse } from '@/hooks/useResources';
 import { useMemo } from 'react';
 import { Clock, User, Calendar, Tag, ArrowLeft, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getInternalLinkProps } from '@/constants/links';
 
 export default function CourseDetail() {
   const { slug } = useParams<{ slug: string }>();
@@ -154,10 +153,10 @@ export default function CourseDetail() {
                 {course.url ? (
                   <Button asChild size="lg" variant="hero">
                     {typeof course.url === 'string' && course.url.startsWith('/') ? (
-                      <a {...getInternalLinkProps(course.url)}>
+                      <Link to={course.url}>
                         Start Course
                         <ExternalLink className="h-4 w-4 ml-2" />
-                      </a>
+                      </Link>
                     ) : (
                       <a href={course.url} target="_blank" rel="noopener noreferrer">
                         Start Course
