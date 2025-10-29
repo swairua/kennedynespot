@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import educationHero from "@/assets/education-hero.jpg";
 import { driveSteps } from "@/content/drive";
 import { createCanonicalUrl } from "@/utils/seoHelpers";
+import { LINKS, getInternalLinkProps } from "@/constants/links";
 
 const LP_DriveEducation = () => {
   const benefits = [
