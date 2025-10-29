@@ -30,7 +30,7 @@ export default function LearnWithSEO() {
         <meta property="og:description" content="Master forex trading with our structured learning paths. From beginner foundations to advanced institutional strategies." />
         <meta property="og:url" content={canonical} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://institutional-trader.com/og/og-default.jpg" />
+        <meta property="og:image" content={`${getSiteUrl()}/og/og-default.jpg`} />
         
         {/* Twitter Card tags */}
         <meta name="twitter:card" content="summary_large_image" />
