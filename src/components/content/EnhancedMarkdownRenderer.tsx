@@ -7,9 +7,10 @@ import rehypeSlug from 'rehype-slug';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeExternalLinks from 'rehype-external-links';
 import { cn } from '@/lib/utils';
-import { 
-  Callout, CodeBlock, Figure, FAQ, HowTo, KPI, CTABlock, VideoEmbed 
+import {
+  Callout, CodeBlock, Figure, FAQ, HowTo, KPI, CTABlock, VideoEmbed
 } from './ContentBlocks';
+import { getInternalLinkProps } from '@/constants/links';
 import { TableOfContents, ReadingProgressBar } from './TableOfContents';
 import { extractHeadings } from '@/utils/contentFormatter';
 
