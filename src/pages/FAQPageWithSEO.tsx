@@ -5,6 +5,7 @@ import { generateFAQSchema } from "@/content/faqs";
 import { driveFullName } from "@/content/drive";
 import { supabase } from "@/integrations/supabase/client";
 import { useI18n } from '@/i18n';
+import { createCanonicalUrl } from "@/utils/seoHelpers";
 import FAQs from "./FAQs";
 
 // Fallback schema
@@ -12,7 +13,7 @@ const fallbackFaqSchema = generateFAQSchema();
 
 const FAQPageWithSEO = () => {
   const location = useLocation();
-  const canonical = `https://kennedynespot.com${location.pathname}`;
+  const canonical = createCanonicalUrl(location.pathname);
   const [faqSchema, setFaqSchema] = useState(fallbackFaqSchema);
   const { language, t } = useI18n();
 
