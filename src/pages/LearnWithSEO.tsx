@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Learn from './Learn';
 import { StructuredData } from '@/components/StructuredData';
-import { createBreadcrumbSchema, createCanonicalUrl } from '@/utils/seoHelpers';
+import { createBreadcrumbSchema, createCanonicalUrl, getSiteUrl } from '@/utils/seoHelpers';
 
 export default function LearnWithSEO() {
   const canonical = createCanonicalUrl('/services/learn');
