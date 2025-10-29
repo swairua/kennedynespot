@@ -5,12 +5,26 @@ import { RiskDisclaimerBar } from "@/components/RiskDisclaimerBar";
 import { createCanonicalUrl } from "@/utils/seoHelpers";
 
 const AffiliateDisclosure = () => {
+  const affiliateSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Affiliate Disclosure",
+    "description": "Complete transparency about affiliate relationships and partnerships with trading brokers and service providers",
+    "url": createCanonicalUrl('/affiliate-disclosure'),
+    "publisher": {
+      "@type": "Organization",
+      "name": "KenneDyne spot"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEOHead
         title="Affiliate Disclosure | KenneDyne spot"
-        description="Affiliate relationship disclosure for KenneDyne spot"
+        description="Complete disclosure of affiliate relationships with trading brokers. Learn how we maintain transparency and editorial independence while funding free educational content."
+        keywords="affiliate disclosure, FTC compliance, transparent affiliate relationships, trading broker partnerships, sponsored links, editorial independence"
         canonical={createCanonicalUrl('/affiliate-disclosure')}
+        schema={affiliateSchema}
       />
       <Navigation />
       <main className="container mx-auto px-4 py-16 max-w-4xl">

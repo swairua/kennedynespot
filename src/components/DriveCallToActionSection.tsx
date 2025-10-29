@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Shield, Target } from "lucide-react";
-import { LINKS, getInternalLinkProps } from "@/constants/links";
+import { LINKS } from "@/constants/links";
 import { useI18n } from '@/i18n';
+import { Link } from "react-router-dom";
 
 export function DriveCallToActionSection() {
   const { t } = useI18n();
@@ -57,9 +58,9 @@ export function DriveCallToActionSection() {
 
           <div className="text-center">
             <Button size="lg" variant="hero" className="hover:scale-105 transition-transform duration-300" asChild>
-              <a {...getInternalLinkProps(LINKS.internal.learn)}>
+              <Link to={LINKS.internal.learn}>
                 {t('drive_cta_button')}
-              </a>
+              </Link>
             </Button>
           </div>
         </div>
