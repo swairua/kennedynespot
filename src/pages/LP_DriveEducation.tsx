@@ -222,13 +222,13 @@ const LP_DriveEducation = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="hero" size="lg" asChild>
-                  <a href="/services/learn">
+                  <a {...getInternalLinkProps(LINKS.internal.learn)}>
                     Start Free Education
                     <ArrowRight className="h-4 w-4 ml-2" />
                   </a>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <a href="/contact">Have Questions?</a>
+                  <a {...getInternalLinkProps(LINKS.internal.contact)}>Have Questions?</a>
                 </Button>
               </div>
             </div>
