@@ -32,7 +32,11 @@ export function HeroSection() {
     return () => clearInterval(id);
   }, [heroImages.length]);
 
+  // Preload next hero image to avoid flashing during transition
+  const nextImageIndex = (current + 1) % heroImages.length;
+
   return (
+    <>
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden" role="banner" aria-label="Hero section">
       {/* Enhanced Background with Premium Effects */}
       <div className="absolute inset-0 z-0">
@@ -126,5 +130,17 @@ export function HeroSection() {
         </div>
       </div>
     </section>
+      <Helmet>
+        {/* Preload next hero image to smooth transitions */}
+        <link rel="preload" as="image" href={heroImages[nextImageIndex]} />
+        {/* Prefetch other hero images for faster carousel transitions */}
+        {heroImages.map((img, idx) => {
+          if (idx !== current && idx !== nextImageIndex) {
+            return <link key={`prefetch-${idx}`} rel="prefetch" as="image" href={img} />;
+          }
+          return null;
+        })}
+      </Helmet>
+    </>
   );
 }
