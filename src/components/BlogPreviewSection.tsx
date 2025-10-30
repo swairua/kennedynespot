@@ -42,7 +42,12 @@ export function BlogPreviewSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchPosts();
+    // Defer fetch to after initial render to avoid blocking homepage
+    const timeoutId = setTimeout(() => {
+      fetchPosts();
+    }, 500);
+
+    return () => clearTimeout(timeoutId);
   }, [language]);
 
   const fetchPosts = async () => {
