@@ -6,6 +6,7 @@ import { QueryProvider } from './providers/QueryProvider';
 import './index.css';
 import { preloadCriticalResources, enableServiceWorker } from './utils/performanceOptimization';
 import { initializeConversionTracking } from './utils/enhancedConversionTracking';
+import { initializeAnimationDeferral } from './utils/deferredCSS';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Root element not found');
@@ -130,36 +131,64 @@ if (typeof window !== 'undefined') {
 
 // Initialize performance optimizations
 preloadCriticalResources();
+initializeAnimationDeferral();
+
 if (import.meta.env.PROD) {
   enableServiceWorker();
-} else if ('serviceWorker' in navigator) {
-  // Ensure no stale SW/caches in dev causing old bundles
+} else if ('serviceWorker' in navigator && import.meta.env.DEV) {
+  // In dev, only clean up service workers if doing a hard refresh
+  // to avoid breaking caching benefits during development
   navigator.serviceWorker.getRegistrations().then((regs) => {
-    regs.forEach((r) => r.unregister());
+    // Only unregister if there are multiple registrations (likely stale)
+    if (regs.length > 1) {
+      regs.forEach((r) => r.unregister());
+    }
+  }).catch(() => {
+    // Silently handle any service worker access errors
   });
-  if ('caches' in window) {
-    caches.keys().then((keys) => keys.forEach((k) => caches.delete(k)));
+}
+
+// Initialize Web Vitals measurement (deferred to avoid blocking initial render)
+if (typeof window !== 'undefined') {
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(() => {
+      import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
+        onCLS(console.log);
+        onFCP(console.log);
+        onLCP(console.log);
+        onTTFB(console.log);
+      });
+    }, { timeout: 3000 });
+  } else {
+    setTimeout(() => {
+      import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
+        onCLS(console.log);
+        onFCP(console.log);
+        onLCP(console.log);
+        onTTFB(console.log);
+      });
+    }, 1000);
   }
 }
 
-// Initialize Web Vitals measurement
+// Defer conversion tracking initialization
 if (typeof window !== 'undefined') {
-  import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
-    onCLS(console.log);
-    onFCP(console.log);
-    onLCP(console.log);
-    onTTFB(console.log);
-  });
-}
+  const initTracking = () => {
+    initializeConversionTracking({
+      googleAdsId: 'AW-123456789', // Replace with actual Google Ads ID
+      ga4Id: 'G-XXXXXXXXXX', // Replace with actual GA4 ID
+      gtmId: 'GTM-XXXXXXX', // Replace with actual GTM ID
+      facebookPixelId: '123456789012345', // Replace with actual Facebook Pixel ID
+      debug: false
+    });
+  };
 
-// Initialize conversion tracking
-initializeConversionTracking({
-  googleAdsId: 'AW-123456789', // Replace with actual Google Ads ID
-  ga4Id: 'G-XXXXXXXXXX', // Replace with actual GA4 ID
-  gtmId: 'GTM-XXXXXXX', // Replace with actual GTM ID
-  facebookPixelId: '123456789012345', // Replace with actual Facebook Pixel ID
-  debug: false
-});
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(initTracking, { timeout: 3000 });
+  } else {
+    setTimeout(initTracking, 1000);
+  }
+}
 
 createRoot(rootElement).render(
   <StrictMode>
