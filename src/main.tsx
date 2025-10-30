@@ -132,14 +132,17 @@ if (typeof window !== 'undefined') {
 preloadCriticalResources();
 if (import.meta.env.PROD) {
   enableServiceWorker();
-} else if ('serviceWorker' in navigator) {
-  // Ensure no stale SW/caches in dev causing old bundles
+} else if ('serviceWorker' in navigator && import.meta.env.DEV) {
+  // In dev, only clean up service workers if doing a hard refresh
+  // to avoid breaking caching benefits during development
   navigator.serviceWorker.getRegistrations().then((regs) => {
-    regs.forEach((r) => r.unregister());
+    // Only unregister if there are multiple registrations (likely stale)
+    if (regs.length > 1) {
+      regs.forEach((r) => r.unregister());
+    }
+  }).catch(() => {
+    // Silently handle any service worker access errors
   });
-  if ('caches' in window) {
-    caches.keys().then((keys) => keys.forEach((k) => caches.delete(k)));
-  }
 }
 
 // Initialize Web Vitals measurement (deferred to avoid blocking initial render)
