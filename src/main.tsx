@@ -142,24 +142,47 @@ if (import.meta.env.PROD) {
   }
 }
 
-// Initialize Web Vitals measurement
+// Initialize Web Vitals measurement (deferred to avoid blocking initial render)
 if (typeof window !== 'undefined') {
-  import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
-    onCLS(console.log);
-    onFCP(console.log);
-    onLCP(console.log);
-    onTTFB(console.log);
-  });
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(() => {
+      import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
+        onCLS(console.log);
+        onFCP(console.log);
+        onLCP(console.log);
+        onTTFB(console.log);
+      });
+    }, { timeout: 3000 });
+  } else {
+    setTimeout(() => {
+      import('web-vitals').then(({ onCLS, onFCP, onLCP, onTTFB }) => {
+        onCLS(console.log);
+        onFCP(console.log);
+        onLCP(console.log);
+        onTTFB(console.log);
+      });
+    }, 1000);
+  }
 }
 
-// Initialize conversion tracking
-initializeConversionTracking({
-  googleAdsId: 'AW-123456789', // Replace with actual Google Ads ID
-  ga4Id: 'G-XXXXXXXXXX', // Replace with actual GA4 ID
-  gtmId: 'GTM-XXXXXXX', // Replace with actual GTM ID
-  facebookPixelId: '123456789012345', // Replace with actual Facebook Pixel ID
-  debug: false
-});
+// Defer conversion tracking initialization
+if (typeof window !== 'undefined') {
+  const initTracking = () => {
+    initializeConversionTracking({
+      googleAdsId: 'AW-123456789', // Replace with actual Google Ads ID
+      ga4Id: 'G-XXXXXXXXXX', // Replace with actual GA4 ID
+      gtmId: 'GTM-XXXXXXX', // Replace with actual GTM ID
+      facebookPixelId: '123456789012345', // Replace with actual Facebook Pixel ID
+      debug: false
+    });
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(initTracking, { timeout: 3000 });
+  } else {
+    setTimeout(initTracking, 1000);
+  }
+}
 
 createRoot(rootElement).render(
   <StrictMode>
