@@ -131,6 +131,8 @@ if (typeof window !== 'undefined') {
 
 // Initialize performance optimizations
 preloadCriticalResources();
+initializeAnimationDeferral();
+
 if (import.meta.env.PROD) {
   enableServiceWorker();
 } else if ('serviceWorker' in navigator && import.meta.env.DEV) {
