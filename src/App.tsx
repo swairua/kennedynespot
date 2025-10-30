@@ -18,41 +18,49 @@ import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { CookieBanner } from "@/components/CookieBanner";
 import { BreadcrumbNavigation } from "@/components/BreadcrumbNavigation";
 import { StructuredData } from "@/components/StructuredData";
+import { lazy, Suspense } from "react";
 
-// Eagerly import all route components (no lazy loading)
-import Index from "./pages/IndexWithSEO";
-import Strategy from "./pages/StrategyWithSEO";
-import { ServicesWithSEO as Services } from "./pages/ServicesWithSEO";
-import FAQs from "./pages/FAQPageWithSEO";
-import Contact from "./pages/ContactWithSEO";
-import About from "./pages/About";
-import LearnWithSEO from "./pages/LearnWithSEO";
-import LP_MentorshipApply from "./pages/LP_MentorshipApply";
-import SignalsTools from "./pages/SignalsTools";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfUse from "./pages/TermsOfUse";
-import RiskDisclaimer from "./pages/RiskDisclaimer";
-import AffiliateDisclosure from "./pages/AffiliateDisclosure";
-import NotFound from "./pages/NotFound";
-import AdminImport from "./pages/AdminImport";
-import AdminLeadsEnhanced from "./pages/AdminLeadsEnhanced";
-import AdminPayments from "./pages/AdminPayments";
-import Resources from "./pages/ResourcesWithSEO";
-import CourseDetail from "./pages/CourseDetail";
-import LibraryAdminEnhanced from "./pages/LibraryAdminEnhanced";
-import BlogManagerEnhanced from "./pages/BlogManagerEnhanced";
-import BlogEditor from "./pages/BlogEditor";
-import BlogPublic from "./pages/BlogPublic";
-import BlogPost from "./pages/BlogPost";
-import FAQsManager from "./pages/FAQsManager";
-import UsersRolesManager from "./pages/UsersRolesManager";
-import SiteSettings from "./pages/SiteSettings";
-import Auth from "./pages/Auth";
-import AdminDashboard from "./pages/AdminDashboard";
-import { AdminLayout } from "./layouts/AdminLayout";
-import LP_DriveEducation from "./pages/LP_DriveEducation";
-import PlacementQuiz from "./pages/PlacementQuiz";
-import AdminTranslate from "./pages/AdminTranslate";
+// Loading fallback component
+const PageLoadingFallback = () => (
+  <div className="min-h-screen bg-background flex items-center justify-center">
+    <div className="text-muted-foreground">Loading...</div>
+  </div>
+);
+
+// Lazy load all route components for code splitting
+const Index = lazy(() => import("./pages/IndexWithSEO"));
+const Strategy = lazy(() => import("./pages/StrategyWithSEO"));
+const Services = lazy(() => import("./pages/ServicesWithSEO").then(m => ({ default: m.ServicesWithSEO })));
+const FAQs = lazy(() => import("./pages/FAQPageWithSEO"));
+const Contact = lazy(() => import("./pages/ContactWithSEO"));
+const About = lazy(() => import("./pages/About"));
+const LearnWithSEO = lazy(() => import("./pages/LearnWithSEO"));
+const LP_MentorshipApply = lazy(() => import("./pages/LP_MentorshipApply"));
+const SignalsTools = lazy(() => import("./pages/SignalsTools"));
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
+const TermsOfUse = lazy(() => import("./pages/TermsOfUse"));
+const RiskDisclaimer = lazy(() => import("./pages/RiskDisclaimer"));
+const AffiliateDisclosure = lazy(() => import("./pages/AffiliateDisclosure"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const AdminImport = lazy(() => import("./pages/AdminImport"));
+const AdminLeadsEnhanced = lazy(() => import("./pages/AdminLeadsEnhanced"));
+const AdminPayments = lazy(() => import("./pages/AdminPayments"));
+const Resources = lazy(() => import("./pages/ResourcesWithSEO"));
+const CourseDetail = lazy(() => import("./pages/CourseDetail"));
+const LibraryAdminEnhanced = lazy(() => import("./pages/LibraryAdminEnhanced"));
+const BlogManagerEnhanced = lazy(() => import("./pages/BlogManagerEnhanced"));
+const BlogEditor = lazy(() => import("./pages/BlogEditor"));
+const BlogPublic = lazy(() => import("./pages/BlogPublic"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const FAQsManager = lazy(() => import("./pages/FAQsManager"));
+const UsersRolesManager = lazy(() => import("./pages/UsersRolesManager"));
+const SiteSettings = lazy(() => import("./pages/SiteSettings"));
+const Auth = lazy(() => import("./pages/Auth"));
+const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const AdminLayout = lazy(() => import("./layouts/AdminLayout").then(m => ({ default: m.AdminLayout })));
+const LP_DriveEducation = lazy(() => import("./pages/LP_DriveEducation"));
+const PlacementQuiz = lazy(() => import("./pages/PlacementQuiz"));
+const AdminTranslate = lazy(() => import("./pages/AdminTranslate"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
