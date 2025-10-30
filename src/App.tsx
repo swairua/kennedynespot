@@ -125,65 +125,67 @@ function App() {
                     <ScrollToTop />
                     <AnalyticsProvider />
                     <BreadcrumbNavigation />
-                    <Routes>
-                      <Route path="/_health" element={<HealthCheck />} />
-                      <Route path="/" element={<Index />} />
-                      <Route path="/about" element={<About />} />
-                      <Route path="/strategy" element={<Strategy />} />
-                      <Route path="/services" element={<Services />} />
-                      <Route path="/services/learn" element={<LearnWithSEO />} />
-                      <Route path="/learn" element={<Navigate to="/services/learn" replace />} />
-                      <Route path="/mentorship" element={<LP_MentorshipApply />} />
-                      <Route path="/signals-tools" element={<SignalsTools />} />
-                      <Route path="/blog" element={<BlogPublic />} />
-                      <Route path="/blog/:slug" element={<BlogPost />} />
-                      <Route path="/faqs" element={<FAQs />} />
-                      <Route path="/contact" element={<Contact />} />
-                      <Route path="/resources" element={<Resources />} />
-                      <Route path="/courses/:slug" element={<CourseDetail />} />
-                      <Route path="/courses" element={<Navigate to="/resources#courses" replace />} />
-                      <Route path="/lp/drive-education" element={<LP_DriveEducation />} />
-                      <Route path="/lp/mentorship-apply" element={<Navigate to="/mentorship" replace />} />
-                      <Route path="/placement-quiz" element={<PlacementQuiz />} />
-                      <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-                      <Route path="/terms-of-use" element={<TermsOfUse />} />
-                      <Route path="/risk-disclaimer" element={<RiskDisclaimer />} />
-                      <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
+                    <Suspense fallback={<PageLoadingFallback />}>
+                      <Routes>
+                        <Route path="/_health" element={<HealthCheck />} />
+                        <Route path="/" element={<Index />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/strategy" element={<Strategy />} />
+                        <Route path="/services" element={<Services />} />
+                        <Route path="/services/learn" element={<LearnWithSEO />} />
+                        <Route path="/learn" element={<Navigate to="/services/learn" replace />} />
+                        <Route path="/mentorship" element={<LP_MentorshipApply />} />
+                        <Route path="/signals-tools" element={<SignalsTools />} />
+                        <Route path="/blog" element={<BlogPublic />} />
+                        <Route path="/blog/:slug" element={<BlogPost />} />
+                        <Route path="/faqs" element={<FAQs />} />
+                        <Route path="/contact" element={<Contact />} />
+                        <Route path="/resources" element={<Resources />} />
+                        <Route path="/courses/:slug" element={<CourseDetail />} />
+                        <Route path="/courses" element={<Navigate to="/resources#courses" replace />} />
+                        <Route path="/lp/drive-education" element={<LP_DriveEducation />} />
+                        <Route path="/lp/mentorship-apply" element={<Navigate to="/mentorship" replace />} />
+                        <Route path="/placement-quiz" element={<PlacementQuiz />} />
+                        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                        <Route path="/terms-of-use" element={<TermsOfUse />} />
+                        <Route path="/risk-disclaimer" element={<RiskDisclaimer />} />
+                        <Route path="/affiliate-disclosure" element={<AffiliateDisclosure />} />
 
-                      <Route path="/admin" element={
-                        <RequireRoles roles={['admin', 'super_admin']}>
-                          <AdminLayout />
-                        </RequireRoles>
-                      }>
-                        <Route index element={<AdminDashboard />} />
-                        <Route path="blog" element={<BlogManagerEnhanced />} />
-                        <Route path="blog/:id" element={<BlogEditor />} />
-                        <Route path="faqs" element={<FAQsManager />} />
-                        <Route path="users-roles" element={
-                          <RequireRoles roles={['super_admin']}>
-                            <UsersRolesManager />
+                        <Route path="/admin" element={
+                          <RequireRoles roles={['admin', 'super_admin']}>
+                            <AdminLayout />
                           </RequireRoles>
-                        } />
-                        <Route path="settings" element={<SiteSettings />} />
-                        <Route path="library" element={<LibraryAdminEnhanced />} />
-                        <Route path="leads" element={<AdminLeadsEnhanced />} />
-                        <Route path="import" element={
-                          <RequireRoles roles={['super_admin']}>
-                            <AdminImport />
-                          </RequireRoles>
-                        } />
-                        <Route path="payments" element={<AdminPayments />} />
-                        <Route path="translate" element={
-                          <RequireRoles roles={['super_admin']}>
-                            <AdminTranslate />
-                          </RequireRoles>
-                        } />
-                      </Route>
+                        }>
+                          <Route index element={<AdminDashboard />} />
+                          <Route path="blog" element={<BlogManagerEnhanced />} />
+                          <Route path="blog/:id" element={<BlogEditor />} />
+                          <Route path="faqs" element={<FAQsManager />} />
+                          <Route path="users-roles" element={
+                            <RequireRoles roles={['super_admin']}>
+                              <UsersRolesManager />
+                            </RequireRoles>
+                          } />
+                          <Route path="settings" element={<SiteSettings />} />
+                          <Route path="library" element={<LibraryAdminEnhanced />} />
+                          <Route path="leads" element={<AdminLeadsEnhanced />} />
+                          <Route path="import" element={
+                            <RequireRoles roles={['super_admin']}>
+                              <AdminImport />
+                            </RequireRoles>
+                          } />
+                          <Route path="payments" element={<AdminPayments />} />
+                          <Route path="translate" element={
+                            <RequireRoles roles={['super_admin']}>
+                              <AdminTranslate />
+                            </RequireRoles>
+                          } />
+                        </Route>
 
-                      <Route path="/auth" element={<Auth />} />
-                      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                      <Route path="*" element={<NotFound />} />
-                    </Routes>
+                        <Route path="/auth" element={<Auth />} />
+                        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                        <Route path="*" element={<NotFound />} />
+                      </Routes>
+                    </Suspense>
                   </Router>
                 </AppErrorBoundary>
               </AuthProvider>
