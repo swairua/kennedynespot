@@ -6,6 +6,7 @@ import { QueryProvider } from './providers/QueryProvider';
 import './index.css';
 import { preloadCriticalResources, enableServiceWorker } from './utils/performanceOptimization';
 import { initializeConversionTracking } from './utils/enhancedConversionTracking';
+import { initializeAnimationDeferral } from './utils/deferredCSS';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Root element not found');
