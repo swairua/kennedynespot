@@ -18,49 +18,50 @@ export function AnalyticsProvider() {
   useEffect(() => {
     if (loading || !settings?.ga4_id || shouldSkipAnalytics) return;
 
-    // Initialize Google Consent Mode v2 BEFORE loading Analytics (default to denied)
-    const consentScript = document.createElement('script');
-    consentScript.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        analytics_storage: 'denied',
-        ad_storage: 'denied',
-        functionality_storage: 'denied',
-        personalization_storage: 'denied',
-        security_storage: 'granted',
-        wait_for_update: 2000,
-      });
-    `;
-    document.head.appendChild(consentScript);
+    // Defer analytics initialization to after initial render
+    const injectAnalytics = () => {
+      // Initialize Google Consent Mode v2 BEFORE loading Analytics (default to denied)
+      const consentScript = document.createElement('script');
+      consentScript.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('consent', 'default', {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 2000,
+        });
+      `;
+      document.head.appendChild(consentScript);
 
-    // Google Analytics 4 script
-    const script1 = document.createElement('script');
-    script1.async = true;
-    script1.src = `https://www.googletagmanager.com/gtag/js?id=${settings.ga4_id}`;
-    document.head.appendChild(script1);
+      // Google Analytics 4 script
+      const script1 = document.createElement('script');
+      script1.async = true;
+      script1.src = `https://www.googletagmanager.com/gtag/js?id=${settings.ga4_id}`;
+      document.head.appendChild(script1);
 
-    const script2 = document.createElement('script');
-    script2.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${settings.ga4_id}', {
-        anonymize_ip: true,
-        cookie_flags: 'SameSite=Strict;Secure'
-      });
-    `;
-    document.head.appendChild(script2);
-
-    return () => {
-      try {
-        document.head.removeChild(consentScript);
-        document.head.removeChild(script1);
-        document.head.removeChild(script2);
-      } catch (e) {
-        // Scripts might already be removed
-      }
+      const script2 = document.createElement('script');
+      script2.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${settings.ga4_id}', {
+          anonymize_ip: true,
+          cookie_flags: 'SameSite=Strict;Secure'
+        });
+      `;
+      document.head.appendChild(script2);
     };
+
+    // Use requestIdleCallback to defer analytics after initial render
+    if ('requestIdleCallback' in window) {
+      window.requestIdleCallback(injectAnalytics, { timeout: 5000 });
+    } else {
+      // Fallback: defer using setTimeout
+      setTimeout(injectAnalytics, 500);
+    }
   }, [settings?.ga4_id, loading, shouldSkipAnalytics]);
 
   // Track SPA page views on route changes
