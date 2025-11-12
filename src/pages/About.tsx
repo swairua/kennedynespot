@@ -1,11 +1,20 @@
 import { Footer } from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LINKS, getExternalLinkProps } from "@/constants/links";
 import { useI18n } from '@/i18n';
 import { Navigation } from '@/components/Navigation';
+import { SEOHead } from "@/components/SEOHead";
+import { createCanonicalUrl, createBreadcrumbSchema } from "@/utils/seoHelpers";
 
 export default function About() {
   const { t } = useI18n();
+  const location = useLocation();
+  const canonical = createCanonicalUrl(location.pathname);
+
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About", url: canonical }
+  ]);
 
   return (
     <div className="min-h-screen bg-background">
