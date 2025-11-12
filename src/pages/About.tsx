@@ -1,14 +1,30 @@
 import { Footer } from "@/components/Footer";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LINKS, getExternalLinkProps } from "@/constants/links";
 import { useI18n } from '@/i18n';
 import { Navigation } from '@/components/Navigation';
+import { SEOHead } from "@/components/SEOHead";
+import { createCanonicalUrl, createBreadcrumbSchema } from "@/utils/seoHelpers";
 
 export default function About() {
   const { t } = useI18n();
+  const location = useLocation();
+  const canonical = createCanonicalUrl(location.pathname);
+
+  const breadcrumbSchema = createBreadcrumbSchema([
+    { name: "Home", url: "/" },
+    { name: "About", url: canonical }
+  ]);
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="About KenneDyne spot | Professional Trading Education"
+        description="Learn about KenneDyne spot, our mission to provide professional forex trading education, risk management expertise, and the D.R.I.V.E Framework. Founded by traders for traders."
+        keywords="about KenneDyne spot, forex education founder, trading mentorship, professional trading education, forex strategy"
+        canonical={canonical}
+        schema={breadcrumbSchema}
+      />
       <Navigation />
 
       <main id="main" className="py-16 md:py-20">
