@@ -47,6 +47,7 @@ Disallow: /
 Crawl-delay: 1
 Request-rate: 30/60
 
-# Sitemap location
+# Sitemap locations
+Sitemap: https://kennedynespot.com/sitemap-index.xml
 Sitemap: https://kennedynespot.com/sitemap.xml
 Sitemap: https://kennedynespot.com/sitemap-blog.xml
