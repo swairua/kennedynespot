@@ -1,31 +1,52 @@
 User-agent: *
 Allow: /
 
-# Important pages for SEO
-Allow: /about
-Allow: /learn
-Allow: /mentorship
-Allow: /strategy
-Allow: /services
-Allow: /blog
-Allow: /contact
-Allow: /faqs
-Allow: /resources
-# Landing pages
-Allow: /lp/drive-education
-Allow: /lp/mentorship-apply
-
-# Admin and private areas
+# Disallow admin and authentication areas
 Disallow: /admin
 Disallow: /auth
 Disallow: /_health
 
-# Prevent crawling of dynamic parameters
-Disallow: /*?
-Disallow: /*&
+# Disallow duplicate content parameters
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /*?*page=*&
+Disallow: /*?*redirect=
 
-# Sitemap location
-Sitemap: https://kennedynespot.com/sitemap.xml
+# Allow static assets and resources
+Allow: *.css$
+Allow: *.js$
+Allow: *.jpg$
+Allow: *.jpeg$
+Allow: *.png$
+Allow: *.gif$
+Allow: *.svg$
+Allow: *.webp$
+Allow: *.woff$
+Allow: *.woff2$
+Allow: /sitemap.xml$
+
+# Specific crawler rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+Disallow: /
 
 # Crawl delay for respectful crawling
 Crawl-delay: 1
+Request-rate: 30/60
+
+# Sitemap location
+Sitemap: https://kennedynespot.com/sitemap.xml
+Sitemap: https://kennedynespot.com/sitemap-blog.xml
