@@ -18,6 +18,13 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEOHead
+        title="About KenneDyne spot | Professional Trading Education"
+        description="Learn about KenneDyne spot, our mission to provide professional forex trading education, risk management expertise, and the D.R.I.V.E Framework. Founded by traders for traders."
+        keywords="about KenneDyne spot, forex education founder, trading mentorship, professional trading education, forex strategy"
+        canonical={canonical}
+        schema={breadcrumbSchema}
+      />
       <Navigation />
 
       <main id="main" className="py-16 md:py-20">
