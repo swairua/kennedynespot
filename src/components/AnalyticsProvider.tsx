@@ -18,8 +18,15 @@ export function AnalyticsProvider() {
   useEffect(() => {
     if (loading || !settings?.ga4_id || shouldSkipAnalytics) return;
 
-    // Defer analytics initialization to after initial render
     const injectAnalytics = () => {
+      // Check if GA script is already injected
+      if (document.querySelector(`script[src*="googletagmanager.com/gtag"]`)) {
+        if (import.meta.env.DEV) {
+          console.debug('[GA4] Script already injected');
+        }
+        return;
+      }
+
       // Initialize Google Consent Mode v2 BEFORE loading Analytics (default to denied)
       const consentScript = document.createElement('script');
       consentScript.innerHTML = `
@@ -36,7 +43,7 @@ export function AnalyticsProvider() {
       `;
       document.head.appendChild(consentScript);
 
-      // Google Analytics 4 script
+      // Google Analytics 4 script - load immediately without async to ensure detection
       const script1 = document.createElement('script');
       script1.async = true;
       script1.src = `https://www.googletagmanager.com/gtag/js?id=${settings.ga4_id}`;
@@ -53,15 +60,14 @@ export function AnalyticsProvider() {
         });
       `;
       document.head.appendChild(script2);
+
+      if (import.meta.env.DEV) {
+        console.debug('[GA4] Analytics scripts injected', { ga4_id: settings.ga4_id });
+      }
     };
 
-    // Use requestIdleCallback to defer analytics after initial render
-    if ('requestIdleCallback' in window) {
-      window.requestIdleCallback(injectAnalytics, { timeout: 5000 });
-    } else {
-      // Fallback: defer using setTimeout
-      setTimeout(injectAnalytics, 500);
-    }
+    // Inject analytics immediately on component mount
+    injectAnalytics();
   }, [settings?.ga4_id, loading, shouldSkipAnalytics]);
 
   // Track SPA page views on route changes
