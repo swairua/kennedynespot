@@ -18,55 +18,50 @@ export function AnalyticsProvider() {
   useEffect(() => {
     if (loading || !settings?.ga4_id || shouldSkipAnalytics) return;
 
-    const injectAnalytics = () => {
-      // Check if GA script is already injected
-      if (document.querySelector(`script[src*="googletagmanager.com/gtag"]`)) {
-        if (import.meta.env.DEV) {
-          console.debug('[GA4] Script already injected');
-        }
-        return;
+    // Check if GA is already initialized (likely from main.tsx)
+    if (typeof window !== 'undefined' && window.gtag && typeof window.gtag === 'function') {
+      if (import.meta.env.DEV) {
+        console.debug('[GA4] Already initialized in main.tsx');
       }
+      return;
+    }
 
-      // Initialize Google Consent Mode v2 BEFORE loading Analytics (default to denied)
-      const consentScript = document.createElement('script');
-      consentScript.innerHTML = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('consent', 'default', {
-          analytics_storage: 'denied',
-          ad_storage: 'denied',
-          functionality_storage: 'denied',
-          personalization_storage: 'denied',
-          security_storage: 'granted',
-          wait_for_update: 2000,
-        });
-      `;
-      document.head.appendChild(consentScript);
+    const injectAnalytics = () => {
+      // Initialize dataLayer and gtag function
+      window.dataLayer = window.dataLayer || [];
+      function gtag(...args: any[]) {
+        window.dataLayer.push(args);
+      }
+      window.gtag = gtag;
 
-      // Google Analytics 4 script - load immediately without async to ensure detection
-      const script1 = document.createElement('script');
-      script1.async = true;
-      script1.src = `https://www.googletagmanager.com/gtag/js?id=${settings.ga4_id}`;
-      document.head.appendChild(script1);
+      // Initialize Google Consent Mode v2 BEFORE loading Analytics
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 2000,
+      });
 
-      const script2 = document.createElement('script');
-      script2.innerHTML = `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', '${settings.ga4_id}', {
-          anonymize_ip: true,
-          cookie_flags: 'SameSite=Strict;Secure'
-        });
-      `;
-      document.head.appendChild(script2);
+      gtag('js', new Date());
+      gtag('config', settings.ga4_id, {
+        anonymize_ip: true,
+        cookie_flags: 'SameSite=Strict;Secure'
+      });
+
+      // Google Analytics 4 script
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${settings.ga4_id}`;
+      document.head.appendChild(script);
 
       if (import.meta.env.DEV) {
-        console.debug('[GA4] Analytics scripts injected', { ga4_id: settings.ga4_id });
+        console.debug('[GA4] Analytics scripts injected as fallback', { ga4_id: settings.ga4_id });
       }
     };
 
-    // Inject analytics immediately on component mount
+    // Inject analytics as fallback
     injectAnalytics();
   }, [settings?.ga4_id, loading, shouldSkipAnalytics]);
 
