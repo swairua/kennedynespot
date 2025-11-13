@@ -171,13 +171,58 @@ if (typeof window !== 'undefined') {
   }
 }
 
+// Initialize Google Analytics early, before React render
+if (typeof window !== 'undefined' && import.meta.env.VITE_GA_MEASUREMENT_ID) {
+  const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
+
+  // Initialize dataLayer and gtag function
+  window.dataLayer = window.dataLayer || [];
+  function gtag(...args: any[]) {
+    window.dataLayer.push(args);
+  }
+  window.gtag = gtag;
+
+  // Set up Google Consent Mode v2 before loading GA
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    functionality_storage: 'denied',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    wait_for_update: 2000,
+  });
+
+  gtag('js', new Date());
+  gtag('config', gaId, {
+    anonymize_ip: true,
+    cookie_flags: 'SameSite=Strict;Secure'
+  });
+
+  // Load Google Analytics script
+  const gaScript = document.createElement('script');
+  gaScript.async = true;
+  gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+  document.head.appendChild(gaScript);
+
+  if (import.meta.env.DEV) {
+    console.debug('[GA4] Initialized in main.tsx', { gaId });
+  }
+}
+
+declare global {
+  interface Window {
+    gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
+  }
+}
+
 // Defer conversion tracking initialization
 if (typeof window !== 'undefined') {
   const initTracking = () => {
     initializeConversionTracking({
       googleAdsId: 'AW-123456789', // Replace with actual Google Ads ID
-      ga4Id: 'G-XXXXXXXXXX', // Replace with actual GA4 ID
-      gtmId: 'GTM-XXXXXXX', // Replace with actual GTM ID
+      ga4Id: import.meta.env.VITE_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX',
+      gtmId: import.meta.env.VITE_GTM_ID || 'GTM-XXXXXXX',
       facebookPixelId: '123456789012345', // Replace with actual Facebook Pixel ID
       debug: false
     });
