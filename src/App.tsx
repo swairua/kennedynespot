@@ -120,6 +120,7 @@ function App() {
                   <SkipToContent />
                   <PerformanceMonitor />
                   <CookieBanner />
+                  <GAStatusIndicator />
                   <Toaster />
                   <Sonner />
                   <StructuredData />
