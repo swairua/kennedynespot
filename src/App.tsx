@@ -129,6 +129,7 @@ function App() {
                     <Suspense fallback={<PageLoadingFallback />}>
                       <Routes>
                         <Route path="/_health" element={<HealthCheck />} />
+                        <Route path="/debug/ga" element={<DebugGA />} />
                         <Route path="/" element={<Index />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/strategy" element={<Strategy />} />
