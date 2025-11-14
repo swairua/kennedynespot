@@ -251,7 +251,7 @@ export const defaultContent: SiteContent = {
         description: "Master the core principles of the DRIVE trading strategy with our comprehensive fundamentals course.",
         level: "Beginner" as const,
         tags: ["DRIVE", "Trading", "Fundamentals"],
-        coverImage: "/lovable-uploads/trading-strategy.jpg",
+        coverImage: "/assets/uploads/trading-strategy.jpg",
         url: "/courses/drive-fundamentals",
         slug: "drive-fundamentals",
         createdAt: new Date().toISOString(),
@@ -266,7 +266,7 @@ export const defaultContent: SiteContent = {
         author: "KenneDyne spot",
         pages: 45,
         tags: ["Risk Management", "Capital Protection"],
-        coverImage: "/lovable-uploads/risk-management.jpg",
+        coverImage: "/assets/uploads/risk-management.jpg",
         downloadUrl: "/downloads/risk-management-essentials.pdf",
         slug: "risk-management-essentials",
         createdAt: new Date().toISOString(),
@@ -282,7 +282,7 @@ export const defaultContent: SiteContent = {
         topic: "Psychology",
         level: "Intermediate" as const,
         tags: ["Psychology", "Reference", "Quick Guide"],
-        coverImage: "/lovable-uploads/market-psychology.jpg",
+        coverImage: "/assets/uploads/market-psychology.jpg",
         url: "/materials/market-psychology-sheet.pdf",
         slug: "market-psychology-cheat-sheet",
         createdAt: new Date().toISOString(),
@@ -508,7 +508,7 @@ export const defaultContent: SiteContent = {
   },
   seo: {
     title: "KenneDyne spot | Forex Education & DRIVE Strategy",
-    description: "Master professional trading with education-first forex programs, systematic DRIVE strategy, risk management, and expert mentorship. No hype—just education and discipline.",
+    description: "Master professional trading with education-first forex programs, systematic DRIVE strategy, risk management, and expert mentorship. No hype��just education and discipline.",
     keywords: "forex education, trading education, DRIVE strategy, risk management, trading mentorship, professional trading"
   },
   pages: {
