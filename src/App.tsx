@@ -13,6 +13,7 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { GTMProvider } from "@/components/GTMProvider";
 import { useSiteSettingsFixed } from "@/hooks/useSiteSettingsFixed";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
+import { GAStatusIndicator } from "@/components/GAStatusIndicator";
 import { AuthProvider } from "@/hooks/useAuth";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { CookieBanner } from "@/components/CookieBanner";
