@@ -1,1 +1,8 @@
+# Legacy lovable-uploads redirects to new assets folder (301 permanent redirects for SEO)
+/lovable-uploads/trading-strategy.jpg /assets/uploads/trading-strategy.jpg 301
+/lovable-uploads/risk-management.jpg /assets/uploads/risk-management.jpg 301
+/lovable-uploads/market-psychology.jpg /assets/uploads/market-psychology.jpg 301
+/lovable-uploads/44457015-9ffc-4fd0-aa79-f0ee6e96d794.png /assets/uploads/44457015-9ffc-4fd0-aa79-f0ee6e96d794.png 301
+
+# Catch-all SPA redirect
 /* /index.html 200
