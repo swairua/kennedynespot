@@ -383,7 +383,7 @@ export const defaultContent: SiteContent = {
       {
         title: "How DRIVE Strategy Transforms Trading",
         excerpt: "Discover how our systematic 5-step framework helps traders make disciplined, profitable decisions in any market condition.",
-        image: "/lovable-uploads/trading-strategy.jpg",
+        image: "/assets/forex-strategy-service.jpg",
         imageAlt: "Professional trader analyzing charts using the DRIVE strategy framework for systematic trading decisions",
         slug: "drive-strategy-framework",
         category: "Strategy",
@@ -393,7 +393,7 @@ export const defaultContent: SiteContent = {
       {
         title: "Risk Management Fundamentals", 
         excerpt: "Master the essential principles of capital preservation and position sizing that separate professional traders from retail gamblers.",
-        image: "/lovable-uploads/risk-management.jpg",
+        image: "/assets/forex-risk-service.jpg",
         imageAlt: "Risk management dashboard showing position sizing calculations and capital preservation strategies",
         slug: "risk-management-basics",
         category: "Risk Management",
@@ -403,7 +403,7 @@ export const defaultContent: SiteContent = {
       {
         title: "Building Trading Discipline",
         excerpt: "Learn practical techniques to develop the mental fortitude and emotional control required for consistent trading success.",
-        image: "/lovable-uploads/market-psychology.jpg",
+        image: "/assets/trading-workspace.jpg",
         imageAlt: "Professional trading workspace demonstrating disciplined trading psychology and systematic approach",
         slug: "trading-psychology-discipline",
         category: "Psychology",
