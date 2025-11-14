@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { ImageInput } from '@/components/ui/image-input';
 import { supabase } from '@/integrations/supabase/client';
 import { getSiteContent, updateSiteContent } from '@/content/siteContent';
+import { GAStatusCheck } from '@/components/GAStatusCheck';
 
 const SiteSettings = () => {
   const { toast } = useToast();
