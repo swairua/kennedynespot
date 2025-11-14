@@ -660,46 +660,56 @@ const SiteSettings = () => {
                 Configure analytics and tracking codes
               </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="googleAnalyticsId">Google Analytics ID</Label>
-                  <Input
-                    id="googleAnalyticsId"
-                    value={analytics.googleAnalyticsId}
-                    onChange={(e) => setAnalytics(prev => ({ ...prev, googleAnalyticsId: e.target.value }))}
-                    placeholder="GA-XXXXXXXXX-X"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="googleTagManagerId">Google Tag Manager ID</Label>
-                  <Input
-                    id="googleTagManagerId"
-                    value={analytics.googleTagManagerId}
-                    onChange={(e) => setAnalytics(prev => ({ ...prev, googleTagManagerId: e.target.value }))}
-                    placeholder="GTM-XXXXXXX"
-                  />
-                </div>
+            <CardContent className="space-y-6">
+              <div>
+                <h3 className="text-sm font-semibold mb-3">Google Analytics Status</h3>
+                <GAStatusCheck />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="facebookPixelId">Facebook Pixel ID</Label>
-                  <Input
-                    id="facebookPixelId"
-                    value={analytics.facebookPixelId}
-                    onChange={(e) => setAnalytics(prev => ({ ...prev, facebookPixelId: e.target.value }))}
-                    placeholder="123456789012345"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="hotjarId">Hotjar Site ID</Label>
-                  <Input
-                    id="hotjarId"
-                    value={analytics.hotjarId}
-                    onChange={(e) => setAnalytics(prev => ({ ...prev, hotjarId: e.target.value }))}
-                    placeholder="1234567"
-                  />
+              <div className="border-t pt-6">
+                <h3 className="text-sm font-semibold mb-4">Tracking IDs</h3>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="googleAnalyticsId">Google Analytics ID</Label>
+                      <Input
+                        id="googleAnalyticsId"
+                        value={analytics.googleAnalyticsId}
+                        onChange={(e) => setAnalytics(prev => ({ ...prev, googleAnalyticsId: e.target.value }))}
+                        placeholder="GA-XXXXXXXXX-X"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="googleTagManagerId">Google Tag Manager ID</Label>
+                      <Input
+                        id="googleTagManagerId"
+                        value={analytics.googleTagManagerId}
+                        onChange={(e) => setAnalytics(prev => ({ ...prev, googleTagManagerId: e.target.value }))}
+                        placeholder="GTM-XXXXXXX"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="facebookPixelId">Facebook Pixel ID</Label>
+                      <Input
+                        id="facebookPixelId"
+                        value={analytics.facebookPixelId}
+                        onChange={(e) => setAnalytics(prev => ({ ...prev, facebookPixelId: e.target.value }))}
+                        placeholder="123456789012345"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="hotjarId">Hotjar Site ID</Label>
+                      <Input
+                        id="hotjarId"
+                        value={analytics.hotjarId}
+                        onChange={(e) => setAnalytics(prev => ({ ...prev, hotjarId: e.target.value }))}
+                        placeholder="1234567"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
