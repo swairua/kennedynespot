@@ -15,7 +15,6 @@ export function GAStatusCheck() {
   const [details, setDetails] = useState<string>('');
 
   useEffect(() => {
-    // Check GA status
     const checkGAStatus = () => {
       const envGaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
       setGaId(envGaId || 'Not configured');
@@ -26,12 +25,10 @@ export function GAStatusCheck() {
         return;
       }
 
-      // Check if gtag is available
       if (typeof window !== 'undefined' && window.gtag && typeof window.gtag === 'function') {
         setStatus('success');
         setDetails(`GA4 initialized successfully. GA ID: ${envGaId}`);
       } else {
-        // Wait a moment for gtag to load from the script
         setTimeout(() => {
           if (typeof window !== 'undefined' && window.gtag && typeof window.gtag === 'function') {
             setStatus('success');
@@ -51,24 +48,30 @@ export function GAStatusCheck() {
     <div className="space-y-3">
       {status === 'loading' && (
         <Alert>
-          <Loader className="h-4 w-4 animate-spin" />
-          <AlertDescription>Checking GA status...</AlertDescription>
+          <div className="flex items-center gap-2">
+            <Loader className="h-4 w-4 animate-spin" />
+            <AlertDescription>Checking GA status...</AlertDescription>
+          </div>
         </Alert>
       )}
 
       {status === 'success' && (
         <Alert className="border-green-200 bg-green-50 dark:bg-green-950 dark:border-green-800">
-          <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
-          <AlertDescription className="text-green-800 dark:text-green-200">
-            ✓ Google Analytics is working correctly
-          </AlertDescription>
+          <div className="flex items-center gap-2">
+            <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+            <AlertDescription className="text-green-800 dark:text-green-200">
+              Google Analytics is working correctly
+            </AlertDescription>
+          </div>
         </Alert>
       )}
 
       {status === 'error' && (
         <Alert variant="destructive">
-          <AlertCircle className="h-4 w-4" />
-          <AlertDescription>{details}</AlertDescription>
+          <div className="flex items-center gap-2">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{details}</AlertDescription>
+          </div>
         </Alert>
       )}
 
@@ -78,7 +81,7 @@ export function GAStatusCheck() {
           <code className="ml-2 bg-background px-2 py-1 rounded text-xs">{gaId}</code>
         </div>
         {details && (
-          <div className="text-muted-foreground">{details}</div>
+          <div className="text-muted-foreground text-xs">{details}</div>
         )}
       </div>
 
