@@ -343,9 +343,9 @@ export default function BlogManagerEnhanced() {
 
       // Featured images by category
       const featuredImages = {
-        'Education': '/lovable-uploads/trading-strategy.jpg',
-        'Risk Management': '/lovable-uploads/risk-management.jpg',
-        'Psychology': '/lovable-uploads/market-psychology.jpg'
+        'Education': '/assets/forex-strategy-service.jpg',
+        'Risk Management': '/assets/forex-risk-service.jpg',
+        'Psychology': '/assets/trading-workspace.jpg'
       };
 
       // Get or create categories

@@ -304,7 +304,7 @@ export default function Resources() {
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 hero-image">
           <img
-            src="/src/assets/education-hero.jpg"
+            src="/assets/education-hero.jpg"
             alt={t('resources_hero_image_alt')}
             className="w-full h-full object-cover"
 
