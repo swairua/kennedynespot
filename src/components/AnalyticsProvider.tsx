@@ -1,74 +1,23 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSiteSettingsFixed } from '@/hooks/useSiteSettingsFixed';
 
 declare global {
   interface Window {
     gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
   }
 }
 
 export function AnalyticsProvider() {
-  const { settings, loading } = useSiteSettingsFixed();
   const location = useLocation();
 
   // Skip analytics for health endpoints
   const shouldSkipAnalytics = location.pathname === '/_health';
 
-  useEffect(() => {
-    if (loading || !settings?.ga4_id || shouldSkipAnalytics) return;
-
-    // Check if GA is already initialized (likely from main.tsx)
-    if (typeof window !== 'undefined' && window.gtag && typeof window.gtag === 'function') {
-      if (import.meta.env.DEV) {
-        console.debug('[GA4] Already initialized in main.tsx');
-      }
-      return;
-    }
-
-    const injectAnalytics = () => {
-      // Initialize dataLayer and gtag function
-      window.dataLayer = window.dataLayer || [];
-      function gtag(...args: any[]) {
-        window.dataLayer.push(args);
-      }
-      window.gtag = gtag;
-
-      // Initialize Google Consent Mode v2 BEFORE loading Analytics
-      gtag('consent', 'default', {
-        analytics_storage: 'denied',
-        ad_storage: 'denied',
-        functionality_storage: 'denied',
-        personalization_storage: 'denied',
-        security_storage: 'granted',
-        wait_for_update: 2000,
-      });
-
-      gtag('js', new Date());
-      gtag('config', settings.ga4_id, {
-        anonymize_ip: true,
-        cookie_flags: 'SameSite=Strict;Secure'
-      });
-
-      // Google Analytics 4 script
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${settings.ga4_id}`;
-      document.head.appendChild(script);
-
-      if (import.meta.env.DEV) {
-        console.debug('[GA4] Analytics scripts injected as fallback', { ga4_id: settings.ga4_id });
-      }
-    };
-
-    // Inject analytics as fallback
-    injectAnalytics();
-  }, [settings?.ga4_id, loading, shouldSkipAnalytics]);
-
   // Track SPA page views on route changes
+  // GA is already initialized in main.tsx via environment variable VITE_GA_MEASUREMENT_ID
   useEffect(() => {
-    if (loading || !settings?.ga4_id || shouldSkipAnalytics) return;
-    const id = settings.ga4_id;
+    if (shouldSkipAnalytics) return;
 
     const track = () => {
       if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
@@ -86,9 +35,7 @@ export function AnalyticsProvider() {
     };
 
     track();
-
-    // Optionally, you could return nothing here as we only fire on change
-  }, [location.pathname, settings?.ga4_id, loading, shouldSkipAnalytics]);
+  }, [location.pathname, shouldSkipAnalytics]);
 
   return null;
 }
