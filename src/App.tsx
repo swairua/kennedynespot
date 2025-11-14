@@ -13,6 +13,7 @@ import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { GTMProvider } from "@/components/GTMProvider";
 import { useSiteSettingsFixed } from "@/hooks/useSiteSettingsFixed";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
+import { GAStatusIndicator } from "@/components/GAStatusIndicator";
 import { AuthProvider } from "@/hooks/useAuth";
 import { AppErrorBoundary } from "@/components/AppErrorBoundary";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -61,6 +62,7 @@ const AdminLayout = lazy(() => import("./layouts/AdminLayout").then(m => ({ defa
 const LP_DriveEducation = lazy(() => import("./pages/LP_DriveEducation"));
 const PlacementQuiz = lazy(() => import("./pages/PlacementQuiz"));
 const AdminTranslate = lazy(() => import("./pages/AdminTranslate"));
+const DebugGA = lazy(() => import("./pages/DebugGA"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -118,6 +120,7 @@ function App() {
                   <SkipToContent />
                   <PerformanceMonitor />
                   <CookieBanner />
+                  <GAStatusIndicator />
                   <Toaster />
                   <Sonner />
                   <StructuredData />
@@ -128,6 +131,7 @@ function App() {
                     <Suspense fallback={<PageLoadingFallback />}>
                       <Routes>
                         <Route path="/_health" element={<HealthCheck />} />
+                        <Route path="/debug/ga" element={<DebugGA />} />
                         <Route path="/" element={<Index />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/strategy" element={<Strategy />} />
