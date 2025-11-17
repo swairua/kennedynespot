@@ -9,9 +9,9 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "https://cdn.builder.io/api/v1/image/assets%2Fd61e11eb0c96448ab2e9b38ab943e71a%2Fd77eab921f2b434ca0ba35a4e1b8c177?format=webp&width=128",
-      "sizes": "128x128",
-      "type": "image/webp"
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
     },
     {
       "src": "/og/og-default.jpg",
