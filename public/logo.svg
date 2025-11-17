@@ -1,0 +1,44 @@
+<svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" width="200" height="120">
+  <!-- Define color schemes for light/dark mode -->
+  <defs>
+    <style>
+      :root {
+        --text-dark: #000000;
+        --text-light: #ffffff;
+        --accent-color: #8b5cf6;
+      }
+      
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --text-dark: #ffffff;
+        }
+      }
+    </style>
+  </defs>
+  
+  <!-- Geometric mark/icon -->
+  <g id="mark">
+    <!-- Main geometric shape - stylized D -->
+    <path d="M 20 25 L 35 25 Q 45 25 45 40 L 45 85 Q 45 100 35 100 L 20 100 Z" 
+          fill="#8b5cf6" opacity="0.9"/>
+    
+    <!-- Accent line -->
+    <line x1="20" y1="62.5" x2="45" y2="62.5" stroke="#ffffff" stroke-width="2" opacity="0.8"/>
+    
+    <!-- Accent dot -->
+    <circle cx="48" cy="40" r="3" fill="#8b5cf6"/>
+  </g>
+  
+  <!-- Text: KenneDyne -->
+  <text x="55" y="55" font-family="Inter, system-ui, sans-serif" font-size="20" font-weight="700" 
+        fill="currentColor" letter-spacing="-0.5">
+    Kenne
+    <tspan font-weight="500" fill="#8b5cf6">Dyne</tspan>
+  </text>
+  
+  <!-- Text: spot -->
+  <text x="55" y="75" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="400" 
+        fill="currentColor" opacity="0.85" letter-spacing="1">
+    spot
+  </text>
+</svg>
