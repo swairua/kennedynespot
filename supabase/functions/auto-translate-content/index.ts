@@ -5,7 +5,7 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+const TRANSLATION_API_KEY = Deno.env.get('TRANSLATION_API_KEY');
 
 interface TranslateRequest {
   text: string;
@@ -15,22 +15,22 @@ interface TranslateRequest {
 
 const LANG_MAP: Record<string, string> = {
   'fr': 'French',
-  'es': 'Spanish', 
+  'es': 'Spanish',
   'de': 'German',
   'ru': 'Russian',
   'en': 'English'
 };
 
-async function translateWithLovableAI(text: string, targetLang: string, sourceLang = 'en'): Promise<string> {
-  if (!LOVABLE_API_KEY) {
-    console.error('LOVABLE_API_KEY not configured');
+async function translateWithAI(text: string, targetLang: string, sourceLang = 'en'): Promise<string> {
+  if (!TRANSLATION_API_KEY) {
+    console.error('TRANSLATION_API_KEY not configured');
     return text;
   }
 
   const targetLanguage = LANG_MAP[targetLang] || targetLang;
   const sourceLanguage = LANG_MAP[sourceLang] || sourceLang;
 
-  const prompt = `Translate the following text from ${sourceLanguage} to ${targetLanguage}. 
+  const prompt = `Translate the following text from ${sourceLanguage} to ${targetLanguage}.
 Preserve all Markdown formatting (headings, links, lists, bold, italic, code blocks, etc.).
 Return ONLY the translated text without any additional commentary, quotes, or decoration.
 
@@ -38,14 +38,14 @@ Text to translate:
 ${text}`;
 
   try {
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${TRANSLATION_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
+        model: 'gpt-3.5-turbo',
         messages: [
           { role: 'user', content: prompt }
         ],
@@ -60,15 +60,15 @@ ${text}`;
     }
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('AI gateway error:', response.status, errorText);
-      throw new Error('AI_GATEWAY_ERROR');
+      console.error('Translation API error:', response.status, errorText);
+      throw new Error('TRANSLATION_API_ERROR');
     }
 
     const data = await response.json();
     const translated = data.choices?.[0]?.message?.content?.trim();
-    
+
     if (!translated) {
-      console.error('No translation returned from AI');
+      console.error('No translation returned from API');
       return text;
     }
 
@@ -96,7 +96,7 @@ serve(async (req) => {
 
     console.log(`Translating from ${sourceLang} to ${targetLang}, text length: ${text.length}`);
 
-    const translatedText = await translateWithLovableAI(text, targetLang, sourceLang);
+    const translatedText = await translateWithAI(text, targetLang, sourceLang);
 
     console.log(`Translation complete, result length: ${translatedText.length}`);
 
