@@ -1,0 +1,53 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and authentication areas
+Disallow: /admin
+Disallow: /auth
+Disallow: /_health
+
+# Disallow duplicate content parameters
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /*?*page=*&
+Disallow: /*?*redirect=
+
+# Allow static assets and resources
+Allow: *.css$
+Allow: *.js$
+Allow: *.jpg$
+Allow: *.jpeg$
+Allow: *.png$
+Allow: *.gif$
+Allow: *.svg$
+Allow: *.webp$
+Allow: *.woff$
+Allow: *.woff2$
+Allow: /sitemap.xml$
+
+# Specific crawler rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+Disallow: /
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+Request-rate: 30/60
+
+# Sitemap locations
+Sitemap: https://kennedynespot.com/sitemap-index.xml
+Sitemap: https://kennedynespot.com/sitemap.xml
+Sitemap: https://kennedynespot.com/sitemap-blog.xml
