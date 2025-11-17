@@ -52,6 +52,7 @@ export function BlogPreviewSection() {
 
   const fetchPosts = async () => {
     try {
+      const now = new Date().toISOString();
       const { data, error } = await supabase
         .from('blog_posts')
         .select(`
@@ -79,22 +80,38 @@ export function BlogPreviewSection() {
           )
         `)
         .eq('published', true)
-        .or('published_at.is.null,published_at.lte.' + new Date().toISOString())
-        .order('published_at', { ascending: false })
+        .or(`published_at.is.null,published_at.lte.${now}`)
+        .order('published_at', { ascending: false, nullsFirst: false })
         .limit(10);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+        throw error;
+      }
 
-      const formattedPosts = data?.map(post => ({
+      if (!data) {
+        console.warn('No data returned from blog_posts query');
+        const staticPosts = content.blogPreview.posts || [];
+        setPosts(staticPosts);
+        setLoading(false);
+        return;
+      }
+
+      const formattedPosts = data.map(post => ({
         ...post,
         authors: post.post_authors?.map((pa: any) => pa.authors) || [],
         categories: post.post_categories?.map((pc: any) => pc.categories) || []
-      })) || [];
+      }));
 
       const filtered = filterPostsByLanguage(formattedPosts, language);
       setPosts(filtered.slice(0, 3));
     } catch (error) {
-      console.error('Error fetching blog posts:', error);
+      console.error('Error fetching blog posts:', error instanceof Error ? error.message : String(error));
       const staticPosts = content.blogPreview.posts || [];
       setPosts(staticPosts);
     } finally {
