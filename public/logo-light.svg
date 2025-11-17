@@ -1,0 +1,27 @@
+<svg viewBox="0 0 750 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- "Kenne" text in white -->
+  <text x="60" y="280" font-family="Arial, Helvetica, sans-serif" font-size="140" font-weight="bold" fill="#ffffff">
+    Kenne
+  </text>
+  
+  <!-- "Dyne" text in purple -->
+  <text x="390" y="280" font-family="Arial, Helvetica, sans-serif" font-size="140" font-weight="bold" fill="#d8b4fe">
+    Dyne
+  </text>
+  
+  <!-- Two white squares (geometric mark) -->
+  <rect x="270" y="300" width="45" height="45" fill="#ffffff"/>
+  <rect x="340" y="300" width="45" height="45" fill="#ffffff"/>
+  
+  <!-- Vertical line connecting squares to text -->
+  <line x1="297.5" y1="350" x2="297.5" y2="385" stroke="#ffffff" stroke-width="4"/>
+  <line x1="367.5" y1="350" x2="367.5" y2="385" stroke="#ffffff" stroke-width="4"/>
+  
+  <!-- Horizontal line above "spot" -->
+  <line x1="430" y1="310" x2="570" y2="310" stroke="#d8b4fe" stroke-width="3"/>
+  
+  <!-- "spot" text in light purple italic -->
+  <text x="390" y="370" font-family="Georgia, serif" font-size="65" font-style="italic" fill="#d8b4fe">
+    spot
+  </text>
+</svg>
