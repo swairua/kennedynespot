@@ -11,8 +11,8 @@ interface BrandLogoProps {
   removeBackgroundInDarkMode?: boolean;
 }
 
-const DEFAULT_LIGHT_LOGO = "/logo.svg";
-const DEFAULT_DARK_LOGO = "/logo.svg";
+const DEFAULT_LIGHT_LOGO = "/logo-dark.png";
+const DEFAULT_DARK_LOGO = "/logo-dark.png";
 
 export function BrandLogo({
   className,
