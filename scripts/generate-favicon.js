@@ -1,4 +1,5 @@
 import sharp from 'sharp';
+import ICO from 'ico';
 import https from 'https';
 import fs from 'fs';
 import path from 'path';
@@ -24,11 +25,17 @@ https.get(logoUrl, async (response) => {
     try {
       const buffer = Buffer.concat(chunks);
       
-      // Convert to ICO format with multiple sizes for better compatibility
-      // 32x32 is the standard size
-      await sharp(buffer)
+      // First convert to PNG using sharp
+      const pngBuffer = await sharp(buffer)
+        .png()
         .resize(32, 32, { fit: 'contain', background: { r: 255, g: 255, b: 255, alpha: 0 } })
-        .toFile(outputPath);
+        .toBuffer();
+      
+      // Then convert PNG to ICO
+      const icoBuffer = await ICO.encode([pngBuffer]);
+      
+      // Write the ICO file
+      fs.writeFileSync(outputPath, icoBuffer);
       
       console.log(`✓ Favicon generated successfully at ${outputPath}`);
     } catch (error) {
