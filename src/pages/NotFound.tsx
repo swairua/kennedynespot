@@ -18,7 +18,6 @@ const NotFound = () => {
         <title>404 - Page Not Found</title>
         <meta name="robots" content="noindex, nofollow" />
         <meta name="description" content="The page you're looking for could not be found." />
-        <canonical href={window.location.origin + location.pathname} />
         <link rel="canonical" href={window.location.origin} />
       </Helmet>
       <div className="min-h-screen flex items-center justify-center bg-gray-100">

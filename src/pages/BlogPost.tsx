@@ -408,7 +408,7 @@ export default function BlogPost() {
         title={getLocalizedField(post, 'meta_title', language) || `${post.title} | KenneDyne spot`}
         description={getLocalizedField(post, 'meta_description', language) || post.excerpt}
         canonical={post.canonical_url || `/blog/${post.slug}`}
-        ogImage={post.og_image_url || post.featured_image_url}
+        ogImage={post.featured_image_url || post.og_image_url}
         schema={generateJSONLD()}
       />
 
@@ -427,13 +427,11 @@ export default function BlogPost() {
       </a>
 
       <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Breadcrumb */}
-        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-8">
+        {/* Breadcrumb - Hide full title on mobile */}
+        <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
           <Link to="/" className="hover:text-foreground transition-colors">{t('breadcrumb_home')}</Link>
           <span>/</span>
           <Link to="/blog" className="hover:text-foreground transition-colors">{t('breadcrumb_blog')}</Link>
-          <span>/</span>
-          <span className="text-foreground">{post.title}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -470,12 +468,12 @@ export default function BlogPost() {
                     </div>
                   )}
 
-                  <h1 className="text-4xl md:text-5xl font-bold leading-tight">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight">
                     {translated?.title ?? post.title}
                   </h1>
 
                   {(translated?.excerpt ?? post.excerpt) && (
-                    <p className="text-xl text-muted-foreground">
+                    <p className="text-base sm:text-lg text-muted-foreground">
                       {translated?.excerpt ?? post.excerpt}
                     </p>
                   )}

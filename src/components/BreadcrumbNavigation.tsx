@@ -60,8 +60,8 @@ export function BreadcrumbNavigation() {
   const { content } = useSiteContent();
   const pathSegments = location.pathname.split('/').filter(Boolean);
 
-  // Don't show breadcrumbs on home page or admin routes
-  if (location.pathname === '/' || location.pathname.startsWith('/admin')) {
+  // Don't show breadcrumbs on home page, admin routes, or blog posts (they have custom breadcrumbs)
+  if (location.pathname === '/' || location.pathname.startsWith('/admin') || location.pathname.startsWith('/blog/')) {
     return null;
   }
 

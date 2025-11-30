@@ -47,7 +47,7 @@ export const EnhancedMarkdownRenderer: React.FC<EnhancedMarkdownRendererProps> =
     h2: ({ children, id, ...props }: any) => (
       <h2 
         id={id} 
-        className="scroll-mt-20 fluid-h2 font-semibold mt-8 mb-4 first:mt-0"
+        className="scroll-mt-20 text-xl sm:text-2xl lg:text-3xl font-semibold mt-8 mb-4 first:mt-0"
         {...props}
       >
         {children}
@@ -56,7 +56,7 @@ export const EnhancedMarkdownRenderer: React.FC<EnhancedMarkdownRendererProps> =
     h3: ({ children, id, ...props }: any) => (
       <h3 
         id={id} 
-        className="scroll-mt-20 fluid-h3 mt-6 mb-3"
+        className="scroll-mt-20 text-lg sm:text-xl lg:text-2xl font-semibold mt-6 mb-3"
         {...props}
       >
         {children}
@@ -65,7 +65,7 @@ export const EnhancedMarkdownRenderer: React.FC<EnhancedMarkdownRendererProps> =
     h4: ({ children, id, ...props }: any) => (
       <h4 
         id={id} 
-        className="scroll-mt-20 text-lg font-semibold tracking-tight text-foreground mt-4 mb-2"
+        className="scroll-mt-20 text-base sm:text-lg lg:text-xl font-semibold mt-4 mb-2"
         {...props}
       >
         {children}
