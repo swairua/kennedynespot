@@ -1,0 +1,67 @@
+User-agent: *
+Allow: /
+
+# Disallow admin and authentication areas
+Disallow: /admin
+Disallow: /auth
+Disallow: /_health
+Disallow: /debug/
+
+# Disallow duplicate content parameters and query strings that create soft 404s
+Disallow: /*?*sort=
+Disallow: /*?*filter=
+Disallow: /*?*page=*&
+Disallow: /*?*redirect=
+Disallow: /?*
+
+# Allow static assets and resources
+Allow: *.css$
+Allow: *.js$
+Allow: *.jpg$
+Allow: *.jpeg$
+Allow: *.png$
+Allow: *.gif$
+Allow: *.svg$
+Allow: *.webp$
+Allow: *.woff$
+Allow: *.woff2$
+Allow: /sitemap.xml$
+
+# Specific crawler rules
+User-agent: Googlebot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /_health
+Disallow: /debug/
+Disallow: /*?*
+Crawl-delay: 0.5
+
+User-agent: Googlebot-Image
+Allow: /
+Disallow: /admin
+Disallow: /auth
+
+User-agent: Bingbot
+Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /_health
+Disallow: /*?*
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+Disallow: /
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+Request-rate: 30/60
+
+# Sitemap locations
+Sitemap: https://kennedynespot.com/sitemap-index.xml
+Sitemap: https://kennedynespot.com/sitemap.xml
+Sitemap: https://kennedynespot.com/sitemap-blog.xml
