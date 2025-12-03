@@ -1010,20 +1010,60 @@ export default function BlogEditor() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div>
+                    <div className="space-y-3">
                       <Label htmlFor="featured_image_url">Image URL</Label>
-                      <Input
-                        id="featured_image_url"
-                        value={post.featured_image_url || ''}
-                        onChange={(e) => setPost(prev => ({ ...prev, featured_image_url: e.target.value }))}
-                        placeholder="https://example.com/image.jpg"
-                      />
+                      <div className="flex gap-2">
+                        <Input
+                          id="featured_image_url"
+                          value={post.featured_image_url || ''}
+                          onChange={(e) => setPost(prev => ({ ...prev, featured_image_url: e.target.value }))}
+                          placeholder="https://example.com/image.jpg"
+                        />
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              handleImageUpload(file);
+                            }
+                            // Reset input so same file can be selected again
+                            e.target.value = '';
+                          }}
+                          className="hidden"
+                          id="featured-image-upload"
+                          disabled={uploading}
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={() => document.getElementById('featured-image-upload')?.click()}
+                          disabled={uploading}
+                          className="whitespace-nowrap"
+                        >
+                          {uploading ? (
+                            <>
+                              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                              Uploading...
+                            </>
+                          ) : (
+                            <>
+                              <Upload className="h-4 w-4 mr-2" />
+                              Upload
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                      <p className="text-xs text-muted-foreground">
+                        Click Upload to select an image file, or paste a URL directly
+                      </p>
                     </div>
                     {post.featured_image_url && (
                       <div className="rounded-lg overflow-hidden border">
-                        <img 
-                          src={post.featured_image_url} 
-                          alt="Featured" 
+                        <img
+                          src={post.featured_image_url}
+                          alt="Featured"
                           className="w-full h-48 object-cover"
                         />
                       </div>
