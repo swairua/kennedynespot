@@ -16,7 +16,7 @@ export function StructuredData() {
     },
     "sameAs": [
       "https://t.me/KenneDynespot",
-      "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n",
+      "https://whatsapp.com/channel/0029Vb7Ar5L3gvWZhG2xc43h",
       "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5",
       "https://x.com/KenneDynespot?t=YId3WIrmnsLX425C1Ap4VA&s=09",
       "https://www.youtube.com/@KenneDynespot"
