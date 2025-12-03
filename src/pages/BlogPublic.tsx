@@ -110,6 +110,8 @@ export default function BlogPublic() {
           id,
           title,
           slug,
+          excerpt,
+          featured_image_url,
           published_at,
           reading_time_mins,
           featured,
@@ -117,6 +119,10 @@ export default function BlogPublic() {
           title_es,
           title_de,
           title_ru,
+          excerpt_fr,
+          excerpt_es,
+          excerpt_de,
+          excerpt_ru,
           translation_status
         `)
         .eq('published', true)
