@@ -12,7 +12,7 @@ import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Save, Eye, Send, ArrowLeft, Clock, Star, Tag, User, FileText, Search, X, Upload, Settings, Pencil, Globe } from 'lucide-react';
+import { Save, Eye, Send, ArrowLeft, Clock, Star, Tag, User, FileText, Search, X, Upload, Settings, Pencil, Globe, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { EnhancedMarkdownRenderer } from '@/components/content/EnhancedMarkdownRenderer';
 import { ContentFormatAnalyzer } from '@/components/editor/ContentFormatAnalyzer';
