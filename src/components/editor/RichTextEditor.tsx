@@ -161,7 +161,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         markdown={markdown}
         onChange={onChange}
         placeholder={placeholder}
-        contentEditableClassName="prose prose-slate dark:prose-invert max-w-none min-h-[400px] p-4 focus:outline-none"
+        contentEditableClassName="prose prose-slate dark:prose-invert max-w-none min-h-[400px] p-4 focus:outline-none text-foreground dark:text-foreground"
         plugins={[
           headingsPlugin(),
           listsPlugin(),
