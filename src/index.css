@@ -642,4 +642,52 @@ All colors MUST be HSL for maximum design flexibility
   .mdx-editor-container [contenteditable="true"]:empty::before {
     @apply text-muted-foreground;
   }
+
+  /* Additional MDXEditor overrides for better text visibility */
+  .mdx-editor-container .mdxeditor-rich-text-editor,
+  .mdx-editor-container .mdxeditor-content {
+    @apply text-foreground;
+  }
+
+  /* Links in editor */
+  .mdx-editor-container a {
+    @apply text-primary hover:underline;
+  }
+
+  /* Ensure editor wrapper respects theme */
+  .mdx-editor-container .mdxeditor {
+    @apply bg-background text-foreground;
+  }
+
+  /* Override MDXEditor default text colors */
+  .mdx-editor-container,
+  .mdx-editor-container * {
+    color-scheme: auto;
+  }
+
+  .dark .mdx-editor-container,
+  .dark .mdx-editor-container * {
+    color-scheme: dark;
+  }
+
+  /* Specific overrides for common MDXEditor classes */
+  .mdx-editor-container .cm-editor {
+    @apply bg-background text-foreground;
+    color: hsl(var(--foreground));
+  }
+
+  .dark .mdx-editor-container .cm-editor {
+    @apply bg-background text-foreground;
+    color: hsl(var(--foreground));
+  }
+
+  /* Table styling in editor */
+  .mdx-editor-container table {
+    @apply text-foreground;
+  }
+
+  .mdx-editor-container table td,
+  .mdx-editor-container table th {
+    @apply text-foreground border-border;
+  }
 }
