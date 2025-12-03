@@ -139,9 +139,9 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   }, [handleImageInsert]);
 
   return (
-    <div 
+    <div
       className={cn(
-        "border rounded-lg overflow-hidden bg-background relative transition-all",
+        "border rounded-lg overflow-hidden bg-background relative transition-all mdx-editor-container",
         isDragOver && "ring-2 ring-primary ring-offset-2"
       )}
       onDragOver={handleEditorDragOver}
