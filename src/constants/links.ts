@@ -19,7 +19,7 @@ export const LINKS = {
   whatsapp: {
     contact: "https://wa.me/254726529166",
     support: "https://wa.me/254726529166?text=Hi%21%20I%20am%20interested%20in%20learning%20more%20about%20your%20trading%20education%20programs.",
-    channel: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n"
+    channel: "https://whatsapp.com/channel/0029Vb7Ar5L3gvWZhG2xc43h"
   },
   instagram: "https://www.instagram.com/kennedyne_spot?igsh=NnVoeXJoZ2dmemF5",
   youtube: "https://www.youtube.com/c/KenneDynespot",

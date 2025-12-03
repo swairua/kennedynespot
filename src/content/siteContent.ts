@@ -436,7 +436,7 @@ export const defaultContent: SiteContent = {
     whatsappText: "Get Support",
     socials: [
       { name: "Telegram Channel", href: "https://t.me/KenneDynespot", type: "telegram" },
-      { name: "WhatsApp Channel", href: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n", type: "whatsapp" },
+      { name: "WhatsApp Channel", href: "https://whatsapp.com/channel/0029Vb7Ar5L3gvWZhG2xc43h", type: "whatsapp" },
       { name: "YouTube", href: "https://www.youtube.com/c/KenneDynespot", type: "youtube" },
       { name: "Twitter", href: "https://x.com/KenneDynespot?t=Yld3WlrnnLsLX425C1Ap4VA&s=09", type: "x" },
       { name: "Instagram", href: "https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDQzMTY4Njg1MzQ3ODI3?story_media_id=3713797231770477934_48486444646?igh=MXQ3MG00NWIjglyy==", type: "instagram" }
@@ -568,7 +568,7 @@ export const defaultContent: SiteContent = {
       subtitle: "Get in touch for educational inquiries and mentorship opportunities",
       phone: "+254 726 529 166",
       email: "info@kennedynespot.com",
-      whatsapp: "https://whatsapp.com/channel/0029Va5oaai3WHTR1PyrOI1n",
+      whatsapp: "https://whatsapp.com/channel/0029Vb7Ar5L3gvWZhG2xc43h",
       address: "Nairobi, Kenya",
       form: {
         namePlaceholder: "Your Name",
