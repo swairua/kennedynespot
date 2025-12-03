@@ -12,6 +12,9 @@ import { installModuleLoadingDiagnostics } from './utils/moduleLoadingDiagnostic
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Root element not found');
 
+// Install module loading diagnostics first
+installModuleLoadingDiagnostics();
+
 // Enhanced error handling for dynamic import failures
 if (typeof window !== 'undefined') {
   let recoveryAttempts = 0;
