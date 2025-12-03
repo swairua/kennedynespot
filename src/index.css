@@ -577,4 +577,117 @@ All colors MUST be HSL for maximum design flexibility
       transform: translateY(0);
     }
   }
+
+  /* MDXEditor Content Theme Adaptation */
+  .mdx-editor-container [role="textbox"],
+  .mdx-editor-container [contenteditable="true"],
+  .mdx-editor-container .prose {
+    @apply text-foreground;
+  }
+
+  /* Light mode - darker text */
+  .mdx-editor-container {
+    @apply bg-background;
+  }
+
+  .mdx-editor-container [contenteditable="true"] {
+    @apply text-foreground;
+    color-scheme: light;
+  }
+
+  /* Dark mode - lighter text */
+  .dark .mdx-editor-container [contenteditable="true"] {
+    @apply text-foreground;
+    color-scheme: dark;
+  }
+
+  /* Ensure paragraphs have proper text color in both modes */
+  .mdx-editor-container p {
+    @apply text-foreground;
+  }
+
+  .dark .mdx-editor-container p {
+    @apply text-foreground;
+  }
+
+  /* Headings in editor */
+  .mdx-editor-container h1,
+  .mdx-editor-container h2,
+  .mdx-editor-container h3,
+  .mdx-editor-container h4,
+  .mdx-editor-container h5,
+  .mdx-editor-container h6 {
+    @apply text-foreground;
+  }
+
+  /* Lists in editor */
+  .mdx-editor-container ul,
+  .mdx-editor-container ol,
+  .mdx-editor-container li {
+    @apply text-foreground;
+  }
+
+  /* Code in editor */
+  .mdx-editor-container code {
+    @apply text-foreground bg-muted/50 px-1.5 py-0.5 rounded;
+  }
+
+  /* Blockquotes in editor */
+  .mdx-editor-container blockquote {
+    @apply text-foreground border-l-4 border-primary/50 pl-4 italic;
+  }
+
+  /* Placeholder text styling */
+  .mdx-editor-container [contenteditable="true"]::placeholder,
+  .mdx-editor-container [contenteditable="true"]:empty::before {
+    @apply text-muted-foreground;
+  }
+
+  /* Additional MDXEditor overrides for better text visibility */
+  .mdx-editor-container .mdxeditor-rich-text-editor,
+  .mdx-editor-container .mdxeditor-content {
+    @apply text-foreground;
+  }
+
+  /* Links in editor */
+  .mdx-editor-container a {
+    @apply text-primary hover:underline;
+  }
+
+  /* Ensure editor wrapper respects theme */
+  .mdx-editor-container .mdxeditor {
+    @apply bg-background text-foreground;
+  }
+
+  /* Override MDXEditor default text colors */
+  .mdx-editor-container,
+  .mdx-editor-container * {
+    color-scheme: auto;
+  }
+
+  .dark .mdx-editor-container,
+  .dark .mdx-editor-container * {
+    color-scheme: dark;
+  }
+
+  /* Specific overrides for common MDXEditor classes */
+  .mdx-editor-container .cm-editor {
+    @apply bg-background text-foreground;
+    color: hsl(var(--foreground));
+  }
+
+  .dark .mdx-editor-container .cm-editor {
+    @apply bg-background text-foreground;
+    color: hsl(var(--foreground));
+  }
+
+  /* Table styling in editor */
+  .mdx-editor-container table {
+    @apply text-foreground;
+  }
+
+  .mdx-editor-container table td,
+  .mdx-editor-container table th {
+    @apply text-foreground border-border;
+  }
 }

@@ -33,14 +33,24 @@ export default defineConfig(({ mode }) => ({
           // Utility libraries
           'utils-vendor': ['clsx', 'class-variance-authority', 'tailwind-merge'],
         },
+        // Use consistent naming for chunks to improve caching
+        entryFileNames: '[name]-[hash].js',
+        chunkFileNames: '[name]-[hash].js',
+        assetFileNames: '[name]-[hash][extname]',
       },
     },
     // Reduce bundle size and improve performance
     minify: 'terser',
     terserOptions: {
       compress: {
-        drop_console: true,
+        drop_console: process.env.NODE_ENV === 'production',
       },
+    },
+    // Improve chunk size warnings and splitting
+    chunkSizeWarningLimit: 1000,
+    // Ensure CommonJS modules are handled properly
+    commonjsOptions: {
+      include: /node_modules/,
     },
   },
 }));

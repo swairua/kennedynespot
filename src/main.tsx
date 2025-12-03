@@ -7,28 +7,77 @@ import './index.css';
 import { preloadCriticalResources, enableServiceWorker } from './utils/performanceOptimization';
 import { initializeConversionTracking } from './utils/enhancedConversionTracking';
 import { initializeAnimationDeferral } from './utils/deferredCSS';
+import { installModuleLoadingDiagnostics } from './utils/moduleLoadingDiagnostics';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error('Root element not found');
 
-// Suppress noisy "Failed to fetch" errors from third-party scripts (FullStory, vite client ping, etc.)
+// Install module loading diagnostics first
+installModuleLoadingDiagnostics();
+
+// Enhanced error handling for dynamic import failures
 if (typeof window !== 'undefined') {
+  let recoveryAttempts = 0;
+  const MAX_RECOVERY_ATTEMPTS = 3;
+  const RECOVERY_COOLDOWN_MS = 1000;
+  let lastRecoveryTime = 0;
+
   const handleDynamicImportFailure = async (reasonMsg?: string) => {
+    const now = Date.now();
+
+    // Prevent rapid recovery attempts (cooldown)
+    if (now - lastRecoveryTime < RECOVERY_COOLDOWN_MS) {
+      console.debug('[Dynamic Import] Recovery cooldown active, skipping');
+      return;
+    }
+
+    recoveryAttempts++;
+
+    if (recoveryAttempts > MAX_RECOVERY_ATTEMPTS) {
+      console.error('[Dynamic Import] Max recovery attempts exceeded. Manual reload required.');
+      return;
+    }
+
+    lastRecoveryTime = now;
+    console.warn(`[Dynamic Import] Recovery attempt ${recoveryAttempts}/${MAX_RECOVERY_ATTEMPTS}:`, reasonMsg);
+
     try {
-      // Unregister any service workers and clear caches, then reload to fetch fresh bundles
+      // Clear service worker cache and unregister to fetch fresh bundles
       if ('serviceWorker' in navigator) {
-        const regs = await navigator.serviceWorker.getRegistrations();
-        await Promise.all(regs.map(r => r.unregister()));
+        try {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          await Promise.all(regs.map(r => r.unregister()));
+          console.debug('[Dynamic Import] Service workers unregistered');
+        } catch (swError) {
+          console.warn('[Dynamic Import] Service worker cleanup failed:', swError);
+        }
       }
+
+      // Clear browser caches
       if ('caches' in window) {
-        const keys = await caches.keys();
-        await Promise.all(keys.map(k => caches.delete(k)));
+        try {
+          const keys = await caches.keys();
+          await Promise.all(keys.map(k => caches.delete(k)));
+          console.debug('[Dynamic Import] Browser caches cleared');
+        } catch (cacheError) {
+          console.warn('[Dynamic Import] Cache cleanup failed:', cacheError);
+        }
       }
     } catch (e) {
-      console.warn('Failed to clean service worker/caches', e);
+      console.warn('[Dynamic Import] Cleanup failed:', e);
     } finally {
-      // Force reload to pick up latest assets from the network
-      try { window.location.reload(); } catch (e) { /* ignore */ }
+      // Force reload with cache-busting parameter
+      const reloadUrl = new URL(window.location.href);
+      reloadUrl.searchParams.set('_recovery_attempt', String(recoveryAttempts));
+
+      // Add delay before reload to ensure cleanup completes
+      setTimeout(() => {
+        try {
+          window.location.replace(reloadUrl.toString());
+        } catch (e) {
+          console.error('[Dynamic Import] Reload failed:', e);
+        }
+      }, RECOVERY_COOLDOWN_MS);
     }
   };
 
@@ -36,17 +85,16 @@ if (typeof window !== 'undefined') {
     try {
       const message = (evt && (evt as any).message) || '';
       if (typeof message === 'string') {
-        if (message.includes('Failed to fetch dynamically imported module') || message.includes('Failed to fetch')) {
+        if (message.includes('Failed to fetch dynamically imported module')) {
+          console.error('[Dynamic Import Error]', message);
           evt.preventDefault();
-          // If a dynamically imported module failed, attempt to recover by clearing SW & caches
-          if (message.includes('Failed to fetch dynamically imported module')) {
-            handleDynamicImportFailure(message);
-            return;
-          }
+          handleDynamicImportFailure(message);
           return;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('[Error Handler] Unexpected error:', e);
+    }
   });
 
   window.addEventListener('unhandledrejection', (evt: PromiseRejectionEvent) => {
@@ -54,16 +102,16 @@ if (typeof window !== 'undefined') {
       const reason = (evt && (evt as any).reason) || {};
       const msg = reason && reason.message ? reason.message : String(reason);
       if (typeof msg === 'string') {
-        if (msg.includes('Failed to fetch dynamically imported module') || msg.includes('Failed to fetch')) {
+        if (msg.includes('Failed to fetch dynamically imported module')) {
+          console.error('[Dynamic Import Rejection]', msg);
           evt.preventDefault();
-          if (msg.includes('Failed to fetch dynamically imported module')) {
-            handleDynamicImportFailure(msg);
-            return;
-          }
+          handleDynamicImportFailure(msg);
           return;
         }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('[Rejection Handler] Unexpected error:', e);
+    }
   });
 
   // Intercept noisy third-party fetch failures and stabilize Vite HMR ping in dev

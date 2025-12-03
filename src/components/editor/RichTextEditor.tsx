@@ -139,9 +139,9 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   }, [handleImageInsert]);
 
   return (
-    <div 
+    <div
       className={cn(
-        "border rounded-lg overflow-hidden bg-background relative transition-all",
+        "border rounded-lg overflow-hidden bg-background relative transition-all mdx-editor-container",
         isDragOver && "ring-2 ring-primary ring-offset-2"
       )}
       onDragOver={handleEditorDragOver}
@@ -161,7 +161,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         markdown={markdown}
         onChange={onChange}
         placeholder={placeholder}
-        contentEditableClassName="prose prose-slate dark:prose-invert max-w-none min-h-[400px] p-4 focus:outline-none"
+        contentEditableClassName="prose prose-slate dark:prose-invert max-w-none min-h-[400px] p-4 focus:outline-none text-foreground dark:text-foreground"
         plugins={[
           headingsPlugin(),
           listsPlugin(),

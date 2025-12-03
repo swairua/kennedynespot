@@ -37,7 +37,7 @@
             window.location.replace(cleanPath);
             return;
           }
-          
+
           // Handle redirect parameter from 404.html (legacy support)
           var params = new URLSearchParams(window.location.search);
           var redirect = params.get('redirect');
@@ -47,8 +47,28 @@
               window.history.replaceState(null, '', url);
             }
           }
+
+          // Clean up stale service workers on page load (helps recover from deployment issues)
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+              navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                if (registrations.length > 0) {
+                  // Multiple registrations indicate stale service workers
+                  // Unregister to ensure fresh assets are fetched
+                  for (var i = registrations.length - 1; i > 0; i--) {
+                    registrations[i].unregister().catch(function(e) {
+                      console.warn('Failed to unregister service worker', e);
+                    });
+                  }
+                }
+              }).catch(function(e) {
+                // Silently handle service worker access errors
+                console.warn('Service worker check failed', e);
+              });
+            });
+          }
         } catch (e) {
-          console.warn('URL migration handling failed', e);
+          console.warn('Initialization handling failed', e);
         }
       })();
     </script>
