@@ -1,11 +1,12 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertTriangle, RefreshCw } from "lucide-react";
+import { AlertTriangle, RefreshCw, Trash2 } from "lucide-react";
 
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
+  isDynamicImportError?: boolean;
 }
 
 interface ErrorBoundaryProps {
@@ -20,15 +21,46 @@ export class AppErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorB
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     console.error('AppErrorBoundary caught error:', error);
-    return { hasError: true, error };
+    const isDynamicImportError = error.message?.includes('Failed to fetch dynamically imported module') ||
+                                 error.message?.includes('Failed to fetch');
+    return { hasError: true, error, isDynamicImportError };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error('Error boundary caught an error:', error, errorInfo);
+    console.error('Error stack:', error.stack);
   }
 
   handleReload = () => {
-    window.location.reload();
+    try {
+      window.location.reload();
+    } catch (e) {
+      console.error('Reload failed:', e);
+    }
+  };
+
+  handleClearCacheAndReload = async () => {
+    try {
+      // Clear service workers
+      if ('serviceWorker' in navigator) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map(r => r.unregister()));
+      }
+
+      // Clear caches
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map(k => caches.delete(k)));
+      }
+
+      // Reload with cache-busting parameter
+      const url = new URL(window.location.href);
+      url.searchParams.set('_cb', String(Date.now()));
+      window.location.replace(url.toString());
+    } catch (e) {
+      console.error('Cache clearing failed:', e);
+      window.location.reload();
+    }
   };
 
   render() {
@@ -42,25 +74,42 @@ export class AppErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorB
               </div>
               <CardTitle>Something went wrong</CardTitle>
               <CardDescription>
-                The application encountered an error and couldn't continue.
+                {this.state.isDynamicImportError
+                  ? 'Failed to load a required module. Your browser cache may be out of date.'
+                  : 'The application encountered an error and couldn\'t continue.'}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               {this.state.error && (
-                <div className="bg-muted/50 p-3 rounded-lg">
-                  <p className="text-sm text-muted-foreground font-mono">
+                <div className="bg-muted/50 p-3 rounded-lg max-h-32 overflow-y-auto">
+                  <p className="text-xs text-muted-foreground font-mono break-words">
                     {this.state.error.message}
                   </p>
                 </div>
               )}
-              <Button 
-                onClick={this.handleReload} 
-                className="w-full"
-                variant="default"
-              >
-                <RefreshCw className="h-4 w-4 mr-2" />
-                Reload Page
-              </Button>
+              <div className="space-y-2">
+                <Button
+                  onClick={this.handleReload}
+                  className="w-full"
+                  variant="default"
+                >
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Reload Page
+                </Button>
+                {this.state.isDynamicImportError && (
+                  <Button
+                    onClick={this.handleClearCacheAndReload}
+                    className="w-full"
+                    variant="outline"
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Clear Cache & Reload
+                  </Button>
+                )}
+              </div>
+              <p className="text-xs text-muted-foreground text-center">
+                If the problem persists, please try closing and reopening your browser.
+              </p>
             </CardContent>
           </Card>
         </div>
