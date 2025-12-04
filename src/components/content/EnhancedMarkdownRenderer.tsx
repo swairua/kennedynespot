@@ -73,11 +73,25 @@ export const EnhancedMarkdownRenderer: React.FC<EnhancedMarkdownRendererProps> =
     ),
 
     // Enhanced paragraphs
-    p: ({ children, ...props }: any) => (
-      <p className="text-base leading-7 text-foreground/90 mb-4" {...props}>
-        {children}
-      </p>
-    ),
+    p: ({ children, ...props }: any) => {
+      // Check if paragraph contains only an image element
+      const childArray = React.Children.toArray(children);
+      const hasOnlyImage = childArray.length === 1 &&
+        React.isValidElement(childArray[0]) &&
+        childArray[0].type === 'img';
+
+      // If paragraph contains only an image, render it without the paragraph wrapper
+      if (hasOnlyImage) {
+        return childArray[0];
+      }
+
+      // Otherwise render normal paragraph
+      return (
+        <p className="text-base leading-7 text-foreground/90 mb-4" {...props}>
+          {children}
+        </p>
+      );
+    },
 
     // Enhanced lists
     ul: ({ children, ...props }: any) => (
