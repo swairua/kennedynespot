@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -98,7 +99,9 @@ export default function BlogManagerEnhanced() {
   const [loading, setLoading] = useState(true);
   const [showImportModal, setShowImportModal] = useState(false);
   const [selectedPosts, setSelectedPosts] = useState<string[]>([]);
-  
+  const [postToDelete, setPostToDelete] = useState<BlogPost | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   // Filter states
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
@@ -197,25 +200,30 @@ export default function BlogManagerEnhanced() {
     });
   }, [posts, searchTerm, statusFilter, authorFilter, categoryFilter]);
 
-  // Delete post handler
-  const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this post?')) {
-      return;
-    }
+  // Delete post handler - opens confirmation modal
+  const handleDelete = (post: BlogPost) => {
+    setPostToDelete(post);
+  };
 
+  // Confirm deletion
+  const confirmDelete = async () => {
+    if (!postToDelete) return;
+
+    setIsDeleting(true);
     try {
       const { error } = await supabase
         .from('blog_posts')
         .delete()
-        .eq('id', id);
+        .eq('id', postToDelete.id);
 
       if (error) throw error;
 
-      setPosts(posts.filter(post => post.id !== id));
+      setPosts(posts.filter(post => post.id !== postToDelete.id));
       toast({
         title: 'Success',
         description: 'Post deleted successfully',
       });
+      setPostToDelete(null);
     } catch (error) {
       console.error('Error deleting post:', error);
       toast({
@@ -223,6 +231,8 @@ export default function BlogManagerEnhanced() {
         description: 'Failed to delete post',
         variant: 'destructive',
       });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
@@ -755,7 +765,7 @@ Understanding these concepts is crucial for trading success. Continue your educa
                                <Button
                                  variant="ghost"
                                  size="sm"
-                                 onClick={() => handleDelete(post.id)}
+                                 onClick={() => handleDelete(post)}
                                  className="text-destructive hover:text-destructive"
                                >
                                  <Trash2 className="h-4 w-4" />
@@ -851,6 +861,28 @@ Understanding these concepts is crucial for trading success. Continue your educa
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Delete Confirmation Modal */}
+      <AlertDialog open={postToDelete !== null} onOpenChange={(open) => !open && setPostToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Post</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to delete "<strong>{postToDelete?.title}</strong>"? This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={isDeleting}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmDelete}
+              disabled={isDeleting}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {isDeleting ? 'Deleting...' : 'Delete'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

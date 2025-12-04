@@ -20,7 +20,7 @@ import { ImageSizeSelector } from './ImageSizeSelector';
 interface ImageUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onInsert: (imageUrl: string, altText: string, width?: number, height?: number, alignment?: string) => void;
+  onInsert: (imageUrl: string, altText: string, width?: number, height?: number, alignment?: string, caption?: string) => void;
 }
 
 export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
@@ -31,6 +31,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [altText, setAltText] = useState('');
+  const [caption, setCaption] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageWidth, setImageWidth] = useState<number | undefined>(undefined);
@@ -106,6 +107,15 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const handleUpload = async () => {
     if (!selectedFile) return;
 
+    if (!altText) {
+      toast({
+        title: 'Alt text required',
+        description: 'Please add descriptive alt text for accessibility',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setUploading(true);
     try {
       const fileExt = selectedFile.name.split('.').pop();
@@ -127,13 +137,8 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
         .from('blog-assets')
         .getPublicUrl(filePath);
 
-      onInsert(publicUrl, altText || 'Blog image', imageWidth, imageHeight, alignment);
+      onInsert(publicUrl, altText, imageWidth, imageHeight, alignment, caption);
       resetForm();
-      
-      toast({
-        title: 'Success',
-        description: 'Image uploaded and inserted',
-      });
     } catch (error: any) {
       console.error('Upload error:', error);
       toast({
@@ -156,13 +161,17 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       return;
     }
 
-    onInsert(imageUrl, altText || 'Image', imageWidth, imageHeight, alignment);
+    if (!altText) {
+      toast({
+        title: 'Alt text required',
+        description: 'Please add descriptive alt text for accessibility',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    onInsert(imageUrl, altText, imageWidth, imageHeight, alignment, caption);
     resetForm();
-    
-    toast({
-      title: 'Success',
-      description: 'Image inserted',
-    });
   };
 
   const handlePresetChange = (preset: string) => {
@@ -189,6 +198,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const resetForm = () => {
     setImageUrl('');
     setAltText('');
+    setCaption('');
     setPreviewUrl('');
     setSelectedFile(null);
     setImageWidth(undefined);
@@ -264,13 +274,29 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="library-alt-text">Alt Text (for accessibility)</Label>
+                  <Label htmlFor="library-alt-text">Alt Text (for accessibility) *</Label>
                   <Input
                     id="library-alt-text"
                     value={altText}
                     onChange={(e) => setAltText(e.target.value)}
                     placeholder="Describe the image..."
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Descriptive text for screen readers and SEO
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="library-caption">Caption (optional)</Label>
+                  <Input
+                    id="library-caption"
+                    value={caption}
+                    onChange={(e) => setCaption(e.target.value)}
+                    placeholder="Add a caption below the image..."
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Displayed as a figure caption below the image
+                  </p>
                 </div>
 
                 <ImageSizeSelector
@@ -290,10 +316,24 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                 <Button
                   type="button"
                   onClick={() => {
-                    if (previewUrl && altText) {
-                      onInsert(previewUrl, altText, imageWidth, imageHeight, alignment);
-                      resetForm();
+                    if (!previewUrl) {
+                      toast({
+                        title: 'No image selected',
+                        description: 'Please select an image from the library',
+                        variant: 'destructive',
+                      });
+                      return;
                     }
+                    if (!altText) {
+                      toast({
+                        title: 'Alt text required',
+                        description: 'Please add descriptive alt text for accessibility',
+                        variant: 'destructive',
+                      });
+                      return;
+                    }
+                    onInsert(previewUrl, altText, imageWidth, imageHeight, alignment, caption);
+                    resetForm();
                   }}
                   className="w-full"
                 >
@@ -343,7 +383,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="upload-alt-text">Alt Text (for accessibility)</Label>
+              <Label htmlFor="upload-alt-text">Alt Text (for accessibility) *</Label>
               <Input
                 id="upload-alt-text"
                 value={altText}
@@ -352,6 +392,19 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
               />
               <p className="text-xs text-muted-foreground">
                 Descriptive text for screen readers and SEO
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="upload-caption">Caption (optional)</Label>
+              <Input
+                id="upload-caption"
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                placeholder="Add a caption below the image..."
+              />
+              <p className="text-xs text-muted-foreground">
+                Displayed as a figure caption below the image
               </p>
             </div>
 
@@ -428,7 +481,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="url-alt-text">Alt Text (for accessibility)</Label>
+              <Label htmlFor="url-alt-text">Alt Text (for accessibility) *</Label>
               <Input
                 id="url-alt-text"
                 value={altText}
@@ -437,6 +490,19 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
               />
               <p className="text-xs text-muted-foreground">
                 Descriptive text for screen readers and SEO
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="url-caption">Caption (optional)</Label>
+              <Input
+                id="url-caption"
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                placeholder="Add a caption below the image..."
+              />
+              <p className="text-xs text-muted-foreground">
+                Displayed as a figure caption below the image
               </p>
             </div>
 

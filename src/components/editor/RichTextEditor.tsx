@@ -48,58 +48,60 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [isDragOver, setIsDragOver] = useState(false);
   const editorRef = React.useRef<MDXEditorMethods>(null);
 
-  const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center') => {
-    // Generate HTML img tag with alignment classes and responsive srcset
-    let imageHtml: string;
-
-    // Determine alignment class
-    const alignmentClass = alignment === 'left' ? 'float-left mr-4 mb-4' :
-                          alignment === 'right' ? 'float-right ml-4 mb-4' :
-                          alignment === 'full' ? 'w-full' :
-                          'mx-auto block';
-
-    // Check if this is an optimized image (contains timestamp pattern and .webp)
-    const isOptimized = imageUrl.includes('blog/') && /\d+-\d+\.webp$/.test(imageUrl);
-
-    if (width || height || alignment !== 'center') {
-      const widthAttr = width ? ` width="${width}"` : '';
-      const heightAttr = height ? ` height="${height}"` : '';
-      const styleAttr = alignment === 'full' && !width ? ' style="width: 100%"' : '';
-
-      // Add responsive loading attributes
-      const loadingAttr = ' loading="lazy" decoding="async"';
-
-      imageHtml = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}"${styleAttr}${loadingAttr} />`;
-    } else {
-      // Use markdown for original size centered
-      imageHtml = `![${altText}](${imageUrl})`;
+  const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center', caption?: string) => {
+    if (!editorRef.current) {
+      toast.error('Editor is not ready');
+      return;
     }
 
-    // Insert the image at cursor position
-    if (editorRef.current) {
-      try {
-        // Use insertMarkdown to insert at cursor position instead of appending
-        editorRef.current.insertMarkdown(imageHtml);
-      } catch (error) {
-        console.error('Failed to insert image:', error);
-        toast.error('Failed to insert image at cursor position');
+    try {
+      // Build the image markdown
+      let imageMarkdown = `![${altText}](${imageUrl})`;
+
+      // Build final content with caption if provided
+      let contentToInsert: string;
+      if (caption) {
+        // Use HTML figure for semantic captioning
+        contentToInsert = `<figure>\n\n![${altText}](${imageUrl})\n\n<figcaption class="text-sm text-muted-foreground text-center">${caption}</figcaption>\n\n</figure>`;
+      } else {
+        contentToInsert = imageMarkdown;
       }
-    }
 
-    setIsImageModalOpen(false);
-  }, []);
+      // Add proper spacing - newlines before and after the image block
+      const finalContent = `\n\n${contentToInsert}\n\n`;
+
+      // Get the current markdown and insert at cursor position
+      try {
+        editorRef.current.insertMarkdown(finalContent);
+      } catch (insertError) {
+        console.warn('insertMarkdown failed, trying getMarkdown approach:', insertError);
+        // Fallback: directly append to the end if insertMarkdown fails
+        const currentMarkdown = editorRef.current.getMarkdown();
+        const newMarkdown = currentMarkdown + finalContent;
+        onChange(newMarkdown);
+      }
+
+      // Close modal
+      setIsImageModalOpen(false);
+
+      // Show success message
+      setTimeout(() => {
+        toast.success('Image inserted successfully');
+      }, 100);
+    } catch (error) {
+      console.error('Failed to insert image:', error);
+      toast.error('Failed to insert image. Please try again.');
+    }
+  }, [onChange, toast]);
 
   const imageUploadHandler = useCallback(async (image: File) => {
     // This function handles images dropped/pasted into editor
-    // We'll upload to Supabase storage
-    const formData = new FormData();
-    formData.append('file', image);
-    
+    // It's required by the imagePlugin but we handle uploads through the modal instead
+    // Return a placeholder since we handle images through ImageUploadModal
     try {
-      // For now, return a placeholder - we'll implement proper upload in modal
-      return 'uploading...';
+      return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999" font-size="12"%3EImage%3C/text%3E%3C/svg%3E';
     } catch (error) {
-      console.error('Image upload failed:', error);
+      console.error('Image upload handler error:', error);
       throw error;
     }
   }, []);
