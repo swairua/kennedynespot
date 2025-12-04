@@ -446,9 +446,9 @@ export const defaultContent: SiteContent = {
         title: "Education",
         links: [
           { name: "DRIVE Strategy", href: "/strategy" },
-          { name: "Risk Management", href: "/blog/understanding-market-structure-a-beginners-guide" },
-          { name: "Trading Psychology", href: "/blog/understanding-market-structure-a-beginners-guide" },
-          { name: "Market Analysis", href: "/blog/understanding-market-structure-a-beginners-guide" }
+          { name: "Risk Management", href: "/services/learn" },
+          { name: "Trading Psychology", href: "/services/learn" },
+          { name: "Market Analysis", href: "/blog" }
         ]
       },
       {
