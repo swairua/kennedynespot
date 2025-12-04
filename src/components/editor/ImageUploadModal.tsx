@@ -31,6 +31,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const [uploading, setUploading] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
   const [altText, setAltText] = useState('');
+  const [caption, setCaption] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [imageWidth, setImageWidth] = useState<number | undefined>(undefined);
