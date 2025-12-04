@@ -861,7 +861,7 @@ export default function BlogEditor() {
                       className="text-lg"
                     />
                   </div>
-                  
+
                   <div>
                     <Label htmlFor="excerpt">Excerpt</Label>
                     <Textarea
@@ -876,22 +876,54 @@ export default function BlogEditor() {
                     </p>
                   </div>
                 </div>
-                
+
                 <Separator />
-                
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <Label htmlFor="content">Content *</Label>
-                    <Badge variant="outline">{post.reading_time_mins} min read</Badge>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {/* Editor Column */}
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <Label htmlFor="content">Content *</Label>
+                      <Badge variant="outline">{post.reading_time_mins} min read</Badge>
+                    </div>
+                    <RichTextEditor
+                      markdown={post.content}
+                      onChange={(markdown) => setPost(prev => ({ ...prev, content: markdown }))}
+                      placeholder="Start writing your blog post..."
+                    />
+                    <p className="text-sm text-muted-foreground mt-2">
+                      Use the toolbar to format your content. Click the Image button to insert images.
+                    </p>
                   </div>
-                  <RichTextEditor
-                    markdown={post.content}
-                    onChange={(markdown) => setPost(prev => ({ ...prev, content: markdown }))}
-                    placeholder="Start writing your blog post..."
-                  />
-                  <p className="text-sm text-muted-foreground mt-2">
-                    Use the toolbar to format your content. Click the Image button to insert images.
-                  </p>
+
+                  {/* Live Preview Column */}
+                  <div className="border rounded-lg bg-muted/30 p-4 overflow-auto max-h-[600px]">
+                    <div className="prose prose-sm dark:prose-invert max-w-none">
+                      {post.title && (
+                        <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
+                      )}
+                      {post.excerpt && (
+                        <p className="lead text-muted-foreground text-sm italic mb-4">{post.excerpt}</p>
+                      )}
+                      {post.featured_image_url && (
+                        <img
+                          src={post.featured_image_url}
+                          alt="Featured"
+                          className="rounded-lg mb-4 w-full"
+                        />
+                      )}
+                      {post.content ? (
+                        <EnhancedMarkdownRenderer
+                          content={post.content}
+                          showTOC={false}
+                          showProgress={false}
+                          className="prose-sm"
+                        />
+                      ) : (
+                        <p className="text-muted-foreground italic">Preview will appear here as you write...</p>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>

@@ -51,41 +51,41 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center') => {
     // Generate HTML img tag with alignment classes and responsive srcset
     let imageHtml: string;
-    
+
     // Determine alignment class
     const alignmentClass = alignment === 'left' ? 'float-left mr-4 mb-4' :
                           alignment === 'right' ? 'float-right ml-4 mb-4' :
                           alignment === 'full' ? 'w-full' :
                           'mx-auto block';
-    
+
     // Check if this is an optimized image (contains timestamp pattern and .webp)
     const isOptimized = imageUrl.includes('blog/') && /\d+-\d+\.webp$/.test(imageUrl);
-    
+
     if (width || height || alignment !== 'center') {
       const widthAttr = width ? ` width="${width}"` : '';
       const heightAttr = height ? ` height="${height}"` : '';
       const styleAttr = alignment === 'full' && !width ? ' style="width: 100%"' : '';
-      
+
       // Add responsive loading attributes
       const loadingAttr = ' loading="lazy" decoding="async"';
-      
+
       imageHtml = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}"${styleAttr}${loadingAttr} />`;
     } else {
       // Use markdown for original size centered
       imageHtml = `![${altText}](${imageUrl})`;
     }
-    
-    // Insert the image at cursor position using setMarkdown
+
+    // Insert the image at cursor position
     if (editorRef.current) {
       try {
-        const currentMarkdown = editorRef.current.getMarkdown();
-        const newMarkdown = currentMarkdown + '\n\n' + imageHtml + '\n\n';
-        editorRef.current.setMarkdown(newMarkdown);
+        // Use insertMarkdown to insert at cursor position instead of appending
+        editorRef.current.insertMarkdown(imageHtml);
       } catch (error) {
         console.error('Failed to insert image:', error);
+        toast.error('Failed to insert image at cursor position');
       }
     }
-    
+
     setIsImageModalOpen(false);
   }, []);
 

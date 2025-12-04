@@ -36,22 +36,23 @@ export function Footer() {
       <h2 id="footer-heading" className="sr-only">Site footer</h2>
       <div className="relative bg-gradient-to-b from-transparent to-transparent dark:from-background dark:to-muted/30">
         <div className="absolute inset-0 bg-gradient-hero-premium grain-texture pointer-events-none" />
-        <div className="container mx-auto px-4 py-16 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 xl:grid-cols-6 gap-8">
+        <div className="container mx-auto px-3 sm:px-4 py-8 sm:py-12 md:py-16 relative z-10">
+          {/* Main Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6 sm:gap-8 mb-8 sm:mb-12">
             {/* Brand + Socials */}
-            <div className="space-y-4 lg:col-span-2">
+            <div className="space-y-3 sm:space-y-4 sm:col-span-1 lg:col-span-1">
               <div className="block">
-                <Link to="/" aria-label="Home" className="block">
-                  <BrandLogo className="w-full h-auto max-h-20 md:max-h-24" />
+                <Link to="/" aria-label="Home" className="block w-fit">
+                  <BrandLogo className="w-32 sm:w-40 h-auto max-h-16 sm:max-h-20 md:max-h-24" />
                 </Link>
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
                 {footer.description}
               </p>
-              
+
               {/* Social Links */}
               {socialLinks.length > 0 && (
-                <div className="flex items-center gap-4 pt-2">
+                <div className="flex items-center gap-3 sm:gap-4 pt-2">
                   {socialLinks.map((social) => {
                     const Icon = getSocialIcon(social.type);
                     const label = social.name || "Social link";
@@ -61,9 +62,9 @@ export function Footer() {
                         {...getExternalLinkProps(social.href)}
                         aria-label={label}
                         title={label}
-                        className="text-muted-foreground hover:text-primary transition-colors hover:scale-105 transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-full p-1"
+                        className="text-muted-foreground hover:text-primary transition-colors hover:scale-110 transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-full p-1.5 sm:p-2 min-h-10 min-w-10 flex items-center justify-center"
                       >
-                        <Icon className="h-5 w-5" aria-hidden="true" />
+                        <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                         <span className="sr-only">{label}</span>
                       </a>
                     );
@@ -73,25 +74,27 @@ export function Footer() {
             </div>
 
             {/* Contact */}
-            <address className="not-italic space-y-4">
-              <h3 className="text-base font-semibold text-foreground dark:text-white">Contact</h3>
-              <div className="space-y-3 text-sm">
+            <address className="not-italic space-y-3 sm:space-y-4">
+              <h3 className="text-sm sm:text-base font-semibold text-foreground dark:text-white">
+                Contact
+              </h3>
+              <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
                 {footer.email && (
                   <a
                     href={`mailto:${footer.email}`}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200 break-all min-h-9 sm:min-h-10"
                   >
-                    <Mail className="h-4 w-4" />
-                    {footer.email}
+                    <Mail className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                    <span className="break-all">{footer.email}</span>
                   </a>
                 )}
                 {footer.phone && (
                   <a
                     href={`tel:${footer.phone.replace(/[^0-9+]/g, '')}`}
-                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200"
+                    className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200 min-h-9 sm:min-h-10"
                   >
-                    <Phone className="h-4 w-4" />
-                    {footer.phone}
+                    <Phone className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                    <span>{footer.phone}</span>
                   </a>
                 )}
               </div>
@@ -99,23 +102,23 @@ export function Footer() {
 
             {/* Services */}
             {serviceItems.length > 0 && (
-              <nav aria-label={footer.services?.title || "Services"} className="space-y-4">
-                <h3 className="text-base font-semibold text-foreground dark:text-white">
+              <nav aria-label={footer.services?.title || "Services"} className="space-y-3 sm:space-y-4">
+                <h3 className="text-sm sm:text-base font-semibold text-foreground dark:text-white">
                   {footer.services?.title || "Services"}
                 </h3>
-                <ul className="space-y-3 list-none pl-0">
+                <ul className="space-y-2 sm:space-y-3 list-none pl-0">
                   {serviceItems.map((service, index) => {
                     if (typeof service === 'string') {
                       return (
                         <li key={`${service}-${index}`}>
-                          <span className="text-sm text-muted-foreground cursor-default">
+                          <span className="text-xs sm:text-sm text-muted-foreground cursor-default block min-h-8 sm:min-h-9 flex items-center">
                             {service}
                           </span>
                         </li>
                       );
                     }
                     const href = service.href || "#";
-                    const linkClasses = "text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200";
+                    const linkClasses = "text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200 block min-h-8 sm:min-h-9 flex items-center";
                     if (href.startsWith("http")) {
                       return (
                         <li key={`${href}-${index}`}>
@@ -142,16 +145,18 @@ export function Footer() {
               <nav
                 key={`${section?.title ?? "section"}-${index}`}
                 aria-label={section?.title || `section-${index}`}
-                className={`space-y-4 ${index > 0 ? "hidden xl:block" : ""}`}
+                className={`space-y-3 sm:space-y-4 ${index > 0 ? "hidden md:block" : ""}`}
               >
                 {section?.title && (
-                  <h3 className="text-base font-semibold text-foreground dark:text-white">{section.title}</h3>
+                  <h3 className="text-sm sm:text-base font-semibold text-foreground dark:text-white">
+                    {section.title}
+                  </h3>
                 )}
-                <ul className="space-y-3 list-none pl-0">
+                <ul className="space-y-2 sm:space-y-3 list-none pl-0">
                   {(section?.links || []).map((link, linkIndex) => {
                     if (!link?.name) return null;
                     const href = link.href || "#";
-                    const linkClasses = "text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200";
+                    const linkClasses = "text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors hover:translate-x-px transform duration-200 block min-h-8 sm:min-h-9 flex items-center";
                     if (href.startsWith("http")) {
                       return (
                         <li key={`${href}-${linkIndex}`}>
@@ -174,69 +179,70 @@ export function Footer() {
             ))}
           </div>
 
+          {/* Divider */}
+          <div className="border-t border-border/30 my-8 sm:my-10 md:my-12" />
+
           {/* Bottom Bar */}
-          <div className="border-t border-border/30 mt-12 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-              <div className="flex flex-col md:flex-row items-center gap-2 text-center md:text-left">
-                <p className="text-sm text-muted-foreground">
-                  {footer.copyright}
-                </p>
-              </div>
-              
-              <div className="flex flex-wrap gap-6 justify-center md:justify-end items-center">
-                <nav aria-label="Legal" className="flex flex-wrap gap-6">
-                  {legalLinks.map((link, index) => {
-                    if (!link?.name) return null;
-                    const href = link.href || "#";
-                    const classes = "text-sm text-muted-foreground dark:text-white hover:text-primary transition-colors";
-                    if (href.startsWith("http")) {
-                      return (
-                        <a key={`${href}-${index}`} {...getExternalLinkProps(href)} className={classes}>
-                          {link.name}
-                        </a>
-                      );
-                    }
+          <div className="space-y-4 sm:space-y-6">
+            {/* Copyright and Legal Links */}
+            <div className="flex flex-col items-center gap-4 text-center">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                {footer.copyright}
+              </p>
+
+              {/* Legal Links - Responsive Wrap */}
+              <nav aria-label="Legal" className="flex flex-wrap gap-3 sm:gap-4 justify-center items-center">
+                {legalLinks.map((link, index) => {
+                  if (!link?.name) return null;
+                  const href = link.href || "#";
+                  const classes = "text-xs sm:text-sm text-muted-foreground dark:text-white hover:text-primary transition-colors min-h-8 sm:min-h-9 flex items-center";
+                  if (href.startsWith("http")) {
                     return (
-                      <Link key={`${href}-${index}`} to={href} className={classes}>
+                      <a key={`${href}-${index}`} {...getExternalLinkProps(href)} className={classes}>
                         {link.name}
-                      </Link>
+                      </a>
                     );
-                  })}
-                  
-                  {/* Admin link for authenticated admins */}
-                  {isAdmin && (
-                    <Link 
-                      to="/admin"
-                      className="text-sm text-primary hover:text-primary/80 transition-colors font-medium"
-                    >
-                      Admin
+                  }
+                  return (
+                    <Link key={`${href}-${index}`} to={href} className={classes}>
+                      {link.name}
                     </Link>
-                  )}
-                </nav>
-                
-                {/* Admin Login - discrete placement */}
-                <div className="opacity-60 hover:opacity-100 transition-opacity">
-                  <AuthButton />
-                </div>
-                
-                {/* Admin Dashboard Link - only show for authenticated admins */}
+                  );
+                })}
+
                 {isAdmin && (
-                  <Link 
-                    to="/admin" 
-                    className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors opacity-60 hover:opacity-100"
+                  <Link
+                    to="/admin"
+                    className="text-xs sm:text-sm text-primary hover:text-primary/80 transition-colors font-medium min-h-8 sm:min-h-9 flex items-center"
                   >
-                    <Shield className="h-3 w-3" />
                     Admin
                   </Link>
                 )}
-              </div>
+              </nav>
             </div>
-            
-            {/* Trading Disclaimer */}
-            <div className="mt-8 p-4 bg-warning/10 border border-warning/20 rounded-lg">
-              <p className="text-xs text-muted-foreground text-center leading-relaxed flex items-center justify-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-warning flex-shrink-0" aria-hidden="true" />
-                {footer.riskDisclaimer}
+
+            {/* Admin Controls - Responsive Layout */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+              <div className="opacity-60 hover:opacity-100 transition-opacity">
+                <AuthButton />
+              </div>
+
+              {isAdmin && (
+                <Link
+                  to="/admin"
+                  className="flex items-center gap-1 text-xs sm:text-sm text-muted-foreground hover:text-primary transition-colors opacity-60 hover:opacity-100 min-h-9 sm:min-h-10"
+                >
+                  <Shield className="h-3 w-3 sm:h-4 sm:w-4" />
+                  Admin
+                </Link>
+              )}
+            </div>
+
+            {/* Trading Disclaimer - Responsive */}
+            <div className="mt-6 sm:mt-8 p-3 sm:p-4 bg-warning/10 border border-warning/20 rounded-lg">
+              <p className="text-xs sm:text-sm text-muted-foreground text-center leading-relaxed flex items-center justify-center gap-2 flex-wrap">
+                <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-warning flex-shrink-0" aria-hidden="true" />
+                <span>{footer.riskDisclaimer}</span>
               </p>
             </div>
           </div>
