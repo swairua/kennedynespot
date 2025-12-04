@@ -198,6 +198,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const resetForm = () => {
     setImageUrl('');
     setAltText('');
+    setCaption('');
     setPreviewUrl('');
     setSelectedFile(null);
     setImageWidth(undefined);
