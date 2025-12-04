@@ -106,6 +106,15 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
   const handleUpload = async () => {
     if (!selectedFile) return;
 
+    if (!altText) {
+      toast({
+        title: 'Alt text required',
+        description: 'Please add descriptive alt text for accessibility',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setUploading(true);
     try {
       const fileExt = selectedFile.name.split('.').pop();
@@ -127,13 +136,8 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
         .from('blog-assets')
         .getPublicUrl(filePath);
 
-      onInsert(publicUrl, altText || 'Blog image', imageWidth, imageHeight, alignment);
+      onInsert(publicUrl, altText, imageWidth, imageHeight, alignment);
       resetForm();
-      
-      toast({
-        title: 'Success',
-        description: 'Image uploaded and inserted',
-      });
     } catch (error: any) {
       console.error('Upload error:', error);
       toast({
