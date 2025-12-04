@@ -194,7 +194,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   return (
     <div
       className={cn(
-        "border rounded-lg overflow-hidden bg-background relative transition-all mdx-editor-container",
+        "border rounded-lg overflow-auto max-h-[600px] bg-background relative transition-all mdx-editor-container",
         isDragOver && "ring-2 ring-primary ring-offset-2"
       )}
       onDragOver={handleEditorDragOver}
@@ -208,13 +208,13 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
           </div>
         </div>
       )}
-      
+
       <MDXEditor
         ref={editorRef}
         markdown={markdown}
         onChange={onChange}
         placeholder={placeholder}
-        contentEditableClassName="prose prose-slate dark:prose-invert max-w-none min-h-[400px] p-4 focus:outline-none text-foreground dark:text-foreground"
+        contentEditableClassName="prose prose-slate dark:prose-invert max-w-none min-h-[400px] p-4 focus:outline-none text-foreground dark:text-foreground overflow-y-auto"
         plugins={[
           headingsPlugin(),
           listsPlugin(),
