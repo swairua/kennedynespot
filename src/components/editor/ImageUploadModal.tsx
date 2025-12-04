@@ -137,7 +137,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
         .from('blog-assets')
         .getPublicUrl(filePath);
 
-      onInsert(publicUrl, altText, imageWidth, imageHeight, alignment);
+      onInsert(publicUrl, altText, imageWidth, imageHeight, alignment, caption);
       resetForm();
     } catch (error: any) {
       console.error('Upload error:', error);
