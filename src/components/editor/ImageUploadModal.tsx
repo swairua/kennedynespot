@@ -170,7 +170,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       return;
     }
 
-    onInsert(imageUrl, altText, imageWidth, imageHeight, alignment);
+    onInsert(imageUrl, altText, imageWidth, imageHeight, alignment, caption);
     resetForm();
   };
 
