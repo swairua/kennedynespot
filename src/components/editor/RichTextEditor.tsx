@@ -74,7 +74,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       const currentMarkdown = editorRef.current.getMarkdown();
       const newMarkdown = currentMarkdown + finalContent;
 
-      // Update the editor with the new content
+      // Update both the internal editor state and the parent component
+      editorRef.current.setMarkdown(newMarkdown);
       onChange(newMarkdown);
 
       // Close modal
