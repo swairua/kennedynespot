@@ -97,15 +97,12 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 
   const imageUploadHandler = useCallback(async (image: File) => {
     // This function handles images dropped/pasted into editor
-    // We'll upload to Supabase storage
-    const formData = new FormData();
-    formData.append('file', image);
-    
+    // It's required by the imagePlugin but we handle uploads through the modal instead
+    // Return a placeholder since we handle images through ImageUploadModal
     try {
-      // For now, return a placeholder - we'll implement proper upload in modal
-      return 'uploading...';
+      return 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999" font-size="12"%3EImage%3C/text%3E%3C/svg%3E';
     } catch (error) {
-      console.error('Image upload failed:', error);
+      console.error('Image upload handler error:', error);
       throw error;
     }
   }, []);
