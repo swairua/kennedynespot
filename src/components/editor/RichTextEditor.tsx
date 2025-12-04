@@ -55,40 +55,34 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     }
 
     try {
-      // Build markdown image syntax - this is what MDXEditor understands
-      let markdownImage = `![${altText}](${imageUrl})`;
-
-      // If we have sizing or alignment, we need to add it as HTML after the markdown
-      if (width || height || alignment !== 'center') {
-        const alignmentClass = alignment === 'left' ? 'float-left mr-4 mb-4' :
-                              alignment === 'right' ? 'float-right ml-4 mb-4' :
-                              alignment === 'full' ? 'w-full' :
-                              'mx-auto block';
-
-        const widthAttr = width ? ` width="${width}"` : '';
-        const heightAttr = height ? ` height="${height}"` : '';
-
-        // Use HTML img tag for advanced formatting
-        markdownImage = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}" loading="lazy" decoding="async" />`;
-      }
+      // Use standard markdown image syntax first - this is most reliable
+      // MDXEditor will render this properly
+      let imageMarkdown = `![${altText}](${imageUrl})`;
 
       // Build final content with caption if provided
       let contentToInsert: string;
       if (caption) {
-        contentToInsert = `<figure class="my-8">\n${markdownImage}\n<figcaption class="text-sm text-muted-foreground text-center mt-2">${caption}</figcaption>\n</figure>`;
+        // Use HTML figure for semantic captioning
+        contentToInsert = `<figure>\n\n![${altText}](${imageUrl})\n\n<figcaption class="text-sm text-muted-foreground text-center">${caption}</figcaption>\n\n</figure>`;
       } else {
-        contentToInsert = markdownImage;
+        contentToInsert = imageMarkdown;
       }
 
-      // Add proper spacing around the image block
-      const imageBlock = `\n\n${contentToInsert}\n\n`;
+      // Add proper spacing - newlines before and after the image block
+      // This ensures the image is treated as a block element
+      const spaceBeforeImage = '\n\n';
+      const spaceAfterImage = '\n\n';
 
-      // Insert at cursor position
-      editorRef.current.insertMarkdown(imageBlock);
+      const finalContent = `${spaceBeforeImage}${contentToInsert}${spaceAfterImage}`;
 
-      // Close modal and show success
-      setIsImageModalOpen(false);
-      toast.success('Image inserted successfully');
+      // Insert the markdown at the cursor position
+      editorRef.current.insertMarkdown(finalContent);
+
+      // Close modal and show success - slight delay to ensure insertion is complete
+      setTimeout(() => {
+        setIsImageModalOpen(false);
+        toast.success('Image inserted successfully');
+      }, 50);
     } catch (error) {
       console.error('Failed to insert image:', error);
       toast.error('Failed to insert image. Please try again.');
