@@ -298,10 +298,24 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                 <Button
                   type="button"
                   onClick={() => {
-                    if (previewUrl && altText) {
-                      onInsert(previewUrl, altText, imageWidth, imageHeight, alignment);
-                      resetForm();
+                    if (!previewUrl) {
+                      toast({
+                        title: 'No image selected',
+                        description: 'Please select an image from the library',
+                        variant: 'destructive',
+                      });
+                      return;
                     }
+                    if (!altText) {
+                      toast({
+                        title: 'Alt text required',
+                        description: 'Please add descriptive alt text for accessibility',
+                        variant: 'destructive',
+                      });
+                      return;
+                    }
+                    onInsert(previewUrl, altText, imageWidth, imageHeight, alignment);
+                    resetForm();
                   }}
                   className="w-full"
                 >
