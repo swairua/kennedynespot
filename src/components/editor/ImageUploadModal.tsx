@@ -20,7 +20,7 @@ import { ImageSizeSelector } from './ImageSizeSelector';
 interface ImageUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onInsert: (imageUrl: string, altText: string, width?: number, height?: number, alignment?: string) => void;
+  onInsert: (imageUrl: string, altText: string, width?: number, height?: number, alignment?: string, caption?: string) => void;
 }
 
 export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
