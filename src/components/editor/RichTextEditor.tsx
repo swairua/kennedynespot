@@ -96,13 +96,27 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       // Add proper spacing - newlines before and after the image block
       const finalContent = `\n\n${contentToInsert}\n\n`;
 
-      // Get the current markdown and append the image content
+      // Get the current markdown
       const currentMarkdown = editorRef.current.getMarkdown();
-      const newMarkdown = currentMarkdown + finalContent;
+
+      // Insert at cursor position or at end if position is not available
+      let newMarkdown: string;
+      if (cursorPosition !== null && cursorPosition >= 0) {
+        // Insert at cursor position
+        const before = currentMarkdown.substring(0, cursorPosition);
+        const after = currentMarkdown.substring(cursorPosition);
+        newMarkdown = before + finalContent + after;
+      } else {
+        // Fallback: append at end
+        newMarkdown = currentMarkdown + finalContent;
+      }
 
       // Update both the internal editor state and the parent component
       editorRef.current.setMarkdown(newMarkdown);
       onChange(newMarkdown);
+
+      // Reset cursor position after insertion
+      setCursorPosition(null);
 
       // Close modal
       setIsImageModalOpen(false);
@@ -115,7 +129,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       console.error('Failed to insert image:', error);
       toast.error('Failed to insert image. Please try again.');
     }
-  }, [onChange, toast]);
+  }, [onChange, toast, cursorPosition]);
 
   const imageUploadHandler = useCallback(async (image: File) => {
     // This function handles images dropped/pasted into editor
