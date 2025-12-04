@@ -274,13 +274,29 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="library-alt-text">Alt Text (for accessibility)</Label>
+                  <Label htmlFor="library-alt-text">Alt Text (for accessibility) *</Label>
                   <Input
                     id="library-alt-text"
                     value={altText}
                     onChange={(e) => setAltText(e.target.value)}
                     placeholder="Describe the image..."
                   />
+                  <p className="text-xs text-muted-foreground">
+                    Descriptive text for screen readers and SEO
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="library-caption">Caption (optional)</Label>
+                  <Input
+                    id="library-caption"
+                    value={caption}
+                    onChange={(e) => setCaption(e.target.value)}
+                    placeholder="Add a caption below the image..."
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Displayed as a figure caption below the image
+                  </p>
                 </div>
 
                 <ImageSizeSelector
