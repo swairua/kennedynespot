@@ -46,7 +46,56 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState<number | null>(null);
   const editorRef = React.useRef<MDXEditorMethods>(null);
+
+  // Function to get cursor position in markdown
+  const getCursorPositionInMarkdown = useCallback((): number => {
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) {
+      // If no selection, insert at end
+      return editorRef.current?.getMarkdown()?.length ?? 0;
+    }
+
+    const range = selection.getRangeAt(0);
+    const editableDiv = editorRef.current?.getMarkdown ? document.querySelector('[contenteditable="true"]') : null;
+
+    if (!editableDiv || !editableDiv.contains(range.commonAncestorContainer)) {
+      // Selection not in editor, insert at end
+      return editorRef.current?.getMarkdown()?.length ?? 0;
+    }
+
+    // Calculate offset by walking through DOM
+    let offset = 0;
+    let node = editableDiv.firstChild;
+    let targetNode = range.startContainer;
+    let targetOffset = range.startOffset;
+
+    const walkNodes = (n: Node, accumulated: number): number => {
+      if (n === targetNode) {
+        return accumulated + targetOffset;
+      }
+      if (n.nodeType === Node.TEXT_NODE) {
+        return accumulated + (n.textContent?.length ?? 0);
+      }
+      if (n.hasChildNodes()) {
+        let curr = accumulated;
+        for (let i = 0; i < n.childNodes.length; i++) {
+          const result = walkNodes(n.childNodes[i], curr);
+          if (result > curr && result !== accumulated + ((n.childNodes[i] as any)?.length ?? 0)) {
+            return result;
+          }
+          if (n.childNodes[i].nodeType === Node.TEXT_NODE) {
+            curr += (n.childNodes[i].textContent?.length ?? 0);
+          }
+        }
+        return curr;
+      }
+      return accumulated;
+    };
+
+    return walkNodes(editableDiv, 0);
+  }, []);
 
   const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center', caption?: string) => {
     if (!editorRef.current) {
