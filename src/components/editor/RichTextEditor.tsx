@@ -167,7 +167,21 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     if (assetData) {
       try {
         const asset = JSON.parse(assetData);
-        // Insert image at current cursor position
+
+        // Save cursor position at drop location
+        const selection = window.getSelection();
+        if (selection && selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const preCaretRange = range.cloneRange();
+          preCaretRange.selectNodeContents(document.querySelector('[contenteditable="true"]') || document.body);
+          preCaretRange.setEnd(range.endContainer, range.endOffset);
+          const offset = preCaretRange.toString().length;
+          setCursorPosition(offset);
+        } else {
+          setCursorPosition(editorRef.current?.getMarkdown()?.length ?? 0);
+        }
+
+        // Insert image at drop position
         handleImageInsert(asset.url, asset.alt || 'Image from media library', asset.width, asset.height);
         toast.success('Image inserted from media library');
       } catch (error) {
