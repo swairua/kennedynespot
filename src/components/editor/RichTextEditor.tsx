@@ -242,7 +242,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsImageModalOpen(true)}
+                  onClick={openImageModal}
                   className="h-8 px-2"
                 >
                   <ImageIcon className="h-4 w-4 mr-1" />
