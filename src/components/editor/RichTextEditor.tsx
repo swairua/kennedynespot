@@ -55,47 +55,40 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     }
 
     try {
-      // Determine alignment class
-      const alignmentClass = alignment === 'left' ? 'float-left mr-4 mb-4' :
-                            alignment === 'right' ? 'float-right ml-4 mb-4' :
-                            alignment === 'full' ? 'w-full' :
-                            'mx-auto block';
+      // Build markdown image syntax - this is what MDXEditor understands
+      let markdownImage = `![${altText}](${imageUrl})`;
 
-      const widthAttr = width ? ` width="${width}"` : '';
-      const heightAttr = height ? ` height="${height}"` : '';
-      const styleAttr = alignment === 'full' && !width ? ' style="width: 100%"' : '';
+      // If we have sizing or alignment, we need to add it as HTML after the markdown
+      if (width || height || alignment !== 'center') {
+        const alignmentClass = alignment === 'left' ? 'float-left mr-4 mb-4' :
+                              alignment === 'right' ? 'float-right ml-4 mb-4' :
+                              alignment === 'full' ? 'w-full' :
+                              'mx-auto block';
 
-      // Always use HTML format for consistency and proper rendering
-      const imageHtml = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}" loading="lazy" decoding="async" />`;
+        const widthAttr = width ? ` width="${width}"` : '';
+        const heightAttr = height ? ` height="${height}"` : '';
 
-      // Use semantic figure/figcaption when caption is provided
+        // Use HTML img tag for advanced formatting
+        markdownImage = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}" loading="lazy" decoding="async" />`;
+      }
+
+      // Build final content with caption if provided
       let contentToInsert: string;
       if (caption) {
-        contentToInsert = `<figure class="my-8">\n  ${imageHtml}\n  <figcaption class="text-sm text-muted-foreground text-center mt-2">${caption}</figcaption>\n</figure>`;
+        contentToInsert = `<figure class="my-8">\n${markdownImage}\n<figcaption class="text-sm text-muted-foreground text-center mt-2">${caption}</figcaption>\n</figure>`;
       } else {
-        contentToInsert = imageHtml;
+        contentToInsert = markdownImage;
       }
 
-      // Create the complete image block with surrounding newlines for proper spacing
-      // This ensures the image is treated as a block-level element
+      // Add proper spacing around the image block
       const imageBlock = `\n\n${contentToInsert}\n\n`;
 
-      // Get the current markdown content
-      const currentMarkdown = editorRef.current.getMarkdown();
+      // Insert at cursor position
+      editorRef.current.insertMarkdown(imageBlock);
 
-      if (!currentMarkdown) {
-        // If editor is empty, just insert without newlines
-        editorRef.current.insertMarkdown(contentToInsert);
-      } else {
-        // Insert at cursor position with proper spacing
-        editorRef.current.insertMarkdown(imageBlock);
-      }
-
-      // Force a small delay to ensure DOM is updated before closing modal
-      setTimeout(() => {
-        setIsImageModalOpen(false);
-        toast.success('Image inserted successfully');
-      }, 100);
+      // Close modal and show success
+      setIsImageModalOpen(false);
+      toast.success('Image inserted successfully');
     } catch (error) {
       console.error('Failed to insert image:', error);
       toast.error('Failed to insert image. Please try again.');
