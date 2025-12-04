@@ -48,7 +48,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const [isDragOver, setIsDragOver] = useState(false);
   const editorRef = React.useRef<MDXEditorMethods>(null);
 
-  const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center') => {
+  const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center', caption?: string) => {
     if (!editorRef.current) {
       toast.error('Editor is not ready');
       return;
@@ -68,16 +68,24 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       // Always use HTML format for consistency and proper rendering
       const imageHtml = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}" loading="lazy" decoding="async" />`;
 
+      // Use semantic figure/figcaption when caption is provided
+      let contentToInsert: string;
+      if (caption) {
+        contentToInsert = `<figure class="my-8">\n  ${imageHtml}\n  <figcaption class="text-sm text-muted-foreground text-center mt-2">${caption}</figcaption>\n</figure>`;
+      } else {
+        contentToInsert = imageHtml;
+      }
+
       // Create the complete image block with surrounding newlines for proper spacing
       // This ensures the image is treated as a block-level element
-      const imageBlock = `\n\n${imageHtml}\n\n`;
+      const imageBlock = `\n\n${contentToInsert}\n\n`;
 
       // Get the current markdown content
       const currentMarkdown = editorRef.current.getMarkdown();
 
       if (!currentMarkdown) {
         // If editor is empty, just insert without newlines
-        editorRef.current.insertMarkdown(imageHtml);
+        editorRef.current.insertMarkdown(contentToInsert);
       } else {
         // Insert at cursor position with proper spacing
         editorRef.current.insertMarkdown(imageBlock);
