@@ -200,25 +200,30 @@ export default function BlogManagerEnhanced() {
     });
   }, [posts, searchTerm, statusFilter, authorFilter, categoryFilter]);
 
-  // Delete post handler
-  const handleDelete = async (id: string) => {
-    if (!window.confirm('Are you sure you want to delete this post?')) {
-      return;
-    }
+  // Delete post handler - opens confirmation modal
+  const handleDelete = (post: BlogPost) => {
+    setPostToDelete(post);
+  };
 
+  // Confirm deletion
+  const confirmDelete = async () => {
+    if (!postToDelete) return;
+
+    setIsDeleting(true);
     try {
       const { error } = await supabase
         .from('blog_posts')
         .delete()
-        .eq('id', id);
+        .eq('id', postToDelete.id);
 
       if (error) throw error;
 
-      setPosts(posts.filter(post => post.id !== id));
+      setPosts(posts.filter(post => post.id !== postToDelete.id));
       toast({
         title: 'Success',
         description: 'Post deleted successfully',
       });
+      setPostToDelete(null);
     } catch (error) {
       console.error('Error deleting post:', error);
       toast({
@@ -226,6 +231,8 @@ export default function BlogManagerEnhanced() {
         description: 'Failed to delete post',
         variant: 'destructive',
       });
+    } finally {
+      setIsDeleting(false);
     }
   };
 
