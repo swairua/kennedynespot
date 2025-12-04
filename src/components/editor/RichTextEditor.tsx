@@ -49,45 +49,50 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   const editorRef = React.useRef<MDXEditorMethods>(null);
 
   const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center') => {
-    // Generate HTML img tag with alignment classes and responsive srcset
-    let imageHtml: string;
+    if (!editorRef.current) {
+      toast.error('Editor is not ready');
+      return;
+    }
 
-    // Determine alignment class
-    const alignmentClass = alignment === 'left' ? 'float-left mr-4 mb-4' :
-                          alignment === 'right' ? 'float-right ml-4 mb-4' :
-                          alignment === 'full' ? 'w-full' :
-                          'mx-auto block';
+    try {
+      // Determine alignment class
+      const alignmentClass = alignment === 'left' ? 'float-left mr-4 mb-4' :
+                            alignment === 'right' ? 'float-right ml-4 mb-4' :
+                            alignment === 'full' ? 'w-full' :
+                            'mx-auto block';
 
-    // Check if this is an optimized image (contains timestamp pattern and .webp)
-    const isOptimized = imageUrl.includes('blog/') && /\d+-\d+\.webp$/.test(imageUrl);
-
-    if (width || height || alignment !== 'center') {
       const widthAttr = width ? ` width="${width}"` : '';
       const heightAttr = height ? ` height="${height}"` : '';
       const styleAttr = alignment === 'full' && !width ? ' style="width: 100%"' : '';
 
-      // Add responsive loading attributes
-      const loadingAttr = ' loading="lazy" decoding="async"';
+      // Always use HTML format for consistency and proper rendering
+      const imageHtml = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}" loading="lazy" decoding="async" />`;
 
-      imageHtml = `<img src="${imageUrl}" alt="${altText}"${widthAttr}${heightAttr} class="${alignmentClass}"${styleAttr}${loadingAttr} />`;
-    } else {
-      // Use markdown for original size centered
-      imageHtml = `![${altText}](${imageUrl})`;
-    }
+      // Create the complete image block with surrounding newlines for proper spacing
+      // This ensures the image is treated as a block-level element
+      const imageBlock = `\n\n${imageHtml}\n\n`;
 
-    // Insert the image at cursor position
-    if (editorRef.current) {
-      try {
-        // Use insertMarkdown to insert at cursor position instead of appending
+      // Get the current markdown content
+      const currentMarkdown = editorRef.current.getMarkdown();
+
+      if (!currentMarkdown) {
+        // If editor is empty, just insert without newlines
         editorRef.current.insertMarkdown(imageHtml);
-      } catch (error) {
-        console.error('Failed to insert image:', error);
-        toast.error('Failed to insert image at cursor position');
+      } else {
+        // Insert at cursor position with proper spacing
+        editorRef.current.insertMarkdown(imageBlock);
       }
-    }
 
-    setIsImageModalOpen(false);
-  }, []);
+      // Force a small delay to ensure DOM is updated before closing modal
+      setTimeout(() => {
+        setIsImageModalOpen(false);
+        toast.success('Image inserted successfully');
+      }, 100);
+    } catch (error) {
+      console.error('Failed to insert image:', error);
+      toast.error('Failed to insert image. Please try again.');
+    }
+  }, [toast]);
 
   const imageUploadHandler = useCallback(async (image: File) => {
     // This function handles images dropped/pasted into editor
