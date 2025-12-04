@@ -74,14 +74,16 @@ export const EnhancedMarkdownRenderer: React.FC<EnhancedMarkdownRendererProps> =
 
     // Enhanced paragraphs
     p: ({ children, ...props }: any) => {
-      // Check if paragraph contains only an image element
+      // Check if paragraph contains only a block-level element (like Figure)
       const childArray = React.Children.toArray(children);
-      const hasOnlyImage = childArray.length === 1 &&
-        React.isValidElement(childArray[0]) &&
-        childArray[0].type === 'img';
 
-      // If paragraph contains only an image, render it without the paragraph wrapper
-      if (hasOnlyImage) {
+      // If paragraph contains only one child that's a React component (block-level like Figure),
+      // render it without the paragraph wrapper to avoid nesting violations
+      const hasOnlyBlockElement = childArray.length === 1 &&
+        React.isValidElement(childArray[0]) &&
+        typeof childArray[0].type !== 'string'; // Custom components, not HTML elements
+
+      if (hasOnlyBlockElement) {
         return childArray[0];
       }
 
