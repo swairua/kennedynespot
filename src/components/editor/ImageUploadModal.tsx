@@ -156,13 +156,17 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
       return;
     }
 
-    onInsert(imageUrl, altText || 'Image', imageWidth, imageHeight, alignment);
+    if (!altText) {
+      toast({
+        title: 'Alt text required',
+        description: 'Please add descriptive alt text for accessibility',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    onInsert(imageUrl, altText, imageWidth, imageHeight, alignment);
     resetForm();
-    
-    toast({
-      title: 'Success',
-      description: 'Image inserted',
-    });
   };
 
   const handlePresetChange = (preset: string) => {
