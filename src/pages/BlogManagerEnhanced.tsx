@@ -765,7 +765,7 @@ Understanding these concepts is crucial for trading success. Continue your educa
                                <Button
                                  variant="ghost"
                                  size="sm"
-                                 onClick={() => handleDelete(post.id)}
+                                 onClick={() => handleDelete(post)}
                                  className="text-destructive hover:text-destructive"
                                >
                                  <Trash2 className="h-4 w-4" />
