@@ -316,7 +316,7 @@ export const ImageUploadModal: React.FC<ImageUploadModalProps> = ({
                       });
                       return;
                     }
-                    onInsert(previewUrl, altText, imageWidth, imageHeight, alignment);
+                    onInsert(previewUrl, altText, imageWidth, imageHeight, alignment, caption);
                     resetForm();
                   }}
                   className="w-full"
