@@ -70,16 +70,12 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       // Add proper spacing - newlines before and after the image block
       const finalContent = `\n\n${contentToInsert}\n\n`;
 
-      // Get the current markdown and insert at cursor position
-      try {
-        editorRef.current.insertMarkdown(finalContent);
-      } catch (insertError) {
-        console.warn('insertMarkdown failed, trying getMarkdown approach:', insertError);
-        // Fallback: directly append to the end if insertMarkdown fails
-        const currentMarkdown = editorRef.current.getMarkdown();
-        const newMarkdown = currentMarkdown + finalContent;
-        onChange(newMarkdown);
-      }
+      // Get the current markdown and append the image content
+      const currentMarkdown = editorRef.current.getMarkdown();
+      const newMarkdown = currentMarkdown + finalContent;
+
+      // Update the editor with the new content
+      onChange(newMarkdown);
 
       // Close modal
       setIsImageModalOpen(false);
