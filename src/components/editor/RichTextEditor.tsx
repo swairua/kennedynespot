@@ -46,7 +46,33 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
 }) => {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [cursorPosition, setCursorPosition] = useState<number | null>(null);
   const editorRef = React.useRef<MDXEditorMethods>(null);
+
+  // Save cursor position when modal opens
+  const openImageModal = useCallback(() => {
+    try {
+      const currentMarkdown = editorRef.current?.getMarkdown() ?? '';
+      const selection = window.getSelection();
+
+      if (selection && selection.rangeCount > 0) {
+        const range = selection.getRangeAt(0);
+        const preCaretRange = range.cloneRange();
+        preCaretRange.selectNodeContents(document.querySelector('[contenteditable="true"]') || document.body);
+        preCaretRange.setEnd(range.endContainer, range.endOffset);
+        const offset = preCaretRange.toString().length;
+        setCursorPosition(offset);
+      } else {
+        // No selection, insert at end
+        setCursorPosition(currentMarkdown.length);
+      }
+    } catch (error) {
+      // If position detection fails, insert at end
+      setCursorPosition(editorRef.current?.getMarkdown()?.length ?? 0);
+    }
+
+    setIsImageModalOpen(true);
+  }, []);
 
   const handleImageInsert = useCallback((imageUrl: string, altText: string, width?: number, height?: number, alignment: string = 'center', caption?: string) => {
     if (!editorRef.current) {
@@ -70,16 +96,27 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       // Add proper spacing - newlines before and after the image block
       const finalContent = `\n\n${contentToInsert}\n\n`;
 
-      // Get the current markdown and insert at cursor position
-      try {
-        editorRef.current.insertMarkdown(finalContent);
-      } catch (insertError) {
-        console.warn('insertMarkdown failed, trying getMarkdown approach:', insertError);
-        // Fallback: directly append to the end if insertMarkdown fails
-        const currentMarkdown = editorRef.current.getMarkdown();
-        const newMarkdown = currentMarkdown + finalContent;
-        onChange(newMarkdown);
+      // Get the current markdown
+      const currentMarkdown = editorRef.current.getMarkdown();
+
+      // Insert at cursor position or at end if position is not available
+      let newMarkdown: string;
+      if (cursorPosition !== null && cursorPosition >= 0) {
+        // Insert at cursor position
+        const before = currentMarkdown.substring(0, cursorPosition);
+        const after = currentMarkdown.substring(cursorPosition);
+        newMarkdown = before + finalContent + after;
+      } else {
+        // Fallback: append at end
+        newMarkdown = currentMarkdown + finalContent;
       }
+
+      // Update both the internal editor state and the parent component
+      editorRef.current.setMarkdown(newMarkdown);
+      onChange(newMarkdown);
+
+      // Reset cursor position after insertion
+      setCursorPosition(null);
 
       // Close modal
       setIsImageModalOpen(false);
@@ -92,7 +129,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       console.error('Failed to insert image:', error);
       toast.error('Failed to insert image. Please try again.');
     }
-  }, [onChange, toast]);
+  }, [onChange, toast, cursorPosition]);
 
   const imageUploadHandler = useCallback(async (image: File) => {
     // This function handles images dropped/pasted into editor
@@ -130,7 +167,21 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     if (assetData) {
       try {
         const asset = JSON.parse(assetData);
-        // Insert image at current cursor position
+
+        // Save cursor position at drop location
+        const selection = window.getSelection();
+        if (selection && selection.rangeCount > 0) {
+          const range = selection.getRangeAt(0);
+          const preCaretRange = range.cloneRange();
+          preCaretRange.selectNodeContents(document.querySelector('[contenteditable="true"]') || document.body);
+          preCaretRange.setEnd(range.endContainer, range.endOffset);
+          const offset = preCaretRange.toString().length;
+          setCursorPosition(offset);
+        } else {
+          setCursorPosition(editorRef.current?.getMarkdown()?.length ?? 0);
+        }
+
+        // Insert image at drop position
         handleImageInsert(asset.url, asset.alt || 'Image from media library', asset.width, asset.height);
         toast.success('Image inserted from media library');
       } catch (error) {
@@ -205,7 +256,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => setIsImageModalOpen(true)}
+                  onClick={openImageModal}
                   className="h-8 px-2"
                 >
                   <ImageIcon className="h-4 w-4 mr-1" />
