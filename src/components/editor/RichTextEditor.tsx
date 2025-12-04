@@ -55,8 +55,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     }
 
     try {
-      // Use standard markdown image syntax first - this is most reliable
-      // MDXEditor will render this properly
+      // Build the image markdown
       let imageMarkdown = `![${altText}](${imageUrl})`;
 
       // Build final content with caption if provided
@@ -69,25 +68,31 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
       }
 
       // Add proper spacing - newlines before and after the image block
-      // This ensures the image is treated as a block element
-      const spaceBeforeImage = '\n\n';
-      const spaceAfterImage = '\n\n';
+      const finalContent = `\n\n${contentToInsert}\n\n`;
 
-      const finalContent = `${spaceBeforeImage}${contentToInsert}${spaceAfterImage}`;
+      // Get the current markdown and insert at cursor position
+      try {
+        editorRef.current.insertMarkdown(finalContent);
+      } catch (insertError) {
+        console.warn('insertMarkdown failed, trying getMarkdown approach:', insertError);
+        // Fallback: directly append to the end if insertMarkdown fails
+        const currentMarkdown = editorRef.current.getMarkdown();
+        const newMarkdown = currentMarkdown + finalContent;
+        onChange(newMarkdown);
+      }
 
-      // Insert the markdown at the cursor position
-      editorRef.current.insertMarkdown(finalContent);
+      // Close modal
+      setIsImageModalOpen(false);
 
-      // Close modal and show success - slight delay to ensure insertion is complete
+      // Show success message
       setTimeout(() => {
-        setIsImageModalOpen(false);
         toast.success('Image inserted successfully');
-      }, 50);
+      }, 100);
     } catch (error) {
       console.error('Failed to insert image:', error);
       toast.error('Failed to insert image. Please try again.');
     }
-  }, [toast]);
+  }, [onChange, toast]);
 
   const imageUploadHandler = useCallback(async (image: File) => {
     // This function handles images dropped/pasted into editor
